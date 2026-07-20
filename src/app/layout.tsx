@@ -1,34 +1,47 @@
 import type { Metadata } from "next";
-import { Hanken_Grotesk, Inter, Geist, Geist_Mono } from "next/font/google";
+import { Instrument_Serif, Inter } from "next/font/google";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+import { organizationSchema, SITE_URL } from "@/lib/schema";
 import "./globals.css";
 
-const hankenGrotesk = Hanken_Grotesk({
-  variable: "--font-hanken-grotesk",
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Bloom Matrix | Product Engineering & SaaS Solutions",
-  description: "Bloom Matrix builds, owns, and scales proprietary SaaS architectures and AI ecosystems. Empowering global enterprises with product-first engineering.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Bloom Matrix | AI-First Product Engineering Company",
+    template: "%s | Bloom Matrix",
+  },
+  description:
+    "Bloom Matrix designs, engineers, and continuously evolves intelligent digital products, enterprise software, and AI-powered platforms — including AIRA, our AI revenue acceleration platform. A single long-term technology partner, not another vendor.",
   icons: {
     icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "Bloom Matrix | AI-First Product Engineering Company",
+    description:
+      "Intelligent digital products, enterprise software, and AI-powered platforms built by a single long-term technology partner.",
+    url: SITE_URL,
+    siteName: "Bloom Matrix",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bloom Matrix | AI-First Product Engineering Company",
+    description:
+      "Intelligent digital products, enterprise software, and AI-powered platforms built by a single long-term technology partner.",
   },
 };
 
@@ -41,7 +54,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${hankenGrotesk.variable} ${inter.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${instrumentSerif.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
@@ -49,9 +62,15 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
+        />
       </head>
-      <body suppressHydrationWarning className="min-h-full flex flex-col bg-background text-on-surface">
+      <body suppressHydrationWarning className="min-h-full flex flex-col bg-paper text-ink-dark font-inter">
+        <SiteHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

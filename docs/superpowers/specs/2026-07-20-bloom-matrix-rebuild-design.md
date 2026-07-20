@@ -22,10 +22,10 @@ Full visual and structural rebuild of the Bloom Matrix marketing site, replacing
 - Text on light: `#0A0F1F` (primary), `#6B7280` (secondary/muted)
 - Borders on light: `#E5E7EB`
 
-**Mood** — hybrid, not uniformly dark or uniformly light:
-- Hero + nav: dark cinematic (navy background, ambient 3D visual, high drama — the "billion-dollar enterprise" first impression)
+**Mood** — hybrid, light-first (revised 2026-07-20 per user direction, superseding the original dark-hero plan):
+- Hero + nav: light (paper background with soft blue-gradient washes and the ambient 3D visual adapted to light; blue-gradient wordmark/logo treatment)
 - Body content (services, products, process, FAQ): light editorial (off-white, dense but calm, Coda-style information density without clutter)
-- Footer: returns to navy, bookending the page
+- Navy retained as accent bands only: positioning strip, value-props section, CTA band, footer — bookending the light pages
 
 **Typography**:
 - Headlines (H1/H2, hero statements): **Instrument Serif** — thin, high-contrast, quietly premium. Matches the Euveka reference without tipping into luxury-fashion (Playfair) or literary (Newsreader) territory.
@@ -84,5 +84,5 @@ Services, Products/AIRA, About, and Contact pages follow the same visual system 
 
 ## Open Items / Placeholders Needing Confirmation
 
-- Footer contact: `bloommatrixtech@gmail.com` confirmed. No phone number or physical address provided — flag if either should be added (affects whether `Organization` or `LocalBusiness` schema is used).
+- Footer contact: `bloommatrixtech@gmail.com` confirmed ,physical address : Coimbatore , Tamil Nadu , India . No phone number  provided — flag if either should be added (affects whether `Organization` or `LocalBusiness` schema is used).
 - Exact FAQ question sets per page will be drafted during implementation using brand-doc content; not exhaustively pre-written here to avoid the spec going stale before build.
