@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import { tokenizeHeadline, type HeadlineToken } from "./headlineTokens";
+import { isWhitespace, splitWords, tokenizeHeadline, type HeadlineToken } from "./headlineTokens";
 
 export interface HeadlineSegment {
   text: string;
@@ -22,8 +22,19 @@ interface BrandHeadlineProps {
  */
 const BASELINE_FROM_TOP = "0.85em";
 const SEED_SIZE = "0.17em";
-const TITTLE_SIZE = "0.12em";
-const TITTLE_ABOVE_BASELINE = "0.70em";
+
+/**
+ * The tittle mark covers Lora's own tittle rather than swapping in a dotless
+ * glyph, so the DOM text stays the real word — dotless "ı" would corrupt the
+ * text for search engines, find-in-page and copy-paste. Measured from Lora:
+ * the tittle is 0.12em across, centred 0.673em above the baseline, at 50% of
+ * the advance upright and 58% italic. The coral dot is slightly larger so it
+ * covers the ink underneath, antialiasing included.
+ */
+const TITTLE_SIZE = "0.15em";
+const TITTLE_ABOVE_BASELINE = "0.673em";
+const TITTLE_X_UPRIGHT = "50%";
+const TITTLE_X_ITALIC = "58%";
 
 /**
  * BM Serif in practice: Lora, with the brand's two approved glyph
@@ -34,7 +45,15 @@ const TITTLE_ABOVE_BASELINE = "0.70em";
  * Marks are decorative, so the visible glyph spans are aria-hidden and the
  * host element carries the plain text as aria-label.
  */
-function Glyph({ token, seeded }: { token: HeadlineToken; seeded: boolean }) {
+function Glyph({
+  token,
+  seeded,
+  italic,
+}: {
+  token: HeadlineToken;
+  seeded: boolean;
+  italic: boolean;
+}) {
   if (!seeded || token.kind === "plain") return <>{token.ch}</>;
 
   if (token.kind === "seed-o") {
@@ -55,16 +74,15 @@ function Glyph({ token, seeded }: { token: HeadlineToken; seeded: boolean }) {
     );
   }
 
-  const dotless = token.kind === "tittle-i" ? "ı" : "ȷ";
   return (
     <span className="relative inline-block" style={{ lineHeight: 1 }}>
-      {dotless}
+      {token.ch}
       <span
         className="absolute rounded-full bg-coral"
         style={{
           width: TITTLE_SIZE,
           height: TITTLE_SIZE,
-          left: "50%",
+          left: italic ? TITTLE_X_ITALIC : TITTLE_X_UPRIGHT,
           top: `calc(${BASELINE_FROM_TOP} - ${TITTLE_ABOVE_BASELINE})`,
           transform: "translate(-50%, -50%)",
         }}
@@ -85,9 +103,17 @@ export default function BrandHeadline({
   return (
     <Tag className={`font-bm-serif ${className ?? ""}`} aria-label={plain}>
       {segments.map((seg, si) => {
-        const inner = tokenizeHeadline(seg.text).map((tk, i) => (
-          <Glyph key={i} token={tk} seeded={seeded} />
-        ));
+        const inner = splitWords(seg.text).map((part, pi) =>
+          isWhitespace(part) ? (
+            <span key={pi}>{part}</span>
+          ) : (
+            <span key={pi} className="whitespace-nowrap">
+              {tokenizeHeadline(part).map((tk, i) => (
+                <Glyph key={i} token={tk} seeded={seeded} italic={seg.emphasis === true} />
+              ))}
+            </span>
+          )
+        );
 
         return seg.emphasis ? (
           <em key={si} className="text-blue" aria-hidden>

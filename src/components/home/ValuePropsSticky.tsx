@@ -64,6 +64,9 @@ export default function ValuePropsSticky() {
 
           {/* Pinned visual: the brand flower on a blue block, indexed per prop. */}
           <div className="relative h-[360px] bg-blue overflow-hidden flex items-center justify-center">
+            <span className="absolute top-6 left-7 font-inter text-xs font-bold tracking-[0.14em] text-cream/60">
+              {`0${activeIndex + 1} / 0${VALUE_PROPS.length}`}
+            </span>
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIndex}
@@ -74,9 +77,6 @@ export default function ValuePropsSticky() {
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <BrandFlower size={200} rotation={activeIndex * 22} />
-                <span className="absolute font-bm-serif text-6xl text-cream/25">
-                  {`0${activeIndex + 1}`}
-                </span>
               </motion.div>
             </AnimatePresence>
           </div>
