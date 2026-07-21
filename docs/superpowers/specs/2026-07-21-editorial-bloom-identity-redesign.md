@@ -29,8 +29,9 @@ Complete visual identity redesign — new logo, new wordmark, new palette, new d
 Coral is an accent, never a surface color for large areas. No other hues enter the system (no teal, navy, indigo, green).
 
 **Typography:**
-- Headlines: an editorial serif with true italics — the approved mockups rendered Georgia; implementation uses **Lora** (closest webfont equivalent with real italics) unless the user objects at review. Italic + Matrix Blue is the standard emphasis pattern inside headlines (e.g., "We build products that *think*.").
-- Body, UI, nav, wordmark: **Inter** (retained).
+- Headlines: **"BM Serif"** — a brand-modified build of Lora (SIL OFL permits modification + renaming): every lowercase "o" glyph carries a Seed Coral dot in its counter ("seeded o", user-approved 2026-07-21; simulation in `docs/design-gallery/` companion round). Built with font tooling (e.g., fontTools) from Lora Regular/Bold + italics; used at display sizes (H1/H2) only. Other explored mods (matrix "x", coral tittle) were declined — do not add them. If the modified font isn't ready at build time, stock Lora is the interim fallback with identical metrics.
+- Italic + Matrix Blue remains the standard emphasis pattern inside headlines (e.g., "We build products that *think*.").
+- Sub-text, body, UI, nav, wordmark: **Inter** (retained, unmodified).
 - Max two families, `font-display: swap`, preload only critical weights (performance budget rules apply).
 
 ## Design Language
@@ -60,6 +61,7 @@ Re-skinned in the new system:
 
 ## Assets To Produce
 
+- **BM Serif font files** (woff2, Regular + Bold + italics) generated from Lora with the seeded-"o" glyph modification, self-hosted.
 - `LogoBM` component rewritten to render the new mark + Bracket wordmark (inline SVG, no bitmap).
 - `favicon.ico` / icon set and `opengraph-image.tsx` regenerated from the new mark and palette.
 - Remove all remnants of the old system: teal/navy/indigo tokens, Instrument Serif, glassmorphic styles, the old ambient/3D hero treatment.
