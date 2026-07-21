@@ -14,6 +14,18 @@ interface BrandHeadlineProps {
 }
 
 /**
+ * Glyph-mark geometry. The marks must land on the letterform, not on the line
+ * box, so each modified glyph pins `line-height: 1` and positions from there:
+ * with Lora at line-height 1 the baseline sits 0.85em below the box top. The
+ * seed then centres half an x-height (`0.5ex`) above the baseline — inside the
+ * "o" counter — and the tittle sits where Lora's own tittle would.
+ */
+const BASELINE_FROM_TOP = "0.85em";
+const SEED_SIZE = "0.17em";
+const TITTLE_SIZE = "0.12em";
+const TITTLE_ABOVE_BASELINE = "0.70em";
+
+/**
  * BM Serif in practice: Lora, with the brand's two approved glyph
  * modifications overlaid at render time — a Seed Coral dot inside every
  * lowercase "o" counter, and a coral tittle on every "i"/"j". The matrix-"x"
@@ -27,11 +39,17 @@ function Glyph({ token, seeded }: { token: HeadlineToken; seeded: boolean }) {
 
   if (token.kind === "seed-o") {
     return (
-      <span className="relative inline-block">
+      <span className="relative inline-block" style={{ lineHeight: 1 }}>
         o
         <span
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-coral"
-          style={{ width: "0.17em", height: "0.17em" }}
+          className="absolute rounded-full bg-coral"
+          style={{
+            width: SEED_SIZE,
+            height: SEED_SIZE,
+            left: "50%",
+            top: `calc(${BASELINE_FROM_TOP} - 0.5ex)`,
+            transform: "translate(-50%, -50%)",
+          }}
         />
       </span>
     );
@@ -39,11 +57,17 @@ function Glyph({ token, seeded }: { token: HeadlineToken; seeded: boolean }) {
 
   const dotless = token.kind === "tittle-i" ? "ı" : "ȷ";
   return (
-    <span className="relative inline-block">
+    <span className="relative inline-block" style={{ lineHeight: 1 }}>
       {dotless}
       <span
-        className="absolute left-1/2 rounded-full bg-coral"
-        style={{ width: "0.12em", height: "0.12em", top: "0.04em", transform: "translateX(-50%)" }}
+        className="absolute rounded-full bg-coral"
+        style={{
+          width: TITTLE_SIZE,
+          height: TITTLE_SIZE,
+          left: "50%",
+          top: `calc(${BASELINE_FROM_TOP} - ${TITTLE_ABOVE_BASELINE})`,
+          transform: "translate(-50%, -50%)",
+        }}
       />
     </span>
   );

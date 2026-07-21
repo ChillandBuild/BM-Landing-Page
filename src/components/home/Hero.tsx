@@ -53,11 +53,13 @@ export default function Hero() {
     >
       <div className="absolute right-0 top-0 bottom-0 w-[42%] bg-blue" aria-hidden />
 
+      {/* Centred on the blue block's left edge so the flower straddles the
+          boundary — half on blue, half on paper — with the headline over it. */}
       <BrandFlower
-        size={340}
+        size={420}
         rotation={isCoarsePointer ? scrollAngle : angle}
         shadow
-        className="absolute right-[24%] top-[12%] hidden md:block pointer-events-none z-0"
+        className="absolute left-[58%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block pointer-events-none z-0"
       />
 
       <motion.div
