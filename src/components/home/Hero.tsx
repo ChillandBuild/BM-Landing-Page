@@ -71,6 +71,18 @@ export default function Hero() {
         className="absolute left-[58%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block pointer-events-none z-0"
       />
 
+      {/* Editorial meta plate: the wordmark set vertically up the right edge
+          with the company's origin below it, the way a magazine plates a page. */}
+      <span
+        className="absolute right-7 top-1/2 -translate-y-1/2 hidden md:block z-10 font-inter text-[11px] font-bold uppercase tracking-[0.42em] text-cream/40 [writing-mode:vertical-rl] rotate-180 select-none"
+        aria-hidden
+      >
+        Bloom Matrix
+      </span>
+      <p className="absolute bottom-8 right-24 hidden md:block z-10 font-inter text-[10px] uppercase tracking-[0.18em] text-cream/40">
+        Coimbatore, India · 2026
+      </p>
+
       {/* Mobile: the same two elements restated as a band beneath the copy, so
           the block never covers the headline on a narrow screen. */}
       <div
