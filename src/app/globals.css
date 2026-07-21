@@ -1,76 +1,49 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surfaces */
-  --color-navy: #0A0F1F;
-  --color-paper: #FAFAF8;
+  /* Editorial Bloom palette — the only colors in the system */
+  --color-blue: #1747E0;
+  --color-cream: #F2EFE9;
+  --color-coral: #FF6B4A;
+  --color-ink: #141414;
 
-  /* Indigo accent gradient, pulled from the Bloom Matrix logo */
-  --color-indigo-start: #101A3D;
-  --color-indigo-mid: #3D5AC2;
-  --color-indigo-end: #5C7FE0;
-  --color-accent: #3D5AC2;
-  --color-accent-light: #5C7FE0;
+  /* Fonts */
+  --font-bm-serif: var(--font-lora);
+  --font-inter: var(--font-inter-family);
 
-  /* Text on dark (navy) surfaces */
-  --color-ink: #F2F4F8;
-  --color-ink-muted: #8993B8;
-
-  /* Text on light (paper) surfaces */
-  --color-ink-dark: #0A0F1F;
-  --color-ink-dark-muted: #6B7280;
-
-  --color-border-light: #E5E7EB;
-  --color-border-dark: rgba(242, 244, 248, 0.12);
-
-  --color-error: #ef4444;
-
-  --font-display: var(--font-instrument-serif);
-  --font-inter: var(--font-inter);
-
-  --spacing-section-gap: 80px;
+  /* Spacing */
+  --spacing-section-gap: 96px;
   --spacing-container-margin: 24px;
   --spacing-base: 8px;
   --spacing-gutter: 16px;
 }
 
-.text-gradient-indigo {
-  background: linear-gradient(135deg, var(--color-indigo-start), var(--color-indigo-mid), var(--color-indigo-end));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Brighter ramp for dark surfaces, where the full gradient's near-navy start disappears */
-.text-gradient-indigo-bright {
-  background: linear-gradient(135deg, var(--color-indigo-mid), var(--color-indigo-end), #9AB2F0);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.bg-gradient-indigo {
-  background: linear-gradient(135deg, var(--color-indigo-start), var(--color-indigo-mid), var(--color-indigo-end));
+/* Headline display face fallback. Real brand headings use <BrandHeadline>;
+   this class exists only so any stray heading still lands on the serif. */
+.font-display {
+  font-family: var(--font-bm-serif), Georgia, serif;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--color-accent) !important;
-  box-shadow: 0 0 0 3px rgba(61, 90, 194, 0.15);
+  border-color: var(--color-blue) !important;
+  box-shadow: 0 0 0 3px rgba(23, 71, 224, 0.15);
 }
 
-/* Hide scrollbars but keep functionality */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 body {
-  background-color: var(--color-paper);
-  color: var(--color-ink-dark);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
   overflow-x: hidden;
   min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
