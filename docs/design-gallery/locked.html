@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom Matrix — Design Exploration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #faf9f7; color: #1a1a1a; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; line-height: 1.5; }
+  h2 { font-size: 24px; margin: 8px 0 6px; }
+  h3 { margin: 0; }
+  .subtitle { color: #1a1a1a; opacity: .65; font-size: 14px; margin: 4px 0 18px; }
+  .options { display: grid; gap: 14px; margin: 18px 0; }
+  .option { border: 1px solid rgba(0,0,0,.15); border-radius: 12px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer; background: #fff; transition: box-shadow .15s ease; }
+  .option:hover { box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .option.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .option .letter { font-weight: 800; font-size: 18px; background: #1a1a1a; color: #faf9f7; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .option .content h3 { font-size: 15px; margin-bottom: 4px; }
+  .option .content p { font-size: 13px; opacity: .7; margin: 0; }
+  .cards { display: grid; gap: 20px; }
+  .card { border: 1px solid rgba(0,0,0,.15); border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; }
+  .card.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .gallery-nav { font-size: 13px; margin-bottom: 26px; }
+  .gallery-nav a { color: #1747E0; }
+</style>
+<script>function toggleSelect(el){ el.classList.toggle('selected'); }</script>
+</head>
+<body>
+<p class="gallery-nav"><a href="index.html">← All rounds</a></p>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:28px;">
+  <div style="display:flex;align-items:center;gap:34px;background:#F2EFE9;border-radius:16px;padding:38px 48px;">
+    <svg width="96" height="96" viewBox="0 0 120 120">
+      <rect x="6" y="6" width="108" height="108" rx="26" fill="#1747E0"/>
+      <g transform="rotate(45 60 60)"><g fill="#F2EFE9">
+        <path d="M60 14 C74 38 74 54 60 60 C46 54 46 38 60 14 Z"/>
+        <path d="M106 60 C82 74 66 74 60 60 C66 46 82 46 106 60 Z"/>
+        <path d="M60 106 C46 82 46 66 60 60 C74 66 74 82 60 106 Z"/>
+        <path d="M14 60 C38 46 54 46 60 60 C54 74 38 74 14 60 Z"/>
+      </g></g>
+      <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+    </svg>
+    <svg width="250" height="62" viewBox="0 0 420 82">
+      <g stroke="#1747E0" stroke-width="5" fill="none" stroke-linecap="square"><path d="M62 8 L50 8 L50 74 L62 74"/><path d="M358 8 L370 8 L370 74 L358 74"/></g>
+      <text x="210" y="56" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="44" letter-spacing="13" fill="#141414">bloom</text>
+      <text x="380" y="20" font-family="Inter, sans-serif" font-weight="600" font-size="14" fill="#FF6B4A">m×n</text>
+    </svg>
+  </div>
+  <p class="subtitle" style="text-align:center;">Identity locked ✓ — mark, wordmark, palette, hero composition, and the spinning-flower interaction.<br/>Continuing in the terminal: writing the design spec for your review.</p>
+</div>
+</body></html>

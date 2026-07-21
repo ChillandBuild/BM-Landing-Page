@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom Matrix — Design Exploration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #faf9f7; color: #1a1a1a; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; line-height: 1.5; }
+  h2 { font-size: 24px; margin: 8px 0 6px; }
+  h3 { margin: 0; }
+  .subtitle { color: #1a1a1a; opacity: .65; font-size: 14px; margin: 4px 0 18px; }
+  .options { display: grid; gap: 14px; margin: 18px 0; }
+  .option { border: 1px solid rgba(0,0,0,.15); border-radius: 12px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer; background: #fff; transition: box-shadow .15s ease; }
+  .option:hover { box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .option.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .option .letter { font-weight: 800; font-size: 18px; background: #1a1a1a; color: #faf9f7; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .option .content h3 { font-size: 15px; margin-bottom: 4px; }
+  .option .content p { font-size: 13px; opacity: .7; margin: 0; }
+  .cards { display: grid; gap: 20px; }
+  .card { border: 1px solid rgba(0,0,0,.15); border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; }
+  .card.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .gallery-nav { font-size: 13px; margin-bottom: 26px; }
+  .gallery-nav a { color: #1747E0; }
+</style>
+<script>function toggleSelect(el){ el.classList.toggle('selected'); }</script>
+</head>
+<body>
+<p class="gallery-nav"><a href="index.html">← All rounds</a></p>
+<h2>Which direction should the new Bloom Matrix identity take?</h2>
+<p class="subtitle">Each card shows a logo concept + a hero mockup in that direction. All four are "creative and simple" — but in very different ways. Click the one that feels right (you can click a couple to shortlist).</p>
+
+<style>
+  .dir-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 24px; margin-top: 24px; }
+  .dir-card { border: 1px solid rgba(128,128,128,.25); border-radius: 14px; overflow: hidden; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; background: transparent; }
+  .dir-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.18); }
+  .dir-card.selected { outline: 3px solid #4f6ef7; outline-offset: 2px; }
+  .dir-hero { height: 300px; position: relative; overflow: hidden; }
+  .dir-meta { padding: 16px 18px 18px; }
+  .dir-meta h3 { margin: 0 0 6px; font-size: 17px; }
+  .dir-meta p { margin: 0; font-size: 13.5px; opacity: .75; line-height: 1.5; }
+  .tag { display: inline-block; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; margin-bottom: 8px; font-weight: 600; }
+</style>
+
+<div class="cards dir-cards" data-multiselect>
+
+  <!-- A: GENERATIVE BLOOM -->
+  <div class="card dir-card" data-choice="A-generative-bloom" onclick="toggleSelect(this)">
+    <div class="dir-hero" style="background:#FAF8F4;">
+      <!-- dot matrix background -->
+      <svg width="100%" height="100%" viewBox="0 0 640 300" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="dotsA" width="26" height="26" patternUnits="userSpaceOnUse">
+            <circle cx="13" cy="13" r="1.6" fill="#1A1A2E" opacity="0.16"/>
+          </pattern>
+        </defs>
+        <rect width="640" height="300" fill="url(#dotsA)"/>
+        <!-- bloom: dots growing organically out of the grid, right side -->
+        <g transform="translate(490,150)">
+          <circle r="7" fill="#E8542F"/>
+          <circle cx="0" cy="-26" r="9" fill="#E8542F"/>
+          <circle cx="25" cy="-8" r="9" fill="#E8542F"/>
+          <circle cx="15" cy="21" r="9" fill="#E8542F"/>
+          <circle cx="-15" cy="21" r="9" fill="#E8542F"/>
+          <circle cx="-25" cy="-8" r="9" fill="#E8542F"/>
+          <circle cx="0" cy="-55" r="6" fill="#E8542F" opacity=".55"/>
+          <circle cx="52" cy="-17" r="6" fill="#E8542F" opacity=".55"/>
+          <circle cx="32" cy="44" r="6" fill="#E8542F" opacity=".55"/>
+          <circle cx="-32" cy="44" r="6" fill="#E8542F" opacity=".55"/>
+          <circle cx="-52" cy="-17" r="6" fill="#E8542F" opacity=".55"/>
+          <circle cx="0" cy="-82" r="3.5" fill="#E8542F" opacity=".25"/>
+          <circle cx="78" cy="-25" r="3.5" fill="#E8542F" opacity=".25"/>
+          <circle cx="48" cy="66" r="3.5" fill="#E8542F" opacity=".25"/>
+          <circle cx="-48" cy="66" r="3.5" fill="#E8542F" opacity=".25"/>
+          <circle cx="-78" cy="-25" r="3.5" fill="#E8542F" opacity=".25"/>
+        </g>
+      </svg>
+      <!-- mini nav -->
+      <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <!-- logo concept: 3x3 matrix, one cell blooming -->
+          <svg width="22" height="22" viewBox="0 0 22 22">
+            <circle cx="4" cy="4" r="2" fill="#1A1A2E"/><circle cx="11" cy="4" r="2" fill="#1A1A2E"/><circle cx="18" cy="4" r="2" fill="#1A1A2E"/>
+            <circle cx="4" cy="11" r="2" fill="#1A1A2E"/><circle cx="11" cy="11" r="2" fill="#1A1A2E"/><circle cx="18" cy="11" r="3.4" fill="#E8542F"/>
+            <circle cx="4" cy="18" r="2" fill="#1A1A2E"/><circle cx="11" cy="18" r="2" fill="#1A1A2E"/><circle cx="18" cy="18" r="2" fill="#1A1A2E"/>
+          </svg>
+          <span style="font-family:Inter,sans-serif;font-weight:700;font-size:12px;color:#1A1A2E;letter-spacing:-.01em;">bloom matrix</span>
+        </div>
+        <div style="font-size:9px;color:#1A1A2E;opacity:.55;font-family:Inter,sans-serif;">Products &nbsp; Services &nbsp; About &nbsp; <span style="border:1px solid #1A1A2E;border-radius:99px;padding:2px 8px;opacity:1;">Talk to us</span></div>
+      </div>
+      <div style="position:absolute;left:20px;top:95px;max-width:330px;">
+        <div style="font-family:Inter,sans-serif;font-size:31px;font-weight:650;letter-spacing:-.035em;line-height:1.08;color:#1A1A2E;">Software that<br/>grows the way<br/>your business does.</div>
+        <div style="font-family:Inter,sans-serif;font-size:11px;color:#1A1A2E;opacity:.6;margin-top:12px;line-height:1.5;">AI-first product engineering — from idea to living product.</div>
+        <div style="display:inline-block;margin-top:14px;background:#1A1A2E;color:#FAF8F4;font-family:Inter,sans-serif;font-size:10.5px;padding:7px 14px;border-radius:99px;">Book a strategy call →</div>
+      </div>
+    </div>
+    <div class="dir-meta">
+      <span class="tag" style="background:rgba(232,84,47,.12);color:#E8542F;">Recommended</span>
+      <h3>A — The Living Grid</h3>
+      <p>The name IS the concept: a structured matrix of dots that blooms into something organic. Warm paper background, near-black ink, one vivid accent. The logo (a matrix cell blooming) and the site share the same generative dot motif — it can animate: dots bloom under your cursor. Nobody else looks like this.</p>
+    </div>
+  </div>
+
+  <!-- B: SWISS TYPE -->
+  <div class="card dir-card" data-choice="B-swiss-typographic" onclick="toggleSelect(this)">
+    <div class="dir-hero" style="background:#FFFFFF;">
+      <svg width="100%" height="100%" viewBox="0 0 640 300" preserveAspectRatio="xMidYMid slice" style="position:absolute;">
+        <line x1="160" y1="0" x2="160" y2="300" stroke="#000" stroke-opacity=".07"/>
+        <line x1="320" y1="0" x2="320" y2="300" stroke="#000" stroke-opacity=".07"/>
+        <line x1="480" y1="0" x2="480" y2="300" stroke="#000" stroke-opacity=".07"/>
+        <line x1="0" y1="42" x2="640" y2="42" stroke="#000" stroke-opacity=".12"/>
+      </svg>
+      <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;">
+        <span style="font-family:Inter,sans-serif;font-weight:800;font-size:13px;color:#000;letter-spacing:-.02em;">BM<span style="color:#2440F0;">*</span></span>
+        <div style="font-size:9px;color:#000;font-family:Inter,sans-serif;letter-spacing:.06em;">PRODUCTS — SERVICES — ABOUT — CONTACT</div>
+      </div>
+      <div style="position:absolute;left:20px;top:78px;right:20px;">
+        <div style="font-family:Inter,sans-serif;font-size:52px;font-weight:800;letter-spacing:-.05em;line-height:.95;color:#000;">BUILD<br/>INTELLIGENT<span style="color:#2440F0;">.</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:18px;">
+          <div style="font-family:Inter,sans-serif;font-size:10.5px;color:#000;opacity:.65;max-width:240px;line-height:1.55;">AI-first product engineering company. Enterprise software, SaaS platforms, AI systems.</div>
+          <div style="font-family:Inter,sans-serif;font-size:10.5px;color:#2440F0;font-weight:700;">TALK TO US ↗</div>
+        </div>
+      </div>
+    </div>
+    <div class="dir-meta">
+      <span class="tag" style="background:rgba(36,64,240,.1);color:#2440F0;">Boldest / simplest</span>
+      <h3>B — Swiss Precision</h3>
+      <p>Pure typographic confidence: massive tight-set type, strict visible grid, black on white, one electric blue accent. Logo becomes a sharp "BM" wordmark with an asterisk/matrix glyph. Reads instantly premium and engineering-led. Risk: the aesthetic is loved by dev-tool brands (Vercel, Linear territory).</p>
+    </div>
+  </div>
+
+  <!-- C: DARK GENERATIVE -->
+  <div class="card dir-card" data-choice="C-dark-generative" onclick="toggleSelect(this)">
+    <div class="dir-hero" style="background:#07070D;">
+      <svg width="100%" height="100%" viewBox="0 0 640 300" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="glowC" cx="50%" cy="90%" r="80%">
+            <stop offset="0%" stop-color="#5B4DFF" stop-opacity=".55"/>
+            <stop offset="45%" stop-color="#B44DFF" stop-opacity=".18"/>
+            <stop offset="100%" stop-color="#07070D" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="640" height="300" fill="#07070D"/>
+        <ellipse cx="320" cy="310" rx="420" ry="200" fill="url(#glowC)"/>
+        <g stroke="#8F7DFF" stroke-opacity=".35" fill="none">
+          <path d="M0,250 C160,215 480,285 640,235"/>
+          <path d="M0,262 C160,230 480,295 640,250"/>
+          <path d="M0,274 C160,246 480,305 640,266"/>
+        </g>
+      </svg>
+      <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="8" height="8" rx="2" fill="none" stroke="#fff" stroke-opacity=".9"/><rect x="11" y="11" width="8" height="8" rx="4" fill="#8F7DFF"/></svg>
+          <span style="font-family:Inter,sans-serif;font-weight:600;font-size:12px;color:#fff;">Bloom Matrix</span>
+        </div>
+        <div style="font-size:9px;color:#fff;opacity:.6;font-family:Inter,sans-serif;">Products &nbsp; Services &nbsp; About &nbsp; Contact</div>
+      </div>
+      <div style="position:absolute;left:0;right:0;top:92px;text-align:center;">
+        <div style="font-family:Georgia,serif;font-size:34px;font-weight:400;letter-spacing:-.02em;line-height:1.15;color:#F4F2FF;">Intelligence,<br/><em>engineered.</em></div>
+        <div style="font-family:Inter,sans-serif;font-size:11px;color:#B8B2D9;margin-top:10px;">AI-first product engineering for ambitious companies.</div>
+        <div style="display:inline-block;margin-top:14px;background:#F4F2FF;color:#07070D;font-family:Inter,sans-serif;font-size:10.5px;padding:7px 16px;border-radius:99px;font-weight:600;">Book a strategy call</div>
+      </div>
+    </div>
+    <div class="dir-meta">
+      <span class="tag" style="background:rgba(143,125,255,.14);color:#8F7DFF;">AI-lab premium</span>
+      <h3>C — Deep Field</h3>
+      <p>Near-black canvas, aurora-like generative light, quiet serif voice. The "frontier AI lab" feel — premium and mysterious. Logo: geometric square-to-circle mark (structure → life). Risk: dark + glow + serif is the current default look of AI companies, so it's premium but less ownable.</p>
+    </div>
+  </div>
+
+  <!-- D: BOLD EDITORIAL -->
+  <div class="card dir-card" data-choice="D-bold-editorial" onclick="toggleSelect(this)">
+    <div class="dir-hero" style="background:#F2EFE9;">
+      <div style="position:absolute;right:0;top:0;bottom:0;width:38%;background:#1747E0;"></div>
+      <svg style="position:absolute;right:8%;top:70px;" width="120" height="120" viewBox="0 0 120 120">
+        <g fill="#F2EFE9">
+          <path d="M60 10 C75 35 75 55 60 60 C45 55 45 35 60 10 Z"/>
+          <path d="M110 60 C85 75 65 75 60 60 C65 45 85 45 110 60 Z"/>
+          <path d="M60 110 C45 85 45 65 60 60 C75 65 75 85 60 110 Z"/>
+          <path d="M10 60 C35 45 55 45 60 60 C55 75 35 75 10 60 Z"/>
+        </g>
+        <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+      </svg>
+      <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;">
+        <span style="font-family:Georgia,serif;font-weight:700;font-size:14px;color:#141414;font-style:italic;">Bloom&nbsp;Matrix</span>
+        <div style="font-size:9px;color:#141414;font-family:Inter,sans-serif;">Products &nbsp; Services &nbsp; About &nbsp; <span style="color:#F2EFE9;background:#141414;padding:3px 8px;border-radius:2px;">Contact</span></div>
+      </div>
+      <div style="position:absolute;left:20px;top:84px;max-width:340px;">
+        <div style="font-family:Georgia,serif;font-size:40px;font-weight:400;letter-spacing:-.02em;line-height:1.02;color:#141414;">We build products<br/>that <em style="color:#1747E0;">think</em>.</div>
+        <div style="font-family:Inter,sans-serif;font-size:11px;color:#141414;opacity:.65;margin-top:12px;max-width:250px;line-height:1.55;">An AI-first product engineering company for businesses that want more than software.</div>
+        <div style="display:inline-block;margin-top:14px;background:#FF6B4A;color:#141414;font-family:Inter,sans-serif;font-weight:600;font-size:10.5px;padding:7px 14px;border-radius:2px;">Start a project →</div>
+      </div>
+    </div>
+    <div class="dir-meta">
+      <span class="tag" style="background:rgba(23,71,224,.1);color:#1747E0;">Most expressive</span>
+      <h3>D — Editorial Bloom</h3>
+      <p>Magazine energy: cream paper, hard color blocking, oversized serif with italic emphasis, a literal abstract flower mark. Feels like a creative studio with engineering depth. Warmest and most human of the four. Risk: leans "design agency" — may undersell the enterprise/AI engineering side.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:20px;">These are direction sketches, not final designs — palette, exact fonts, and the logo get refined after we pick a lane. Mixing is allowed (e.g., A's concept with C's dark mood).</p>
+</body></html>

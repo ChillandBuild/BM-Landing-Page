@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom Matrix — Design Exploration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #faf9f7; color: #1a1a1a; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; line-height: 1.5; }
+  h2 { font-size: 24px; margin: 8px 0 6px; }
+  h3 { margin: 0; }
+  .subtitle { color: #1a1a1a; opacity: .65; font-size: 14px; margin: 4px 0 18px; }
+  .options { display: grid; gap: 14px; margin: 18px 0; }
+  .option { border: 1px solid rgba(0,0,0,.15); border-radius: 12px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer; background: #fff; transition: box-shadow .15s ease; }
+  .option:hover { box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .option.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .option .letter { font-weight: 800; font-size: 18px; background: #1a1a1a; color: #faf9f7; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .option .content h3 { font-size: 15px; margin-bottom: 4px; }
+  .option .content p { font-size: 13px; opacity: .7; margin: 0; }
+  .cards { display: grid; gap: 20px; }
+  .card { border: 1px solid rgba(0,0,0,.15); border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; }
+  .card.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .gallery-nav { font-size: 13px; margin-bottom: 26px; }
+  .gallery-nav a { color: #1747E0; }
+</style>
+<script>function toggleSelect(el){ el.classList.toggle('selected'); }</script>
+</head>
+<body>
+<p class="gallery-nav"><a href="index.html">← All rounds</a></p>
+<h2>Round four — boundaries pushed</h2>
+<p class="subtitle">Four marks with sharper concepts than "flower plus dots," and four wordmarks that carry an idea, not just styling. Everything stays in the palette. Click favorites in each group.</p>
+
+<style>
+  .logo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .logo-card { text-align: center; padding: 22px 12px 16px; }
+  .logo-card h3 { font-size: 14px; margin: 12px 0 6px; }
+  .logo-card p { font-size: 12px; opacity: .7; margin: 0; line-height: 1.45; }
+  .mini-stage { background: #F2EFE9; border-radius: 10px; padding: 14px; display: inline-block; }
+  .wm-card { padding: 24px 20px; text-align: center; }
+  .wm-card h3 { font-size: 14px; margin: 14px 0 6px; }
+  .wm-card p { font-size: 12px; opacity: .7; margin: 0; line-height: 1.45; }
+  .wm-stage { background: #F2EFE9; border-radius: 8px; padding: 26px 12px; position: relative; overflow: hidden; }
+</style>
+
+<div class="options logo-row">
+
+  <!-- L6: MORPH RING -->
+  <div class="option logo-card" data-choice="L6-morph-ring" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage">
+      <svg width="86" height="86" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+        <!-- top: sharp matrix cell -->
+        <rect x="51" y="12" width="18" height="18" rx="1.5" fill="#1747E0"/>
+        <!-- right: softening -->
+        <rect x="90" y="51" width="18" height="18" rx="6" fill="#1747E0"/>
+        <!-- bottom: fully round -->
+        <circle cx="60" cy="99" r="9.5" fill="#1747E0"/>
+        <!-- left: petal -->
+        <path d="M12 60 C34 47 50 50 54 60 C50 70 34 73 12 60 Z" fill="#1747E0"/>
+      </svg>
+    </div>
+    <h3>L6 — The Morph</h3>
+    <p>Read it clockwise from the top: a rigid matrix cell softens, rounds, and finally becomes a petal. The whole company story — structure becoming life — in one rotating glyph. Animates as a continuous morph.</p>
+  </div>
+
+  <!-- L7: SPROUT CELL -->
+  <div class="option logo-card" data-choice="L7-sprout-cell" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage">
+      <svg width="86" height="86" viewBox="0 0 120 120">
+        <g fill="#141414" opacity=".22">
+          <rect x="18" y="46" width="22" height="22" rx="5"/>
+          <rect x="48" y="46" width="22" height="22" rx="5"/>
+          <rect x="18" y="76" width="22" height="22" rx="5"/>
+          <rect x="48" y="76" width="22" height="22" rx="5"/>
+          <rect x="78" y="76" width="22" height="22" rx="5"/>
+        </g>
+        <rect x="78" y="46" width="22" height="22" rx="5" fill="#1747E0"/>
+        <path d="M89 46 C89 34 82 30 78 22" stroke="#1747E0" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <g transform="translate(78,20)">
+          <g fill="#1747E0">
+            <path d="M0 -3 C4 -10 10 -12 14 -9 C13 -3 8 1 0 -3 Z"/>
+            <path d="M-2 -4 C-8 -8 -9 -14 -5 -17 C1 -14 2 -9 -2 -4 Z"/>
+          </g>
+          <circle cx="0" cy="-2" r="4.5" fill="#FF6B4A"/>
+        </g>
+      </svg>
+    </div>
+    <h3>L7 — The Sprout</h3>
+    <p>A quiet grid of software cells — and one cell has germinated, growing a stem right out of the matrix with a coral bud. Warm, human, slightly witty. Unmistakably "something alive is growing in this system."</p>
+  </div>
+
+  <!-- L8: CUTOUT -->
+  <div class="option logo-card" data-choice="L8-cutout" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage">
+      <svg width="86" height="86" viewBox="0 0 120 120">
+        <rect x="6" y="6" width="108" height="108" rx="26" fill="#1747E0"/>
+        <g transform="rotate(45 60 60)">
+          <g fill="#F2EFE9">
+            <path d="M60 14 C74 38 74 54 60 60 C46 54 46 38 60 14 Z"/>
+            <path d="M106 60 C82 74 66 74 60 60 C66 46 82 46 106 60 Z"/>
+            <path d="M60 106 C46 82 46 66 60 60 C74 66 74 82 60 106 Z"/>
+            <path d="M14 60 C38 46 54 46 60 60 C54 74 38 74 14 60 Z"/>
+          </g>
+        </g>
+        <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+      </svg>
+    </div>
+    <h3>L8 — The Cutout</h3>
+    <p>The flower isn't printed on the tile — it's cut out of it, petals turned 45° into an ✕: the matrix crossing. Negative space does the work. Heaviest presence of the set; instantly iconic at any size.</p>
+  </div>
+
+  <!-- L9: PLOTTED BLOOM -->
+  <div class="option logo-card" data-choice="L9-plotted-bloom" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage">
+      <svg width="86" height="86" viewBox="0 0 120 120">
+        <g stroke="#141414" stroke-width="2" opacity=".5">
+          <line x1="60" y1="4" x2="60" y2="116"/>
+          <line x1="4" y1="60" x2="116" y2="60"/>
+        </g>
+        <g stroke="#141414" stroke-width="2" opacity=".35">
+          <line x1="56" y1="18" x2="64" y2="18"/><line x1="56" y1="102" x2="64" y2="102"/>
+          <line x1="18" y1="56" x2="18" y2="64"/><line x1="102" y1="56" x2="102" y2="64"/>
+        </g>
+        <g fill="#1747E0">
+          <g transform="rotate(45 60 60)"><path d="M60 18 C72 38 72 52 60 57 C48 52 48 38 60 18 Z"/></g>
+          <g transform="rotate(135 60 60)"><path d="M60 18 C72 38 72 52 60 57 C48 52 48 38 60 18 Z"/></g>
+          <g transform="rotate(225 60 60)"><path d="M60 18 C72 38 72 52 60 57 C48 52 48 38 60 18 Z"/></g>
+          <g transform="rotate(315 60 60)"><path d="M60 18 C72 38 72 52 60 57 C48 52 48 38 60 18 Z"/></g>
+        </g>
+        <circle cx="60" cy="60" r="8.5" fill="#FF6B4A"/>
+      </svg>
+    </div>
+    <h3>L9 — Plotted</h3>
+    <p>A bloom plotted at the origin of a coordinate grid — petals living in the four quadrants, coral at (0,0). The most "engineering" of all: growth, measured. Feels like a scientific instrument's stamp.</p>
+  </div>
+
+</div>
+
+<!-- ============ WORDMARKS ROUND 4 ============ -->
+<h2 style="font-size:20px;margin-top:38px;">Wordmarks — round four</h2>
+<p class="subtitle">Each carries a concept you can explain in one sentence. Click your pick.</p>
+
+<div class="options" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+  <!-- W9: BRACKET MATRIX -->
+  <div class="option wm-card" data-choice="wm9-bracket-matrix" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage">
+      <svg width="100%" height="92" viewBox="0 0 560 92">
+        <g stroke="#1747E0" stroke-width="5" fill="none" stroke-linecap="square">
+          <path d="M158 16 L146 16 L146 76 L158 76"/>
+          <path d="M402 16 L414 16 L414 76 L402 76"/>
+        </g>
+        <text x="280" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="40" letter-spacing="12" fill="#141414">bloom</text>
+        <text x="424" y="26" font-family="Inter, sans-serif" font-weight="600" font-size="13" fill="#FF6B4A">m×n</text>
+      </svg>
+    </div>
+    <h3>W9 — The Bracket</h3>
+    <p>"bloom" written inside real mathematical matrix brackets, with a tiny coral "m×n" superscript. The word bloom IS the matrix — no second word needed. Nerdy, elegant, one-of-a-kind.</p>
+  </div>
+
+  <!-- W10: PINNED LABEL -->
+  <div class="option wm-card" data-choice="wm10-pinned-label" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage" style="height:92px;display:flex;align-items:center;justify-content:center;">
+      <div style="position:relative;display:inline-block;">
+        <div style="font-family:Inter,sans-serif;font-weight:900;font-size:62px;letter-spacing:-.03em;color:#141414;line-height:1;">BLOOM</div>
+        <div style="position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) rotate(-5deg);background:#FF6B4A;color:#F2EFE9;font-family:Inter,sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;padding:4px 14px;box-shadow:0 2px 8px rgba(0,0,0,.25);">MATRIX</div>
+      </div>
+    </div>
+    <h3>W10 — The Pin</h3>
+    <p>Monumental BLOOM with a coral MATRIX label pinned across it at an angle — like a specimen tag on something alive. Loud, editorial, poster-ready.</p>
+  </div>
+
+  <!-- W11: HAND-SET -->
+  <div class="option wm-card" data-choice="wm11-hand-set" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage" style="height:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <div style="font-family:Georgia,serif;font-size:52px;color:#141414;line-height:1;display:flex;align-items:baseline;">
+        <span style="display:inline-block;transform:rotate(-5deg) translateY(2px);">b</span>
+        <span style="display:inline-block;transform:rotate(3deg) translateY(-4px);">l</span>
+        <span style="display:inline-block;transform:rotate(-2deg) translateY(3px);color:#1747E0;">o</span>
+        <span style="display:inline-block;transform:rotate(6deg) translateY(-2px);color:#1747E0;">o</span>
+        <span style="display:inline-block;transform:rotate(-3deg) translateY(1px);">m</span>
+      </div>
+      <div style="font-family:Inter,sans-serif;font-weight:600;font-size:12px;letter-spacing:.5em;color:#141414;margin-top:6px;margin-left:.5em;">MATRIX</div>
+    </div>
+    <h3>W11 — Scattered Seeds</h3>
+    <p>The serif letters of "bloom" tumble like seeds just thrown — each slightly rotated off the grid — while MATRIX sits below in strict spaced caps: perfect order under living disorder.</p>
+  </div>
+
+  <!-- W12: SPINE -->
+  <div class="option wm-card" data-choice="wm12-spine" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage" style="height:92px;display:flex;align-items:center;justify-content:center;gap:14px;">
+      <div style="font-family:Inter,sans-serif;font-weight:800;font-size:13px;letter-spacing:.3em;color:#1747E0;writing-mode:vertical-rl;transform:rotate(180deg);line-height:1;">MATRIX</div>
+      <div style="width:3px;height:64px;background:#141414;"></div>
+      <div style="font-family:Georgia,serif;font-style:italic;font-size:56px;color:#141414;line-height:1;">Bloom<span style="display:inline-block;width:.14em;height:.14em;background:#FF6B4A;border-radius:50%;margin-left:.06em;"></span></div>
+    </div>
+    <h3>W12 — The Spine</h3>
+    <p>MATRIX runs vertically like a book spine holding up the italic serif Bloom — structure literally supporting growth. Quietest and most sophisticated of the four.</p>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:20px;">Any mark pairs with any wordmark — say the combo (e.g., "L7 + W9") or keep pushing.</p>
+</body></html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom Matrix — Design Exploration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #faf9f7; color: #1a1a1a; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; line-height: 1.5; }
+  h2 { font-size: 24px; margin: 8px 0 6px; }
+  h3 { margin: 0; }
+  .subtitle { color: #1a1a1a; opacity: .65; font-size: 14px; margin: 4px 0 18px; }
+  .options { display: grid; gap: 14px; margin: 18px 0; }
+  .option { border: 1px solid rgba(0,0,0,.15); border-radius: 12px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer; background: #fff; transition: box-shadow .15s ease; }
+  .option:hover { box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .option.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .option .letter { font-weight: 800; font-size: 18px; background: #1a1a1a; color: #faf9f7; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .option .content h3 { font-size: 15px; margin-bottom: 4px; }
+  .option .content p { font-size: 13px; opacity: .7; margin: 0; }
+  .cards { display: grid; gap: 20px; }
+  .card { border: 1px solid rgba(0,0,0,.15); border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; }
+  .card.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .gallery-nav { font-size: 13px; margin-bottom: 26px; }
+  .gallery-nav a { color: #1747E0; }
+</style>
+<script>function toggleSelect(el){ el.classList.toggle('selected'); }</script>
+</head>
+<body>
+<p class="gallery-nav"><a href="index.html">← All rounds</a></p>
+<h2>The full gallery — everything from all four rounds</h2>
+<p class="subtitle">Every mark (13) and every wordmark (15) we've explored. Click ONE mark and ONE wordmark to lock your final identity. Any mark pairs with any wordmark.</p>
+
+<style>
+  .g-marks { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 12px; }
+  .g-card { text-align: center; padding: 14px 8px 12px; }
+  .g-card h3 { font-size: 12px; margin: 8px 0 2px; }
+  .g-card .rnd { font-size: 9.5px; opacity: .5; letter-spacing: .06em; text-transform: uppercase; }
+  .mini-stage { background: #F2EFE9; border-radius: 10px; padding: 10px; display: inline-block; }
+  .g-wm { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .wm-stage { background: #F2EFE9; border-radius: 8px; padding: 18px 8px; position: relative; overflow: hidden; min-height: 64px; display:flex; align-items:center; justify-content:center; }
+</style>
+
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <pattern id="p-halftB" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="2.6" fill="#1747E0"/></pattern>
+    <pattern id="p-halftC" width="8.5" height="8.5" patternUnits="userSpaceOnUse"><circle cx="4.25" cy="4.25" r="2.5" fill="#F2EFE9"/></pattern>
+    <pattern id="p-wmdots" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="3.5" cy="3.5" r="2.3" fill="#141414"/></pattern>
+    <pattern id="p-wmdotsBlue" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="3.5" cy="3.5" r="2.3" fill="#1747E0"/></pattern>
+    <pattern id="p-tiles" width="11" height="11" patternUnits="userSpaceOnUse"><rect width="9.2" height="9.2" fill="#141414"/></pattern>
+    <pattern id="p-bgdots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="1.4" fill="#141414" opacity=".18"/></pattern>
+  </defs>
+</svg>
+
+<h2 style="font-size:19px;">Marks</h2>
+<div class="options g-marks">
+
+  <div class="option g-card" data-choice="M1-dot-bloom" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 26 26">
+      <circle cx="13" cy="13" r="3.2" fill="#FF6B4A"/>
+      <g fill="#1747E0"><circle cx="13" cy="4.5" r="3"/><circle cx="21" cy="10.2" r="3"/><circle cx="18" cy="20" r="3"/><circle cx="8" cy="20" r="3"/><circle cx="5" cy="10.2" r="3"/></g>
+    </svg></div>
+    <h3>Dot Bloom</h3><div class="rnd">Round 1</div>
+  </div>
+
+  <div class="option g-card" data-choice="M2-petal-flower" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <g fill="#1747E0"><path d="M60 12 C74 36 74 54 60 60 C46 54 46 36 60 12 Z"/><path d="M108 60 C84 74 66 74 60 60 C66 46 84 46 108 60 Z"/><path d="M60 108 C46 84 46 66 60 60 C74 66 74 84 60 108 Z"/><path d="M12 60 C36 46 54 46 60 60 C54 74 36 74 12 60 Z"/></g>
+      <circle cx="60" cy="60" r="8" fill="#FF6B4A"/>
+    </svg></div>
+    <h3>Petal Flower</h3><div class="rnd">Round 1</div>
+  </div>
+
+  <div class="option g-card" data-choice="M3-grid-bloom" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <g fill="#141414" opacity=".85"><circle cx="20" cy="20" r="9"/><circle cx="60" cy="20" r="9"/><circle cx="100" cy="20" r="9"/><circle cx="20" cy="60" r="9"/><circle cx="60" cy="60" r="9"/><circle cx="20" cy="100" r="9"/><circle cx="60" cy="100" r="9"/><circle cx="100" cy="100" r="9"/></g>
+      <g fill="#1747E0"><path d="M100 34 C110 48 110 56 100 60 C90 56 90 48 100 34 Z"/><path d="M120 60 C106 70 98 70 94 60 C98 50 106 50 120 60 Z"/><path d="M100 86 C90 72 90 64 100 60 C110 64 110 72 100 86 Z"/><path d="M74 60 C88 50 96 50 100 60 C96 70 88 70 74 60 Z"/></g>
+    </svg></div>
+    <h3>Grid Bloom</h3><div class="rnd">Round 1</div>
+  </div>
+
+  <div class="option g-card" data-choice="M4-matrix-heart" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <g fill="#141414" opacity=".85"><circle cx="20" cy="20" r="8"/><circle cx="60" cy="20" r="8"/><circle cx="100" cy="20" r="8"/><circle cx="20" cy="60" r="8"/><circle cx="100" cy="60" r="8"/><circle cx="20" cy="100" r="8"/><circle cx="60" cy="100" r="8"/><circle cx="100" cy="100" r="8"/></g>
+      <g transform="translate(60,60) scale(0.52) translate(-60,-60)">
+        <g fill="#1747E0"><path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/><path d="M114 60 C86 77 66 77 60 60 C66 43 86 43 114 60 Z"/><path d="M60 114 C43 86 43 66 60 60 C77 66 77 86 60 114 Z"/><path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/></g>
+        <circle cx="60" cy="60" r="10" fill="#FF6B4A"/>
+      </g>
+    </svg></div>
+    <h3>Matrix Heart</h3><div class="rnd">Your idea</div>
+  </div>
+
+  <div class="option g-card" data-choice="M5-corner-tile" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <rect x="2" y="2" width="116" height="116" rx="26" fill="#1747E0"/>
+      <g fill="#F2EFE9"><circle cx="22" cy="22" r="6.5"/><circle cx="98" cy="22" r="6.5"/><circle cx="22" cy="98" r="6.5"/><circle cx="98" cy="98" r="6.5"/></g>
+      <g transform="translate(60,60) scale(0.62) translate(-60,-60)">
+        <g fill="#F2EFE9"><path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/><path d="M114 60 C86 77 66 77 60 60 C66 43 86 43 114 60 Z"/><path d="M60 114 C43 86 43 66 60 60 C77 66 77 86 60 114 Z"/><path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/></g>
+        <circle cx="60" cy="60" r="10" fill="#FF6B4A"/>
+      </g>
+    </svg></div>
+    <h3>Corner Tile</h3><div class="rnd">Your spec</div>
+  </div>
+
+  <div class="option g-card" data-choice="M6-corner-open" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <g fill="#141414" opacity=".8"><circle cx="16" cy="16" r="6.5"/><circle cx="104" cy="16" r="6.5"/><circle cx="16" cy="104" r="6.5"/><circle cx="104" cy="104" r="6.5"/></g>
+      <g transform="translate(60,60) scale(0.7) translate(-60,-60)">
+        <g fill="#1747E0"><path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/><path d="M114 60 C86 77 66 77 60 60 C66 43 86 43 114 60 Z"/><path d="M60 114 C43 86 43 66 60 60 C77 66 77 86 60 114 Z"/><path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/></g>
+        <circle cx="60" cy="60" r="10" fill="#FF6B4A"/>
+      </g>
+    </svg></div>
+    <h3>Corner Open</h3><div class="rnd">Fusion</div>
+  </div>
+
+  <div class="option g-card" data-choice="M7-halftone" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <g fill="url(#p-halftB)"><path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/><path d="M114 60 C86 77 66 77 60 60 C66 43 86 43 114 60 Z"/><path d="M60 114 C43 86 43 66 60 60 C77 66 77 86 60 114 Z"/><path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/></g>
+      <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+    </svg></div>
+    <h3>Halftone</h3><div class="rnd">Fusion</div>
+  </div>
+
+  <div class="option g-card" data-choice="M8-dissolve" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <g fill="#1747E0"><path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/><path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/></g>
+      <g fill="#1747E0"><circle cx="78" cy="55" r="7"/><circle cx="93" cy="58" r="5"/><circle cx="106" cy="61" r="3.2"/><circle cx="55" cy="78" r="7"/><circle cx="58" cy="93" r="5"/><circle cx="61" cy="106" r="3.2"/></g>
+      <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+    </svg></div>
+    <h3>Dissolve</h3><div class="rnd">Fusion</div>
+  </div>
+
+  <div class="option g-card" data-choice="M9-hybrid" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <rect x="2" y="2" width="116" height="116" rx="26" fill="#1747E0"/>
+      <g transform="translate(60,60) scale(0.78) translate(-60,-60)">
+        <g fill="#F2EFE9"><path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/><path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/></g>
+        <g fill="url(#p-halftC)"><path d="M114 60 C86 77 66 77 60 60 C66 43 86 43 114 60 Z"/><path d="M60 114 C43 86 43 66 60 60 C77 66 77 86 60 114 Z"/></g>
+        <circle cx="60" cy="60" r="10" fill="#FF6B4A"/>
+      </g>
+    </svg></div>
+    <h3>Hybrid</h3><div class="rnd">Your combo</div>
+  </div>
+
+  <div class="option g-card" data-choice="M10-morph" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+      <rect x="51" y="12" width="18" height="18" rx="1.5" fill="#1747E0"/>
+      <rect x="90" y="51" width="18" height="18" rx="6" fill="#1747E0"/>
+      <circle cx="60" cy="99" r="9.5" fill="#1747E0"/>
+      <path d="M12 60 C34 47 50 50 54 60 C50 70 34 73 12 60 Z" fill="#1747E0"/>
+    </svg></div>
+    <h3>The Morph</h3><div class="rnd">Round 4</div>
+  </div>
+
+  <div class="option g-card" data-choice="M11-sprout" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <g fill="#141414" opacity=".22"><rect x="18" y="46" width="22" height="22" rx="5"/><rect x="48" y="46" width="22" height="22" rx="5"/><rect x="18" y="76" width="22" height="22" rx="5"/><rect x="48" y="76" width="22" height="22" rx="5"/><rect x="78" y="76" width="22" height="22" rx="5"/></g>
+      <rect x="78" y="46" width="22" height="22" rx="5" fill="#1747E0"/>
+      <path d="M89 46 C89 34 82 30 78 22" stroke="#1747E0" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <g transform="translate(78,20)">
+        <g fill="#1747E0"><path d="M0 -3 C4 -10 10 -12 14 -9 C13 -3 8 1 0 -3 Z"/><path d="M-2 -4 C-8 -8 -9 -14 -5 -17 C1 -14 2 -9 -2 -4 Z"/></g>
+        <circle cx="0" cy="-2" r="4.5" fill="#FF6B4A"/>
+      </g>
+    </svg></div>
+    <h3>The Sprout</h3><div class="rnd">Round 4</div>
+  </div>
+
+  <div class="option g-card" data-choice="M12-cutout" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <rect x="6" y="6" width="108" height="108" rx="26" fill="#1747E0"/>
+      <g transform="rotate(45 60 60)"><g fill="#F2EFE9"><path d="M60 14 C74 38 74 54 60 60 C46 54 46 38 60 14 Z"/><path d="M106 60 C82 74 66 74 60 60 C66 46 82 46 106 60 Z"/><path d="M60 106 C46 82 46 66 60 60 C74 66 74 82 60 106 Z"/><path d="M14 60 C38 46 54 46 60 60 C54 74 38 74 14 60 Z"/></g></g>
+      <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+    </svg></div>
+    <h3>The Cutout</h3><div class="rnd">Round 4</div>
+  </div>
+
+  <div class="option g-card" data-choice="M13-plotted" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="64" height="64" viewBox="0 0 120 120">
+      <g stroke="#141414" stroke-width="2" opacity=".5"><line x1="60" y1="4" x2="60" y2="116"/><line x1="4" y1="60" x2="116" y2="60"/></g>
+      <g stroke="#141414" stroke-width="2" opacity=".35"><line x1="56" y1="18" x2="64" y2="18"/><line x1="56" y1="102" x2="64" y2="102"/><line x1="18" y1="56" x2="18" y2="64"/><line x1="102" y1="56" x2="102" y2="64"/></g>
+      <g fill="#1747E0">
+        <g transform="rotate(45 60 60)"><path d="M60 18 C72 38 72 52 60 57 C48 52 48 38 60 18 Z"/></g>
+        <g transform="rotate(135 60 60)"><path d="M60 18 C72 38 72 52 60 57 C48 52 48 38 60 18 Z"/></g>
+        <g transform="rotate(225 60 60)"><path d="M60 18 C72 38 72 52 60 57 C48 52 48 38 60 18 Z"/></g>
+        <g transform="rotate(315 60 60)"><path d="M60 18 C72 38 72 52 60 57 C48 52 48 38 60 18 Z"/></g>
+      </g>
+      <circle cx="60" cy="60" r="8.5" fill="#FF6B4A"/>
+    </svg></div>
+    <h3>Plotted</h3><div class="rnd">Round 4</div>
+  </div>
+
+</div>
+
+<h2 style="font-size:19px;margin-top:34px;">Wordmarks</h2>
+<div class="options g-wm">
+
+  <div class="option g-card" data-choice="WA-dot-matrix-fill" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><svg width="100%" height="46" viewBox="0 0 640 86"><text x="320" y="60" text-anchor="middle" font-family="Arial Black, Inter, sans-serif" font-weight="900" font-size="56" letter-spacing="2" fill="url(#p-wmdots)">BLOOM <tspan fill="url(#p-wmdotsBlue)">MATRIX</tspan></text></svg></div>
+    <h3>Full Dot-Matrix</h3><div class="rnd">Round 1</div>
+  </div>
+
+  <div class="option g-card" data-choice="WB-bloom-grotesk" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><div style="font-family:Inter,sans-serif;font-weight:800;font-size:30px;letter-spacing:-.04em;color:#141414;line-height:1;">bl<span style="display:inline-block;width:.62em;height:.62em;border:.13em solid #1747E0;border-radius:50%;margin:0 .015em;"></span><span style="display:inline-block;width:.62em;height:.62em;border:.13em solid #1747E0;border-radius:50%;margin:0 .015em;position:relative;"><span style="position:absolute;inset:0;margin:auto;width:.22em;height:.22em;background:#FF6B4A;border-radius:50%;"></span></span>m&nbsp;matri<span style="color:#1747E0;">x</span></div></div>
+    <h3>Bloom Grotesk</h3><div class="rnd">Round 1</div>
+  </div>
+
+  <div class="option g-card" data-choice="WC-serif-seed" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><div style="font-family:Georgia,serif;font-size:30px;color:#141414;line-height:1;">Bloom <em style="color:#1747E0;">Matrix</em><span style="display:inline-block;width:.16em;height:.16em;background:#FF6B4A;border-radius:50%;margin-left:.08em;"></span></div></div>
+    <h3>Serif + Seed</h3><div class="rnd">Round 1</div>
+  </div>
+
+  <div class="option g-card" data-choice="W1-tiled" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><svg width="100%" height="42" viewBox="0 0 560 70"><text x="280" y="52" text-anchor="middle" font-family="Arial Black, Inter, sans-serif" font-weight="900" font-size="48" letter-spacing="1" fill="url(#p-tiles)">BLOOM MATRIX</text></svg></div>
+    <h3>Tiled</h3><div class="rnd">Round 2</div>
+  </div>
+
+  <div class="option g-card" data-choice="W2-growing" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><svg width="100%" height="42" viewBox="0 0 560 70"><text x="90" y="54" font-family="Inter, sans-serif" font-weight="800" letter-spacing="-2" fill="#141414"><tspan font-size="26">b</tspan><tspan font-size="33">l</tspan><tspan font-size="41">o</tspan><tspan font-size="50">o</tspan><tspan font-size="60">m</tspan></text><text x="310" y="54" font-family="Inter, sans-serif" font-weight="300" font-size="60" letter-spacing="2" fill="#1747E0">matrix</text></svg></div>
+    <h3>Growing</h3><div class="rnd">Round 2</div>
+  </div>
+
+  <div class="option g-card" data-choice="W3-interpunct" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><div><div style="font-family:Georgia,serif;font-style:italic;font-size:27px;color:#141414;line-height:1;">Bloom</div><div style="font-family:Inter,sans-serif;font-weight:600;font-size:11px;letter-spacing:.32em;color:#141414;margin-top:5px;">M<span style="color:#FF6B4A;">·</span>A<span style="color:#FF6B4A;">·</span>T<span style="color:#FF6B4A;">·</span>R<span style="color:#FF6B4A;">·</span>I<span style="color:#FF6B4A;">·</span>X</div></div></div>
+    <h3>Interpunct</h3><div class="rnd">Round 2</div>
+  </div>
+
+  <div class="option g-card" data-choice="W4-flower-glyph" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><div style="font-family:Inter,sans-serif;font-weight:800;font-size:27px;letter-spacing:-.03em;color:#141414;line-height:1;display:flex;align-items:center;gap:1px;"><span>blo</span><svg width="23" height="23" viewBox="0 0 120 120" style="margin:0 1px;"><g fill="#1747E0"><path d="M60 8 C76 34 76 54 60 60 C44 54 44 34 60 8 Z"/><path d="M112 60 C86 76 66 76 60 60 C66 44 86 44 112 60 Z"/><path d="M60 112 C44 86 44 66 60 60 C76 66 76 86 60 112 Z"/><path d="M8 60 C34 44 54 44 60 60 C54 76 34 76 8 60 Z"/></g><circle cx="60" cy="60" r="9" fill="#FF6B4A"/></svg><span>m</span><span style="font-weight:300;color:#1747E0;margin-left:7px;">matrix</span></div></div>
+    <h3>Flower Glyph</h3><div class="rnd">Round 2</div>
+  </div>
+
+  <div class="option g-card" data-choice="W5-grid-snapped" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><svg width="100%" height="58" viewBox="0 0 560 104"><rect width="560" height="104" fill="url(#p-bgdots)"/><g font-family="Inter, sans-serif" font-weight="800" font-size="56" fill="#141414"><text x="120" y="66">B</text><text x="163" y="44">L</text><text x="198" y="88" fill="#1747E0">O</text><text x="245" y="44" fill="#1747E0">O</text><text x="292" y="66">M</text></g><text x="360" y="88" font-family="Inter, sans-serif" font-weight="500" font-size="15" letter-spacing="6" fill="#141414">MATRIX</text></svg></div>
+    <h3>Grid-Snapped</h3><div class="rnd">Round 3</div>
+  </div>
+
+  <div class="option g-card" data-choice="W6-seeded-counters" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><svg width="100%" height="52" viewBox="0 0 560 104"><g font-family="Arial Black, Inter, sans-serif" font-weight="900" font-size="66" fill="#141414"><text x="118" y="72">B</text><text x="172" y="72">L</text><text x="218" y="72">O</text><text x="278" y="72">O</text><text x="338" y="72">M</text></g><circle cx="243" cy="49" r="9" fill="#FF6B4A"/><circle cx="303" cy="49" r="9" fill="#1747E0"/><text x="420" y="72" font-family="Inter, sans-serif" font-weight="400" font-size="20" letter-spacing="3" fill="#141414">MATRIX</text></svg></div>
+    <h3>Seeded Counters</h3><div class="rnd">Round 3</div>
+  </div>
+
+  <div class="option g-card" data-choice="W7-overlap" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage" style="height:64px;"><div style="position:relative;width:100%;height:100%;"><div style="position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);font-family:Georgia,serif;font-style:italic;font-size:36px;color:#1747E0;opacity:.85;">matrix</div><div style="position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);font-family:Inter,sans-serif;font-weight:900;font-size:25px;color:#141414;">BLOOM</div></div></div>
+    <h3>Overlap</h3><div class="rnd">Round 3</div>
+  </div>
+
+  <div class="option g-card" data-choice="W8-telegraph" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><div><div style="font-family:Inter,sans-serif;font-weight:300;font-size:22px;letter-spacing:.45em;color:#141414;line-height:1;margin-left:.45em;">BLOOM</div><div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-top:6px;"><div style="height:2px;width:30px;background:#FF6B4A;"></div><div style="font-family:Inter,sans-serif;font-weight:900;font-size:13px;color:#1747E0;">MATRIX</div><div style="height:2px;width:30px;background:#FF6B4A;"></div></div></div></div>
+    <h3>Telegraph</h3><div class="rnd">Round 3</div>
+  </div>
+
+  <div class="option g-card" data-choice="W9-bracket" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><svg width="100%" height="50" viewBox="0 0 560 92"><g stroke="#1747E0" stroke-width="5" fill="none" stroke-linecap="square"><path d="M158 16 L146 16 L146 76 L158 76"/><path d="M402 16 L414 16 L414 76 L402 76"/></g><text x="280" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="40" letter-spacing="12" fill="#141414">bloom</text><text x="424" y="26" font-family="Inter, sans-serif" font-weight="600" font-size="13" fill="#FF6B4A">m×n</text></svg></div>
+    <h3>The Bracket</h3><div class="rnd">Round 4</div>
+  </div>
+
+  <div class="option g-card" data-choice="W10-pin" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage" style="height:64px;"><div style="position:relative;display:inline-block;"><div style="font-family:Inter,sans-serif;font-weight:900;font-size:34px;letter-spacing:-.03em;color:#141414;line-height:1;">BLOOM</div><div style="position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) rotate(-5deg);background:#FF6B4A;color:#F2EFE9;font-family:Inter,sans-serif;font-weight:700;font-size:9px;letter-spacing:.22em;padding:2px 8px;box-shadow:0 2px 6px rgba(0,0,0,.25);">MATRIX</div></div></div>
+    <h3>The Pin</h3><div class="rnd">Round 4</div>
+  </div>
+
+  <div class="option g-card" data-choice="W11-scattered-seeds" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><div><div style="font-family:Georgia,serif;font-size:29px;color:#141414;line-height:1;display:flex;align-items:baseline;justify-content:center;"><span style="display:inline-block;transform:rotate(-5deg) translateY(1px);">b</span><span style="display:inline-block;transform:rotate(3deg) translateY(-2px);">l</span><span style="display:inline-block;transform:rotate(-2deg) translateY(2px);color:#1747E0;">o</span><span style="display:inline-block;transform:rotate(6deg) translateY(-1px);color:#1747E0;">o</span><span style="display:inline-block;transform:rotate(-3deg) translateY(1px);">m</span></div><div style="font-family:Inter,sans-serif;font-weight:600;font-size:9px;letter-spacing:.5em;color:#141414;margin-top:4px;text-align:center;margin-left:.5em;">MATRIX</div></div></div>
+    <h3>Scattered Seeds</h3><div class="rnd">Round 4</div>
+  </div>
+
+  <div class="option g-card" data-choice="W12-spine" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage"><div style="display:flex;align-items:center;justify-content:center;gap:9px;"><div style="font-family:Inter,sans-serif;font-weight:800;font-size:8px;letter-spacing:.3em;color:#1747E0;writing-mode:vertical-rl;transform:rotate(180deg);line-height:1;">MATRIX</div><div style="width:2px;height:36px;background:#141414;"></div><div style="font-family:Georgia,serif;font-style:italic;font-size:31px;color:#141414;line-height:1;">Bloom<span style="display:inline-block;width:.14em;height:.14em;background:#FF6B4A;border-radius:50%;margin-left:.06em;"></span></div></div></div>
+    <h3>The Spine</h3><div class="rnd">Round 4</div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:20px;">Click one mark + one wordmark (both groups allow selection), or name them in the terminal. Once locked, I'll compose the final identity — mark + wordmark + palette — as one lockup sheet for sign-off.</p>
+</body></html>

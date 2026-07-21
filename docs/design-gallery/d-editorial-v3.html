@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom Matrix — Design Exploration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #faf9f7; color: #1a1a1a; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; line-height: 1.5; }
+  h2 { font-size: 24px; margin: 8px 0 6px; }
+  h3 { margin: 0; }
+  .subtitle { color: #1a1a1a; opacity: .65; font-size: 14px; margin: 4px 0 18px; }
+  .options { display: grid; gap: 14px; margin: 18px 0; }
+  .option { border: 1px solid rgba(0,0,0,.15); border-radius: 12px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer; background: #fff; transition: box-shadow .15s ease; }
+  .option:hover { box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .option.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .option .letter { font-weight: 800; font-size: 18px; background: #1a1a1a; color: #faf9f7; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .option .content h3 { font-size: 15px; margin-bottom: 4px; }
+  .option .content p { font-size: 13px; opacity: .7; margin: 0; }
+  .cards { display: grid; gap: 20px; }
+  .card { border: 1px solid rgba(0,0,0,.15); border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; }
+  .card.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .gallery-nav { font-size: 13px; margin-bottom: 26px; }
+  .gallery-nav a { color: #1747E0; }
+</style>
+<script>function toggleSelect(el){ el.classList.toggle('selected'); }</script>
+</head>
+<body>
+<p class="gallery-nav"><a href="index.html">← All rounds</a></p>
+<h2>D — Editorial Bloom, with the Petal Flower as the logo</h2>
+<p class="subtitle">The original D direction, unchanged palette, petal flower in the nav. Below: your new mark idea compared against the other three, then custom font directions for the wordmark.</p>
+
+<style>
+  .bighero { border: 1px solid rgba(128,128,128,.25); border-radius: 14px; overflow: hidden; margin: 22px 0 34px; }
+  .logo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .logo-card { text-align: center; padding: 24px 12px 16px; }
+  .logo-card h3 { font-size: 14px; margin: 12px 0 6px; }
+  .logo-card p { font-size: 12px; opacity: .7; margin: 0; line-height: 1.45; }
+  .wm-card { padding: 28px 20px; text-align: center; }
+  .wm-card h3 { font-size: 14px; margin: 16px 0 6px; }
+  .wm-card p { font-size: 12px; opacity: .7; margin: 0; line-height: 1.45; }
+  .wm-stage { background: #F2EFE9; border-radius: 8px; padding: 30px 10px; }
+</style>
+
+<!-- ============ THE D HERO ============ -->
+<div class="bighero">
+  <div style="position:relative;height:430px;background:#F2EFE9;overflow:hidden;">
+    <!-- hard blue block, right -->
+    <div style="position:absolute;right:0;top:0;bottom:0;width:38%;background:#1747E0;"></div>
+    <!-- big petal flower in the block -->
+    <svg style="position:absolute;right:9%;top:110px;" width="200" height="200" viewBox="0 0 120 120">
+      <g fill="#F2EFE9">
+        <path d="M60 10 C75 35 75 55 60 60 C45 55 45 35 60 10 Z"/>
+        <path d="M110 60 C85 75 65 75 60 60 C65 45 85 45 110 60 Z"/>
+        <path d="M60 110 C45 85 45 65 60 60 C75 65 75 85 60 110 Z"/>
+        <path d="M10 60 C35 45 55 45 60 60 C55 75 35 75 10 60 Z"/>
+      </g>
+      <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+    </svg>
+
+    <!-- nav with petal flower logo -->
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:20px 28px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <svg width="26" height="26" viewBox="0 0 120 120">
+          <g fill="#1747E0">
+            <path d="M60 12 C74 36 74 54 60 60 C46 54 46 36 60 12 Z"/>
+            <path d="M108 60 C84 74 66 74 60 60 C66 46 84 46 108 60 Z"/>
+            <path d="M60 108 C46 84 46 66 60 60 C74 66 74 84 60 108 Z"/>
+            <path d="M12 60 C36 46 54 46 60 60 C54 74 36 74 12 60 Z"/>
+          </g>
+          <circle cx="60" cy="60" r="8" fill="#FF6B4A"/>
+        </svg>
+        <span style="font-family:Georgia,serif;font-weight:700;font-size:15px;color:#141414;font-style:italic;">Bloom&nbsp;Matrix</span>
+      </div>
+      <div style="font-size:10.5px;color:#141414;font-family:Inter,sans-serif;">Products &nbsp;&nbsp; Services &nbsp;&nbsp; About &nbsp;&nbsp; <span style="color:#F2EFE9;background:#141414;padding:5px 12px;border-radius:2px;">Contact</span></div>
+    </div>
+
+    <!-- headline -->
+    <div style="position:absolute;left:28px;top:120px;max-width:500px;">
+      <div style="font-family:Inter,sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#1747E0;font-weight:700;margin-bottom:14px;">AI-first product engineering</div>
+      <div style="font-family:Georgia,serif;font-size:56px;font-weight:400;letter-spacing:-.02em;line-height:1.02;color:#141414;">We build products<br/>that <em style="color:#1747E0;">think</em>.</div>
+      <div style="font-family:Inter,sans-serif;font-size:13px;color:#141414;opacity:.65;margin-top:16px;max-width:330px;line-height:1.6;">An AI-first product engineering company for businesses that want more than software.</div>
+      <div style="display:flex;gap:14px;margin-top:24px;align-items:center;">
+        <div style="background:#FF6B4A;color:#141414;font-family:Inter,sans-serif;font-weight:600;font-size:12px;padding:10px 18px;border-radius:2px;">Start a project →</div>
+        <div style="font-family:Inter,sans-serif;font-weight:600;font-size:12px;color:#141414;border-bottom:2px solid #1747E0;padding-bottom:2px;">Explore products</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MARK COMPARISON ============ -->
+<h2 style="font-size:20px;">The four marks — including your new idea</h2>
+<p class="subtitle">Mark 4 is yours: the petal flower placed in the center of the 3×3 dot matrix. Click any to select — or keep throwing ideas at me.</p>
+
+<div class="options logo-row">
+  <div class="option logo-card" data-choice="mark-1-dot-bloom" onclick="toggleSelect(this)" style="display:block;">
+    <svg width="80" height="80" viewBox="0 0 26 26">
+      <circle cx="13" cy="13" r="3.2" fill="#FF6B4A"/>
+      <g fill="#1747E0">
+        <circle cx="13" cy="4.5" r="3"/>
+        <circle cx="21" cy="10.2" r="3"/>
+        <circle cx="18" cy="20" r="3"/>
+        <circle cx="8" cy="20" r="3"/>
+        <circle cx="5" cy="10.2" r="3"/>
+      </g>
+    </svg>
+    <h3>1 — Dot Bloom</h3>
+    <p>Five dots as petals, coral core.</p>
+  </div>
+
+  <div class="option logo-card" data-choice="mark-2-petal-flower" onclick="toggleSelect(this)" style="display:block;">
+    <svg width="80" height="80" viewBox="0 0 120 120">
+      <g fill="#1747E0">
+        <path d="M60 12 C74 36 74 54 60 60 C46 54 46 36 60 12 Z"/>
+        <path d="M108 60 C84 74 66 74 60 60 C66 46 84 46 108 60 Z"/>
+        <path d="M60 108 C46 84 46 66 60 60 C74 66 74 84 60 108 Z"/>
+        <path d="M12 60 C36 46 54 46 60 60 C54 74 36 74 12 60 Z"/>
+      </g>
+      <circle cx="60" cy="60" r="8" fill="#FF6B4A"/>
+    </svg>
+    <h3>2 — Petal Flower</h3>
+    <p>Pure organic bloom, coral core.</p>
+  </div>
+
+  <div class="option logo-card" data-choice="mark-3-grid-bloom" onclick="toggleSelect(this)" style="display:block;">
+    <svg width="80" height="80" viewBox="0 0 120 120">
+      <g fill="#141414" opacity=".85">
+        <circle cx="20" cy="20" r="9"/><circle cx="60" cy="20" r="9"/><circle cx="100" cy="20" r="9"/>
+        <circle cx="20" cy="60" r="9"/><circle cx="60" cy="60" r="9"/>
+        <circle cx="20" cy="100" r="9"/><circle cx="60" cy="100" r="9"/><circle cx="100" cy="100" r="9"/>
+      </g>
+      <g fill="#1747E0">
+        <path d="M100 34 C110 48 110 56 100 60 C90 56 90 48 100 34 Z"/>
+        <path d="M120 60 C106 70 98 70 94 60 C98 50 106 50 120 60 Z"/>
+        <path d="M100 86 C90 72 90 64 100 60 C110 64 110 72 100 86 Z"/>
+        <path d="M74 60 C88 50 96 50 100 60 C96 70 88 70 74 60 Z"/>
+      </g>
+    </svg>
+    <h3>3 — Grid Bloom</h3>
+    <p>Corner cell of the matrix has bloomed.</p>
+  </div>
+
+  <div class="option logo-card" data-choice="mark-4-matrix-heart-bloom" onclick="toggleSelect(this)" style="display:block;">
+    <svg width="80" height="80" viewBox="0 0 120 120">
+      <g fill="#141414" opacity=".85">
+        <circle cx="20" cy="20" r="8"/><circle cx="60" cy="20" r="8"/><circle cx="100" cy="20" r="8"/>
+        <circle cx="20" cy="60" r="8"/><circle cx="100" cy="60" r="8"/>
+        <circle cx="20" cy="100" r="8"/><circle cx="60" cy="100" r="8"/><circle cx="100" cy="100" r="8"/>
+      </g>
+      <g transform="translate(60,60) scale(0.52) translate(-60,-60)">
+        <g fill="#1747E0">
+          <path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/>
+          <path d="M114 60 C86 77 66 77 60 60 C66 43 86 43 114 60 Z"/>
+          <path d="M60 114 C43 86 43 66 60 60 C77 66 77 86 60 114 Z"/>
+          <path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/>
+        </g>
+        <circle cx="60" cy="60" r="10" fill="#FF6B4A"/>
+      </g>
+    </svg>
+    <h3>4 — Matrix Heart <span style="font-size:10px;color:#FF6B4A;">(your idea)</span></h3>
+    <p>The flower at the center of the 3×3 matrix — the bloom is the heart of the system.</p>
+  </div>
+</div>
+
+<!-- ============ CUSTOM WORDMARK / FONT ============ -->
+<h2 style="font-size:20px;margin-top:36px;">A font invented for Bloom Matrix</h2>
+<p class="subtitle">Three custom wordmark directions, each "keeping the matrix in mind." The chosen one gets built into real drawn letterforms (SVG logotype + display lettering for headlines).</p>
+
+<div class="options" style="display:grid;grid-template-columns:1fr;gap:16px;">
+
+  <div class="option wm-card" data-choice="font-A-dot-matrix" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage">
+      <svg width="100%" height="86" viewBox="0 0 640 86">
+        <defs>
+          <pattern id="wmdots" width="7" height="7" patternUnits="userSpaceOnUse">
+            <circle cx="3.5" cy="3.5" r="2.3" fill="#141414"/>
+          </pattern>
+          <pattern id="wmdotsBlue" width="7" height="7" patternUnits="userSpaceOnUse">
+            <circle cx="3.5" cy="3.5" r="2.3" fill="#1747E0"/>
+          </pattern>
+        </defs>
+        <text x="320" y="60" text-anchor="middle" font-family="Arial Black, Inter, sans-serif" font-weight="900" font-size="56" letter-spacing="2" fill="url(#wmdots)">BLOOM <tspan fill="url(#wmdotsBlue)">MATRIX</tspan></text>
+      </svg>
+    </div>
+    <h3>A — Full Dot-Matrix</h3>
+    <p>Every letterform constructed from grid dots — the wordmark literally IS a matrix. Distinctive and ownable; best as display/logo lettering, paired with a clean sans for body text.</p>
+  </div>
+
+  <div class="option wm-card" data-choice="font-B-bloom-grotesk" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage">
+      <div style="font-family:Inter,sans-serif;font-weight:800;font-size:52px;letter-spacing:-.04em;color:#141414;line-height:1;">
+        bl<span style="display:inline-block;width:.62em;height:.62em;border:.13em solid #1747E0;border-radius:50%;margin:0 .015em;vertical-align:-0.02em;"></span><span style="display:inline-block;width:.62em;height:.62em;border:.13em solid #1747E0;border-radius:50%;margin:0 .015em;vertical-align:-0.02em;position:relative;"><span style="position:absolute;inset:0;margin:auto;width:.22em;height:.22em;background:#FF6B4A;border-radius:50%;"></span></span>m&nbsp;matri<span style="color:#1747E0;">x</span>
+      </div>
+    </div>
+    <h3>B — Bloom Grotesk (hybrid)</h3>
+    <p>A confident geometric sans where only the key glyphs are custom: the two "o"s become perfect matrix cells (one holding the coral seed), the "x" is the matrix crossing point. Subtle — premium at every size.</p>
+  </div>
+
+  <div class="option wm-card" data-choice="font-C-serif-seed" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage">
+      <div style="font-family:Georgia,serif;font-size:52px;font-weight:400;color:#141414;line-height:1;letter-spacing:-.01em;">Bloom <em style="color:#1747E0;">Matrix</em><span style="display:inline-block;width:.16em;height:.16em;background:#FF6B4A;border-radius:50%;margin-left:.08em;"></span></div>
+    </div>
+    <h3>C — Editorial Serif + Seed</h3>
+    <p>Keeps the editorial serif voice from the hero, with a custom coral "seed" full stop as the matrix cell. Quietest option — the mark does the talking, the wordmark stays elegant.</p>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:20px;">To be honest about "inventing a font": we can genuinely draw a custom display logotype + headline lettering (as SVG/font file) for whichever direction you pick — that's real and ownable. A full text typeface with every weight is a months-long type-design project, so body copy would stay on a licensed font (e.g., Inter).</p>
+</body></html>

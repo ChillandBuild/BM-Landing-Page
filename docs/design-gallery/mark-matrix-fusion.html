@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom Matrix — Design Exploration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #faf9f7; color: #1a1a1a; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; line-height: 1.5; }
+  h2 { font-size: 24px; margin: 8px 0 6px; }
+  h3 { margin: 0; }
+  .subtitle { color: #1a1a1a; opacity: .65; font-size: 14px; margin: 4px 0 18px; }
+  .options { display: grid; gap: 14px; margin: 18px 0; }
+  .option { border: 1px solid rgba(0,0,0,.15); border-radius: 12px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer; background: #fff; transition: box-shadow .15s ease; }
+  .option:hover { box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .option.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .option .letter { font-weight: 800; font-size: 18px; background: #1a1a1a; color: #faf9f7; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .option .content h3 { font-size: 15px; margin-bottom: 4px; }
+  .option .content p { font-size: 13px; opacity: .7; margin: 0; }
+  .cards { display: grid; gap: 20px; }
+  .card { border: 1px solid rgba(0,0,0,.15); border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; }
+  .card.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .gallery-nav { font-size: 13px; margin-bottom: 26px; }
+  .gallery-nav a { color: #1747E0; }
+</style>
+<script>function toggleSelect(el){ el.classList.toggle('selected'); }</script>
+</head>
+<body>
+<p class="gallery-nav"><a href="index.html">← All rounds</a></p>
+<h2>Matrix ∩ Petal Flower — four fusions</h2>
+<p class="subtitle">Option 1 is exactly your spec: cream flower + coral core (as in the hero block), four matrix dots on the corners, on the blue tile. The others push the same fusion in different ways. Click your favorite.</p>
+
+<style>
+  .logo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .logo-card { text-align: center; padding: 24px 12px 16px; }
+  .logo-card h3 { font-size: 14px; margin: 12px 0 6px; }
+  .logo-card p { font-size: 12px; opacity: .7; margin: 0; line-height: 1.45; }
+  .wm-card { padding: 24px 20px; text-align: center; }
+  .wm-card h3 { font-size: 14px; margin: 14px 0 6px; }
+  .wm-card p { font-size: 12px; opacity: .7; margin: 0; line-height: 1.45; }
+  .wm-stage { background: #F2EFE9; border-radius: 8px; padding: 28px 10px; }
+</style>
+
+<div class="options logo-row">
+
+  <!-- 1: USER SPEC — blue tile, cream flower, coral core, 4 corner dots -->
+  <div class="option logo-card" data-choice="fusion-1-corner-tile" onclick="toggleSelect(this)" style="display:block;">
+    <svg width="88" height="88" viewBox="0 0 120 120">
+      <rect x="2" y="2" width="116" height="116" rx="26" fill="#1747E0"/>
+      <g fill="#F2EFE9">
+        <circle cx="22" cy="22" r="6.5"/>
+        <circle cx="98" cy="22" r="6.5"/>
+        <circle cx="22" cy="98" r="6.5"/>
+        <circle cx="98" cy="98" r="6.5"/>
+      </g>
+      <g transform="translate(60,60) scale(0.62) translate(-60,-60)">
+        <g fill="#F2EFE9">
+          <path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/>
+          <path d="M114 60 C86 77 66 77 60 60 C66 43 86 43 114 60 Z"/>
+          <path d="M60 114 C43 86 43 66 60 60 C77 66 77 86 60 114 Z"/>
+          <path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/>
+        </g>
+        <circle cx="60" cy="60" r="10" fill="#FF6B4A"/>
+      </g>
+    </svg>
+    <h3>1 — Corner Matrix Tile <span style="font-size:10px;color:#FF6B4A;">(your spec)</span></h3>
+    <p>Blue tile, cream flower + coral core, matrix dots holding the four corners. Works as app icon / favicon out of the box.</p>
+  </div>
+
+  <!-- 2: same geometry, no tile (for light backgrounds) -->
+  <div class="option logo-card" data-choice="fusion-2-corner-open" onclick="toggleSelect(this)" style="display:block;">
+    <svg width="88" height="88" viewBox="0 0 120 120">
+      <g fill="#141414" opacity=".8">
+        <circle cx="16" cy="16" r="6.5"/>
+        <circle cx="104" cy="16" r="6.5"/>
+        <circle cx="16" cy="104" r="6.5"/>
+        <circle cx="104" cy="104" r="6.5"/>
+      </g>
+      <g transform="translate(60,60) scale(0.7) translate(-60,-60)">
+        <g fill="#1747E0">
+          <path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/>
+          <path d="M114 60 C86 77 66 77 60 60 C66 43 86 43 114 60 Z"/>
+          <path d="M60 114 C43 86 43 66 60 60 C77 66 77 86 60 114 Z"/>
+          <path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/>
+        </g>
+        <circle cx="60" cy="60" r="10" fill="#FF6B4A"/>
+      </g>
+    </svg>
+    <h3>2 — Corner Matrix, Open</h3>
+    <p>Same idea without the tile: blue flower, ink corner dots. The version that sits directly on cream paper (nav, letterhead).</p>
+  </div>
+
+  <!-- 3: halftone petals — petals MADE of matrix dots -->
+  <div class="option logo-card" data-choice="fusion-3-halftone" onclick="toggleSelect(this)" style="display:block;">
+    <svg width="88" height="88" viewBox="0 0 120 120">
+      <defs>
+        <pattern id="halft" width="9" height="9" patternUnits="userSpaceOnUse">
+          <circle cx="4.5" cy="4.5" r="2.6" fill="#1747E0"/>
+        </pattern>
+      </defs>
+      <g fill="url(#halft)">
+        <path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/>
+        <path d="M114 60 C86 77 66 77 60 60 C66 43 86 43 114 60 Z"/>
+        <path d="M60 114 C43 86 43 66 60 60 C77 66 77 86 60 114 Z"/>
+        <path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/>
+      </g>
+      <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+    </svg>
+    <h3>3 — Halftone Bloom</h3>
+    <p>The petals themselves are made of matrix dots — flower and matrix become one object. Striking large; needs the simple flower as small-size fallback.</p>
+  </div>
+
+  <!-- 4: dissolve — organic petals dissolving into matrix dots -->
+  <div class="option logo-card" data-choice="fusion-4-dissolve" onclick="toggleSelect(this)" style="display:block;">
+    <svg width="88" height="88" viewBox="0 0 120 120">
+      <g fill="#1747E0">
+        <path d="M60 6 C77 34 77 54 60 60 C43 54 43 34 60 6 Z"/>
+        <path d="M6 60 C34 43 54 43 60 60 C54 77 34 77 6 60 Z"/>
+      </g>
+      <g fill="#1747E0">
+        <circle cx="78" cy="55" r="7"/>
+        <circle cx="93" cy="58" r="5"/>
+        <circle cx="106" cy="61" r="3.2"/>
+        <circle cx="55" cy="78" r="7"/>
+        <circle cx="58" cy="93" r="5"/>
+        <circle cx="61" cy="106" r="3.2"/>
+      </g>
+      <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+    </svg>
+    <h3>4 — Dissolve</h3>
+    <p>Two petals organic, two dissolving into matrix dots — "structure becoming life," mid-transformation. The most conceptual of the four.</p>
+  </div>
+
+</div>
+
+<!-- ============ WORDMARKS ROUND 2 ============ -->
+<h2 style="font-size:20px;margin-top:36px;">Wordmarks — round two, weirder</h2>
+<p class="subtitle">Four new directions, none from the last round. Click the one worth developing into the real drawn logotype.</p>
+
+<div class="options" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+  <div class="option wm-card" data-choice="wm-tiled" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage">
+      <svg width="100%" height="70" viewBox="0 0 560 70">
+        <defs>
+          <pattern id="tiles" width="11" height="11" patternUnits="userSpaceOnUse">
+            <rect width="9.2" height="9.2" fill="#141414"/>
+          </pattern>
+        </defs>
+        <text x="280" y="52" text-anchor="middle" font-family="Arial Black, Inter, sans-serif" font-weight="900" font-size="48" letter-spacing="1" fill="url(#tiles)">BLOOM MATRIX</text>
+      </svg>
+    </div>
+    <h3>W1 — Tiled</h3>
+    <p>Heavy letterforms sliced into matrix cells — pixels up close, solid type from afar. Bold, technical, unmistakable.</p>
+  </div>
+
+  <div class="option wm-card" data-choice="wm-growing" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage">
+      <svg width="100%" height="70" viewBox="0 0 560 70">
+        <text x="90" y="54" font-family="Inter, sans-serif" font-weight="800" letter-spacing="-2" fill="#141414"><tspan font-size="26">b</tspan><tspan font-size="33">l</tspan><tspan font-size="41">o</tspan><tspan font-size="50">o</tspan><tspan font-size="60">m</tspan></text>
+        <text x="310" y="54" font-family="Inter, sans-serif" font-weight="300" font-size="60" letter-spacing="2" fill="#1747E0">matrix</text>
+      </svg>
+    </div>
+    <h3>W2 — Growing</h3>
+    <p>"bloom" literally grows letter by letter — small to full size — then "matrix" answers in a thin, wide voice. The name performs itself.</p>
+  </div>
+
+  <div class="option wm-card" data-choice="wm-interpunct" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage">
+      <div style="font-family:Georgia,serif;font-style:italic;font-size:44px;color:#141414;line-height:1;">Bloom</div>
+      <div style="font-family:Inter,sans-serif;font-weight:600;font-size:17px;letter-spacing:.32em;color:#141414;margin-top:8px;">M<span style="color:#FF6B4A;">·</span>A<span style="color:#FF6B4A;">·</span>T<span style="color:#FF6B4A;">·</span>R<span style="color:#FF6B4A;">·</span>I<span style="color:#FF6B4A;">·</span>X</div>
+    </div>
+    <h3>W3 — Interpunct</h3>
+    <p>Serif "Bloom" stacked over spaced caps "M·A·T·R·I·X" — the coral dots between letters ARE the matrix. Editorial, luxurious, very ownable.</p>
+  </div>
+
+  <div class="option wm-card" data-choice="wm-flower-glyph" onclick="toggleSelect(this)" style="display:block;">
+    <div class="wm-stage">
+      <div style="font-family:Inter,sans-serif;font-weight:800;font-size:46px;letter-spacing:-.03em;color:#141414;line-height:1;display:flex;align-items:center;justify-content:center;gap:2px;">
+        <span>blo</span><svg width="40" height="40" viewBox="0 0 120 120" style="margin:0 1px;">
+          <g fill="#1747E0">
+            <path d="M60 8 C76 34 76 54 60 60 C44 54 44 34 60 8 Z"/>
+            <path d="M112 60 C86 76 66 76 60 60 C66 44 86 44 112 60 Z"/>
+            <path d="M60 112 C44 86 44 66 60 60 C76 66 76 86 60 112 Z"/>
+            <path d="M8 60 C34 44 54 44 60 60 C54 76 34 76 8 60 Z"/>
+          </g>
+          <circle cx="60" cy="60" r="9" fill="#FF6B4A"/>
+        </svg><span>m</span><span style="font-weight:300;color:#1747E0;margin-left:10px;">matrix</span>
+      </div>
+    </div>
+    <h3>W4 — Flower Glyph</h3>
+    <p>The mark replaces the second "o" of bloom — logo and wordmark become a single unit. Memorable, and the flower gets seen every single time the name is read.</p>
+  </div>
+
+</div>
+</body></html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom Matrix — Design Exploration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #faf9f7; color: #1a1a1a; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; line-height: 1.5; }
+  h2 { font-size: 24px; margin: 8px 0 6px; }
+  h3 { margin: 0; }
+  .subtitle { color: #1a1a1a; opacity: .65; font-size: 14px; margin: 4px 0 18px; }
+  .options { display: grid; gap: 14px; margin: 18px 0; }
+  .option { border: 1px solid rgba(0,0,0,.15); border-radius: 12px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer; background: #fff; transition: box-shadow .15s ease; }
+  .option:hover { box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .option.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .option .letter { font-weight: 800; font-size: 18px; background: #1a1a1a; color: #faf9f7; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .option .content h3 { font-size: 15px; margin-bottom: 4px; }
+  .option .content p { font-size: 13px; opacity: .7; margin: 0; }
+  .cards { display: grid; gap: 20px; }
+  .card { border: 1px solid rgba(0,0,0,.15); border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; }
+  .card.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .gallery-nav { font-size: 13px; margin-bottom: 26px; }
+  .gallery-nav a { color: #1747E0; }
+</style>
+<script>function toggleSelect(el){ el.classList.toggle('selected'); }</script>
+</head>
+<body>
+<p class="gallery-nav"><a href="index.html">← All rounds</a></p>
+<h2>Grid Bloom — refined: clear white flower, orange core</h2>
+<p class="subtitle">The round-1 Grid Bloom had a small, muddy corner flower. Here it's redrawn so the bloom is unmistakable — cream-white petals + orange core, matrix dots intact. Three renditions to compare. Click your pick.</p>
+
+<style>
+  .big-compare { display:flex; align-items:center; justify-content:center; gap:36px; background:#F2EFE9; border:1px solid rgba(128,128,128,.25); border-radius:14px; padding:32px; margin:20px 0 26px; flex-wrap:wrap; }
+  .logo-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .logo-card { text-align: center; padding: 22px 12px 16px; }
+  .logo-card h3 { font-size: 14px; margin: 12px 0 6px; }
+  .logo-card p { font-size: 12px; opacity: .7; margin: 0; line-height: 1.45; }
+  .mini-stage { background: #F2EFE9; border-radius: 10px; padding: 12px; display: inline-block; }
+</style>
+
+<!-- large hero view of the refined mark -->
+<div class="big-compare">
+  <svg width="180" height="180" viewBox="0 0 120 120">
+    <rect x="2" y="2" width="116" height="116" rx="26" fill="#1747E0"/>
+    <g fill="#F2EFE9" opacity=".9">
+      <circle cx="28" cy="28" r="7"/><circle cx="60" cy="28" r="7"/>
+      <circle cx="28" cy="60" r="7"/><circle cx="60" cy="60" r="7"/>
+      <circle cx="28" cy="92" r="7"/><circle cx="60" cy="92" r="7"/><circle cx="92" cy="92" r="7"/>
+    </g>
+    <g transform="translate(88,36) scale(0.42) translate(-60,-60)">
+      <g fill="#F2EFE9">
+        <path d="M60 2 C79 32 79 52 60 60 C41 52 41 32 60 2 Z"/>
+        <path d="M118 60 C88 79 68 79 60 60 C68 41 88 41 118 60 Z"/>
+        <path d="M60 118 C41 88 41 68 60 60 C79 68 79 88 60 118 Z"/>
+        <path d="M2 60 C32 41 52 41 60 60 C52 79 32 79 2 60 Z"/>
+      </g>
+      <circle cx="60" cy="60" r="13" fill="#FF6B4A"/>
+    </g>
+    <text x="60" y="115" text-anchor="middle" font-size="0">grid bloom</text>
+  </svg>
+  <div style="max-width:280px;font-family:Inter,sans-serif;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;">What changed</div>
+    <div style="font-size:12.5px;opacity:.75;line-height:1.6;">Flower is ~2× bigger and sits where the top-right dots were — one clean grid of 7 dots + one unmistakable bloom. Cream petals, orange core, everything on the blue tile like your hero block.</div>
+  </div>
+</div>
+
+<div class="options logo-row">
+
+  <div class="option logo-card" data-choice="GB1-tile-corner" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="86" height="86" viewBox="0 0 120 120">
+      <rect x="2" y="2" width="116" height="116" rx="26" fill="#1747E0"/>
+      <g fill="#F2EFE9" opacity=".9">
+        <circle cx="28" cy="28" r="7"/><circle cx="60" cy="28" r="7"/>
+        <circle cx="28" cy="60" r="7"/><circle cx="60" cy="60" r="7"/>
+        <circle cx="28" cy="92" r="7"/><circle cx="60" cy="92" r="7"/><circle cx="92" cy="92" r="7"/>
+      </g>
+      <g transform="translate(88,36) scale(0.42) translate(-60,-60)">
+        <g fill="#F2EFE9">
+          <path d="M60 2 C79 32 79 52 60 60 C41 52 41 32 60 2 Z"/>
+          <path d="M118 60 C88 79 68 79 60 60 C68 41 88 41 118 60 Z"/>
+          <path d="M60 118 C41 88 41 68 60 60 C79 68 79 88 60 118 Z"/>
+          <path d="M2 60 C32 41 52 41 60 60 C52 79 32 79 2 60 Z"/>
+        </g>
+        <circle cx="60" cy="60" r="13" fill="#FF6B4A"/>
+      </g>
+    </svg></div>
+    <h3>GB-1 — Corner Bloom, Tile</h3>
+    <p>7 cream dots + big corner flower on the blue tile. The bloom breaks out of the grid's top-right — growth at the edge of the system.</p>
+  </div>
+
+  <div class="option logo-card" data-choice="GB2-tile-bigger" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="86" height="86" viewBox="0 0 120 120">
+      <rect x="2" y="2" width="116" height="116" rx="26" fill="#1747E0"/>
+      <g fill="#F2EFE9" opacity=".9">
+        <circle cx="26" cy="26" r="7"/><circle cx="26" cy="60" r="7"/>
+        <circle cx="26" cy="94" r="7"/><circle cx="60" cy="94" r="7"/><circle cx="94" cy="94" r="7"/>
+      </g>
+      <g transform="translate(74,46) scale(0.56) translate(-60,-60)">
+        <g fill="#F2EFE9">
+          <path d="M60 2 C79 32 79 52 60 60 C41 52 41 32 60 2 Z"/>
+          <path d="M118 60 C88 79 68 79 60 60 C68 41 88 41 118 60 Z"/>
+          <path d="M60 118 C41 88 41 68 60 60 C79 68 79 88 60 118 Z"/>
+          <path d="M2 60 C32 41 52 41 60 60 C52 79 32 79 2 60 Z"/>
+        </g>
+        <circle cx="60" cy="60" r="13" fill="#FF6B4A"/>
+      </g>
+    </svg></div>
+    <h3>GB-2 — Dominant Bloom</h3>
+    <p>The flower takes the whole upper-right quadrant; the remaining dots form an L along the edges. Flower-first, matrix as frame.</p>
+  </div>
+
+  <div class="option logo-card" data-choice="GB3-open-outline" onclick="toggleSelect(this)" style="display:block;">
+    <div class="mini-stage"><svg width="86" height="86" viewBox="0 0 120 120">
+      <g fill="#1747E0">
+        <circle cx="28" cy="28" r="7"/><circle cx="60" cy="28" r="7"/>
+        <circle cx="28" cy="60" r="7"/><circle cx="60" cy="60" r="7"/>
+        <circle cx="28" cy="92" r="7"/><circle cx="60" cy="92" r="7"/><circle cx="92" cy="92" r="7"/>
+      </g>
+      <g transform="translate(88,36) scale(0.42) translate(-60,-60)">
+        <g fill="#FFFFFF" stroke="#141414" stroke-width="4">
+          <path d="M60 2 C79 32 79 52 60 60 C41 52 41 32 60 2 Z"/>
+          <path d="M118 60 C88 79 68 79 60 60 C68 41 88 41 118 60 Z"/>
+          <path d="M60 118 C41 88 41 68 60 60 C79 68 79 88 60 118 Z"/>
+          <path d="M2 60 C32 41 52 41 60 60 C52 79 32 79 2 60 Z"/>
+        </g>
+        <circle cx="60" cy="60" r="13" fill="#FF6B4A"/>
+      </g>
+    </svg></div>
+    <h3>GB-3 — Open, Inked Petals</h3>
+    <p>No tile: blue matrix dots on cream, white flower with a fine ink outline + orange core. For light backgrounds (nav, letterhead) where a tile would be heavy.</p>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:20px;">GB-1 is the direct upgrade of the original Grid Bloom per your spec. Pick one — or tell me to adjust dot count, flower size, or position.</p>
+</body></html>

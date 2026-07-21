@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom Matrix — Design Exploration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #faf9f7; color: #1a1a1a; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; line-height: 1.5; }
+  h2 { font-size: 24px; margin: 8px 0 6px; }
+  h3 { margin: 0; }
+  .subtitle { color: #1a1a1a; opacity: .65; font-size: 14px; margin: 4px 0 18px; }
+  .options { display: grid; gap: 14px; margin: 18px 0; }
+  .option { border: 1px solid rgba(0,0,0,.15); border-radius: 12px; padding: 16px; cursor: pointer; background: #fff; }
+  .option.selected { outline: 3px solid #1747E0; outline-offset: 2px; }
+  .hero-opt { border-radius: 14px; overflow: hidden; margin-bottom: 6px; }
+  .gallery-nav { font-size: 13px; margin-bottom: 26px; }
+  .gallery-nav a { color: #1747E0; }
+</style>
+<script>function toggleSelect(el){ el.classList.toggle('selected'); }</script>
+</head>
+<body>
+<p class="gallery-nav"><a href="index.html">← All rounds</a></p>
+
+<h2>One flower everywhere — unified geometry &amp; color</h2>
+<p class="subtitle">Both heroes use the EXACT petal geometry and cream (#F2EFE9) from the logo mark. Option 1 (✕, same rotation as the logo) was LOCKED as final.</p>
+
+<div class="options" style="display:grid;grid-template-columns:1fr;gap:22px;">
+
+  <div class="option selected" style="display:block;padding:10px;">
+    <div class="hero-opt">
+      <div style="position:relative;height:400px;background:#F2EFE9;overflow:hidden;">
+        <div style="position:absolute;right:0;top:0;bottom:0;width:42%;background:#1747E0;"></div>
+        <svg style="position:absolute;right:24%;top:50px;filter:drop-shadow(0 8px 28px rgba(20,20,20,.16));" width="320" height="320" viewBox="0 0 120 120">
+          <g transform="rotate(45 60 60)"><g fill="#F2EFE9">
+            <path d="M60 14 C74 38 74 54 60 60 C46 54 46 38 60 14 Z"/>
+            <path d="M106 60 C82 74 66 74 60 60 C66 46 82 46 106 60 Z"/>
+            <path d="M60 106 C46 82 46 66 60 60 C74 66 74 82 60 106 Z"/>
+            <path d="M14 60 C38 46 54 46 60 60 C54 74 38 74 14 60 Z"/>
+          </g></g>
+          <circle cx="60" cy="60" r="10" fill="#FF6B4A"/>
+        </svg>
+        <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 26px;">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <svg width="28" height="28" viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108" rx="26" fill="#1747E0"/><g transform="rotate(45 60 60)"><g fill="#F2EFE9"><path d="M60 14 C74 38 74 54 60 60 C46 54 46 38 60 14 Z"/><path d="M106 60 C82 74 66 74 60 60 C66 46 82 46 106 60 Z"/><path d="M60 106 C46 82 46 66 60 60 C74 66 74 82 60 106 Z"/><path d="M14 60 C38 46 54 46 60 60 C54 74 38 74 14 60 Z"/></g></g><circle cx="60" cy="60" r="9" fill="#FF6B4A"/></svg>
+            <svg width="100" height="27" viewBox="0 0 420 82"><g stroke="#1747E0" stroke-width="7" fill="none" stroke-linecap="square"><path d="M62 8 L50 8 L50 74 L62 74"/><path d="M358 8 L370 8 L370 74 L358 74"/></g><text x="210" y="56" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="44" letter-spacing="13" fill="#141414">bloom</text><text x="380" y="22" font-family="Inter, sans-serif" font-weight="600" font-size="15" fill="#FF6B4A">m×n</text></svg>
+          </div>
+          <div style="font-size:10px;color:#141414;font-family:Inter,sans-serif;">Products &nbsp;&nbsp; Services &nbsp;&nbsp; About &nbsp;&nbsp; <span style="color:#F2EFE9;background:#141414;padding:4px 11px;border-radius:2px;">Contact</span></div>
+        </div>
+        <div style="position:absolute;left:26px;top:112px;max-width:620px;">
+          <div style="font-family:Inter,sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#1747E0;font-weight:700;margin-bottom:12px;">AI-first product engineering</div>
+          <div style="font-family:Georgia,serif;font-size:52px;letter-spacing:-.02em;line-height:1.03;color:#141414;">We build products<br/>that <em style="color:#1747E0;">think</em>.</div>
+          <div style="font-family:Inter,sans-serif;font-size:12.5px;color:#141414;opacity:.68;margin-top:14px;max-width:320px;line-height:1.6;">An AI-first product engineering company for businesses that want more than software.</div>
+          <div style="display:flex;gap:13px;margin-top:20px;align-items:center;">
+            <div style="background:#FF6B4A;color:#141414;font-family:Inter,sans-serif;font-weight:600;font-size:11.5px;padding:9px 16px;border-radius:2px;">Start a project →</div>
+            <div style="font-family:Inter,sans-serif;font-weight:600;font-size:11.5px;color:#141414;border-bottom:2px solid #1747E0;padding-bottom:2px;">Explore products</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:8px 10px 4px;"><h3 style="font-size:14px;margin:0 0 4px;">1 — The ✕ (same rotation as the logo) — LOCKED ✓</h3><p style="font-size:12px;opacity:.7;margin:0;">Identical to the mark in every way — the brand flower, enlarged. Strongest consistency.</p></div>
+  </div>
+
+  <div class="option" style="display:block;padding:10px;">
+    <div class="hero-opt">
+      <div style="position:relative;height:400px;background:#F2EFE9;overflow:hidden;">
+        <div style="position:absolute;right:0;top:0;bottom:0;width:42%;background:#1747E0;"></div>
+        <svg style="position:absolute;right:24%;top:50px;filter:drop-shadow(0 8px 28px rgba(20,20,20,.16));" width="320" height="320" viewBox="0 0 120 120">
+          <g fill="#F2EFE9">
+            <path d="M60 14 C74 38 74 54 60 60 C46 54 46 38 60 14 Z"/>
+            <path d="M106 60 C82 74 66 74 60 60 C66 46 82 46 106 60 Z"/>
+            <path d="M60 106 C46 82 46 66 60 60 C74 66 74 82 60 106 Z"/>
+            <path d="M14 60 C38 46 54 46 60 60 C54 74 38 74 14 60 Z"/>
+          </g>
+          <circle cx="60" cy="60" r="10" fill="#FF6B4A"/>
+        </svg>
+        <div style="position:absolute;left:26px;top:112px;max-width:620px;">
+          <div style="font-family:Inter,sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#1747E0;font-weight:700;margin-bottom:12px;">AI-first product engineering</div>
+          <div style="font-family:Georgia,serif;font-size:52px;letter-spacing:-.02em;line-height:1.03;color:#141414;">We build products<br/>that <em style="color:#1747E0;">think</em>.</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:8px 10px 4px;"><h3 style="font-size:14px;margin:0 0 4px;">2 — The + (upright)</h3><p style="font-size:12px;opacity:.7;margin:0;">Same flower, rotated upright. Not chosen.</p></div>
+  </div>
+
+</div>
+</body></html>
