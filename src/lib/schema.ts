@@ -6,7 +6,7 @@ export function organizationSchema() {
     "@type": "Organization",
     name: "Bloom Matrix",
     url: SITE_URL,
-    logo: `${SITE_URL}/images/logo-bm.svg`,
+    logo: `${SITE_URL}/images/logo-mark.svg`,
     email: "bloommatrixtech@gmail.com",
     address: {
       "@type": "PostalAddress",
