@@ -30,11 +30,12 @@ export default function LogoWordmark({ className, tone = "ink" }: LogoWordmarkPr
         bloom
       </text>
       <text
-        x="380"
+        x="378"
         y="22"
         fontFamily="var(--font-inter), Inter, sans-serif"
-        fontWeight="600"
-        fontSize="15"
+        fontWeight="700"
+        fontSize="18"
+        letterSpacing="1"
         fill="#FF6B4A"
       >
         m×n
