@@ -29,7 +29,8 @@ Complete visual identity redesign — new logo, new wordmark, new palette, new d
 Coral is an accent, never a surface color for large areas. No other hues enter the system (no teal, navy, indigo, green).
 
 **Typography:**
-- Headlines: **"BM Serif"** — a brand-modified build of Lora (SIL OFL permits modification + renaming): every lowercase "o" glyph carries a Seed Coral dot in its counter ("seeded o", user-approved 2026-07-21; simulation in `docs/design-gallery/` companion round). Built with font tooling (e.g., fontTools) from Lora Regular/Bold + italics; used at display sizes (H1/H2) only. Other explored mods (matrix "x", coral tittle) were declined — do not add them. If the modified font isn't ready at build time, stock Lora is the interim fallback with identical metrics.
+- Headlines: **"BM Serif"** — a brand-modified build of Lora (SIL OFL permits modification + renaming), user-approved 2026-07-21 with TWO glyph modifications: (1) "seeded o" — every lowercase "o" carries a Seed Coral dot in its counter; (2) "coral tittle" — the dot of every "i" and "j" is Seed Coral. Built with font tooling (e.g., fontTools) from Lora Regular/Bold + italics; used at display sizes (H1/H2) only. The matrix-"x" mod was declined — do not add it. If the modified font isn't ready at build time, stock Lora is the interim fallback with identical metrics.
+- **The Bracket wordmark is exempt from all glyph mods** — its `bloom` letters stay plain Inter Bold exactly as approved (no seeded counters, no coral tittles in the logo lockup). The wordmark is a fixed SVG asset, not set in BM Serif.
 - Italic + Matrix Blue remains the standard emphasis pattern inside headlines (e.g., "We build products that *think*.").
 - Sub-text, body, UI, nav, wordmark: **Inter** (retained, unmodified).
 - Max two families, `font-display: swap`, preload only critical weights (performance budget rules apply).
