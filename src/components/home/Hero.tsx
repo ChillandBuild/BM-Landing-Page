@@ -6,6 +6,7 @@ import { motion, type Variants } from "framer-motion";
 import BrandFlower from "@/components/brand/BrandFlower";
 import BrandHeadline, { type HeadlineSegment } from "@/components/brand/BrandHeadline";
 import { useSpinningFlower } from "@/hooks/useSpinningFlower";
+import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -33,28 +34,26 @@ export default function Hero() {
 
   // Touch devices have no pointer to fling the flower with, so rotation is
   // driven by scroll position instead.
-  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
+  const isCoarsePointer = useCoarsePointer();
   const [scrollAngle, setScrollAngle] = useState(0);
 
   useEffect(() => {
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
-    setIsCoarsePointer(coarse);
-    if (!coarse) return;
+    if (!isCoarsePointer) return;
 
     const onScroll = () => setScrollAngle(window.scrollY * SCROLL_SPIN_RATE);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isCoarsePointer]);
 
   return (
     <section
       className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-cream"
       onPointerMove={bind.onPointerMove}
     >
-      <div className="absolute right-0 top-0 bottom-0 w-[42%] bg-blue" aria-hidden />
-
-      {/* Centred on the blue block's left edge so the flower straddles the
-          boundary — half on blue, half on paper — with the headline over it. */}
+      {/* Desktop: a full-height block on the right with the flower straddling
+          its edge — half on blue, half on paper — and the headline over it. */}
+      <div className="absolute right-0 top-0 bottom-0 w-[42%] bg-blue hidden md:block" aria-hidden />
       <BrandFlower
         size={420}
         rotation={isCoarsePointer ? scrollAngle : angle}
@@ -62,11 +61,20 @@ export default function Hero() {
         className="absolute left-[58%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block pointer-events-none z-0"
       />
 
+      {/* Mobile: the same two elements restated as a band beneath the copy, so
+          the block never covers the headline on a narrow screen. */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-[38vh] bg-blue flex items-center justify-center md:hidden"
+        aria-hidden
+      >
+        <BrandFlower size={160} rotation={scrollAngle} />
+      </div>
+
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 w-full max-w-3xl mx-auto md:mx-0 md:ml-[8%] px-container-margin flex flex-col items-start"
+        className="relative z-10 w-full max-w-3xl mx-auto md:mx-0 md:ml-[8%] px-container-margin flex flex-col items-start pb-[40vh] md:pb-0"
       >
         <motion.span
           variants={item}

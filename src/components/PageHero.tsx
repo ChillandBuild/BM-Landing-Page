@@ -25,18 +25,19 @@ const item: Variants = {
 export default function PageHero({ eyebrow, titleSegments, description }: PageHeroProps) {
   return (
     <section className="relative bg-cream pt-40 pb-20 overflow-hidden">
-      <div className="absolute right-0 top-0 bottom-0 w-[38%] bg-blue" aria-hidden />
+      {/* Block and flower are desktop-only: at narrow widths they would cover
+          the headline rather than sit beside it. */}
+      <div className="absolute right-0 top-0 bottom-0 w-[38%] bg-blue hidden md:block" aria-hidden />
       <BrandFlower
-        size={280}
-        shadow
-        className="absolute right-[10%] top-24 hidden md:block pointer-events-none"
+        size={260}
+        className="absolute right-[9%] top-28 hidden md:block pointer-events-none"
       />
 
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 max-w-4xl mx-auto px-container-margin"
+        className="relative z-10 max-w-7xl mx-auto px-container-margin md:pr-[44%]"
       >
         <motion.p
           variants={item}
