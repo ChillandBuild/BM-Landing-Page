@@ -1,32 +1,57 @@
-import React from "react";
 import Link from "next/link";
-import LogoBM from "@/components/LogoBM";
+import LogoLockup from "@/components/brand/LogoLockup";
 
 const NAV_LINKS = [
-  { label: "Services", href: "/services" },
   { label: "Products", href: "/products" },
+  { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-navy border-t border-border-dark mt-auto">
-      <div className="flex flex-col md:flex-row justify-between items-start px-container-margin py-12 w-full max-w-7xl mx-auto gap-10">
+    <footer className="bg-ink mt-auto">
+      <div className="flex flex-col md:flex-row justify-between items-start px-container-margin py-14 w-full max-w-7xl mx-auto gap-10">
         <div className="space-y-4 text-left max-w-sm">
-          <LogoBM className="h-6" variant="dark" />
-          <p className="font-inter text-sm text-ink-muted">
-            Building intelligent digital ecosystems. AI-first product engineering for enterprises that refuse to stand still.
+          <LogoLockup tone="cream" markSize={30} />
+          <p className="font-inter text-sm text-cream/70">
+            Building intelligent digital ecosystems. AI-first product engineering for enterprises
+            that refuse to stand still.
           </p>
-          <div className="mt-4 space-y-2 font-inter text-xs text-ink-muted">
+          <div className="mt-4 space-y-2 font-inter text-xs text-cream/70">
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-[16px] text-accent-light">mail</span>
-              <a href="mailto:bloommatrixtech@gmail.com" className="hover:text-ink transition-colors">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#FF6B4A"
+                strokeWidth="2"
+                aria-hidden
+              >
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M3 7l9 6 9-6" />
+              </svg>
+              <a
+                href="mailto:bloommatrixtech@gmail.com"
+                className="hover:text-cream transition-colors"
+              >
                 bloommatrixtech@gmail.com
               </a>
             </div>
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-[16px] text-accent-light">location_on</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#FF6B4A"
+                strokeWidth="2"
+                aria-hidden
+              >
+                <path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" />
+                <circle cx="12" cy="9" r="2.5" />
+              </svg>
               <span>Coimbatore, Tamil Nadu, India</span>
             </div>
           </div>
@@ -38,19 +63,17 @@ export default function SiteFooter() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-ink-muted font-inter text-xs uppercase tracking-wider hover:text-ink transition-colors"
+                className="text-cream/70 font-inter text-xs uppercase tracking-wider hover:text-cream transition-colors"
               >
                 {link.label}
               </Link>
             ))}
-            <a href="#" className="text-ink-muted font-inter text-xs uppercase tracking-wider hover:text-ink transition-colors">
+            <span className="text-cream/70 font-inter text-xs uppercase tracking-wider">
               Privacy
-            </a>
-            <a href="#" className="text-ink-muted font-inter text-xs uppercase tracking-wider hover:text-ink transition-colors">
-              Terms
-            </a>
+            </span>
+            <span className="text-cream/70 font-inter text-xs uppercase tracking-wider">Terms</span>
           </div>
-          <span className="font-inter text-[11px] text-ink-muted/70 tracking-wide">
+          <span className="font-inter text-[11px] text-cream/50 tracking-wide">
             © 2026 Bloom Matrix. All rights reserved.
           </span>
         </div>
