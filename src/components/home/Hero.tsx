@@ -54,6 +54,16 @@ export default function Hero() {
       {/* Desktop: a full-height block on the right with the flower straddling
           its edge — half on blue, half on paper — and the headline over it. */}
       <div className="absolute right-0 top-0 bottom-0 w-[42%] bg-blue hidden md:block" aria-hidden />
+
+      {/* A far larger ghost of the same flower bleeds off the right edge and
+          turns at a third of the speed, so the block reads as depth rather
+          than a flat void. Drawn first so the solid flower stays in front. */}
+      <BrandFlower
+        size={820}
+        rotation={(isCoarsePointer ? scrollAngle : angle) * 0.35}
+        className="absolute right-[-18%] top-1/2 -translate-y-1/2 hidden md:block pointer-events-none opacity-[0.09] z-0"
+      />
+
       <BrandFlower
         size={420}
         rotation={isCoarsePointer ? scrollAngle : angle}
