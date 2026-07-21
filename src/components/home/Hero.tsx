@@ -29,6 +29,18 @@ const TITLE: HeadlineSegment[] = [
 /** Degrees of rotation per pixel scrolled, for the touch fallback. */
 const SCROLL_SPIN_RATE = 0.08;
 
+/**
+ * The matrix half of the name, finally made visible: a fine cream dot grid
+ * across the blue. It sits under every other layer in the block.
+ */
+const DOT_MATRIX = {
+  backgroundImage: "radial-gradient(circle, rgba(242,239,233,0.16) 1.2px, transparent 1.2px)",
+  backgroundSize: "22px 22px",
+} as const;
+
+/** Capability keywords, drawn from the documented technology expertise. */
+const CAPABILITIES = "Generative AI · LLM Agents · Voice AI · Multi-tenant SaaS";
+
 export default function Hero() {
   const { angle, bind } = useSpinningFlower();
 
@@ -53,7 +65,11 @@ export default function Hero() {
     >
       {/* Desktop: a full-height block on the right with the flower straddling
           its edge — half on blue, half on paper — and the headline over it. */}
-      <div className="absolute right-0 top-0 bottom-0 w-[42%] bg-blue hidden md:block" aria-hidden />
+      <div
+        className="absolute right-0 top-0 bottom-0 w-[42%] bg-blue hidden md:block"
+        style={DOT_MATRIX}
+        aria-hidden
+      />
 
       {/* A far larger ghost of the same flower bleeds off the right edge and
           turns at a third of the speed, so the block reads as depth rather
@@ -79,14 +95,20 @@ export default function Hero() {
       >
         Bloom Matrix
       </span>
-      <p className="absolute bottom-8 right-24 hidden md:block z-10 font-inter text-[10px] uppercase tracking-[0.18em] text-cream/40">
-        Coimbatore, India · 2026
-      </p>
+      <div className="absolute bottom-8 left-[60%] right-16 hidden md:block z-10 border-t border-cream/20 pt-3">
+        <p className="font-inter text-[10px] uppercase tracking-[0.16em] text-cream/70 leading-relaxed">
+          {CAPABILITIES}
+        </p>
+        <p className="font-inter text-[10px] uppercase tracking-[0.18em] text-cream/40 mt-1.5">
+          Coimbatore, India · 2026
+        </p>
+      </div>
 
       {/* Mobile: the same two elements restated as a band beneath the copy, so
           the block never covers the headline on a narrow screen. */}
       <div
         className="absolute inset-x-0 bottom-0 h-[38vh] bg-blue flex items-center justify-center md:hidden"
+        style={DOT_MATRIX}
         aria-hidden
       >
         <BrandFlower size={160} rotation={scrollAngle} />
