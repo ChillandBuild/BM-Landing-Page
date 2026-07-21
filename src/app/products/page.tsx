@@ -16,7 +16,11 @@ export default function ProductsPage() {
     <main>
       <PageHero
         eyebrow="Products"
-        title="Bloom Matrix builds its own products, too."
+        titleSegments={[
+          { text: "Bloom Matrix builds " },
+          { text: "its own products", emphasis: true },
+          { text: ", too." },
+        ]}
         description="Alongside custom engineering for customers, Bloom Matrix designs, owns, and continuously evolves its own proprietary SaaS and consumer technology products."
       />
 

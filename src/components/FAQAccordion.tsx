@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { faqPageSchema, type FAQItem } from "@/lib/schema";
 
 export default function FAQAccordion({ items }: { items: FAQItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="space-y-3">
+    <div className="border-t border-ink/10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(items)) }}
@@ -15,27 +15,34 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         return (
-          <div
-            key={item.question}
-            className="border border-border-light rounded-xl overflow-hidden bg-white"
-          >
+          <div key={item.question} className="border-b border-ink/10">
             <button
               type="button"
-              className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left cursor-pointer"
+              className="w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer group"
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
             >
-              <span className="font-inter font-semibold text-ink-dark">{item.question}</span>
-              <span
-                className="material-symbols-outlined text-ink-dark-muted transition-transform"
-                style={{ transform: isOpen ? "rotate(180deg)" : "none" }}
-              >
-                expand_more
+              <span className="font-inter font-semibold text-ink group-hover:text-blue transition-colors">
+                {item.question}
               </span>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                aria-hidden
+                className="shrink-0 text-blue transition-transform duration-300"
+                style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
+              >
+                <path d="M9 3 V15 M3 9 H15" />
+              </svg>
             </button>
             {isOpen && (
-              <div className="px-5 pb-4">
-                <p className="font-inter text-sm text-ink-dark-muted leading-relaxed">{item.answer}</p>
+              <div className="pb-5 pr-8">
+                <p className="font-inter text-sm text-ink/65 leading-relaxed">{item.answer}</p>
               </div>
             )}
           </div>

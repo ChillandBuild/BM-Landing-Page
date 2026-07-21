@@ -1,106 +1,110 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
+import BrandFlower from "@/components/brand/BrandFlower";
+import BrandHeadline, { type HeadlineSegment } from "@/components/brand/BrandHeadline";
+import { useSpinningFlower } from "@/hooks/useSpinningFlower";
 
-const AmbientBackground = dynamic(() => import("@/components/AmbientBackground"), {
-  ssr: false,
-});
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const container: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
 const item: Variants = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 };
 
-export default function Hero() {
-  return (
-    <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-paper">
-      <AmbientBackground />
+const TITLE: HeadlineSegment[] = [
+  { text: "We build products that " },
+  { text: "think", emphasis: true },
+  { text: "." },
+];
 
-      {/* Decorative arcs, echoing the reference layout's curved lines */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        <circle
-          cx="50%"
-          cy="0"
-          r="45%"
-          fill="none"
-          stroke="rgba(61,90,194,0.18)"
-          strokeWidth="1"
-        />
-        <circle
-          cx="50%"
-          cy="0"
-          r="62%"
-          fill="none"
-          stroke="rgba(92,127,224,0.12)"
-          strokeWidth="1"
-        />
-      </svg>
+/** Degrees of rotation per pixel scrolled, for the touch fallback. */
+const SCROLL_SPIN_RATE = 0.08;
+
+export default function Hero() {
+  const { angle, bind } = useSpinningFlower();
+
+  // Touch devices have no pointer to fling the flower with, so rotation is
+  // driven by scroll position instead.
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
+  const [scrollAngle, setScrollAngle] = useState(0);
+
+  useEffect(() => {
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    setIsCoarsePointer(coarse);
+    if (!coarse) return;
+
+    const onScroll = () => setScrollAngle(window.scrollY * SCROLL_SPIN_RATE);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <section
+      className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-cream"
+      onPointerMove={bind.onPointerMove}
+    >
+      <div className="absolute right-0 top-0 bottom-0 w-[42%] bg-blue" aria-hidden />
+
+      <BrandFlower
+        size={340}
+        rotation={isCoarsePointer ? scrollAngle : angle}
+        shadow
+        className="absolute right-[24%] top-[12%] hidden md:block pointer-events-none z-0"
+      />
 
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 max-w-3xl mx-auto px-container-margin w-full text-center flex flex-col items-center"
+        className="relative z-10 w-full max-w-3xl mx-auto md:mx-0 md:ml-[8%] px-container-margin flex flex-col items-start"
       >
         <motion.span
           variants={item}
-          className="inline-flex items-center gap-2 font-inter text-xs uppercase tracking-[0.2em] text-accent border border-accent/25 bg-white/70 rounded-full px-4 py-1.5 mb-8"
+          className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-5"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-accent-light" />
-          AI-First Product Engineering
+          AI-first product engineering
         </motion.span>
 
-        <motion.h1
-          variants={item}
-          className="font-display text-5xl md:text-7xl leading-[1.05] text-ink-dark mb-6"
-        >
-          Intelligent products, <span className="text-gradient-indigo">engineered</span> to
-          compound.
-        </motion.h1>
-
-        <motion.p
-          variants={item}
-          className="font-inter text-lg text-ink-dark-muted max-w-xl mb-10 leading-relaxed"
-        >
-          Bloom Matrix designs, builds, and continuously evolves AI-powered products, enterprise
-          software, and SaaS platforms — as a single long-term technology partner, not another
-          vendor.
-        </motion.p>
-
-        <motion.div variants={item} className="flex flex-col sm:flex-row gap-4">
-          <Link
-            href="/contact"
-            className="bg-gradient-indigo text-white px-8 py-4 rounded-xl font-bold text-center hover:opacity-90 transition-all shadow-lg shadow-accent/20"
-          >
-            Book a Strategy Call
-          </Link>
-          <Link
-            href="/products"
-            className="border border-ink-dark/15 text-ink-dark px-8 py-4 rounded-xl font-bold text-center hover:bg-navy/[0.04] transition-all"
-          >
-            Explore Products
-          </Link>
+        <motion.div variants={item}>
+          <BrandHeadline
+            as="h1"
+            segments={TITLE}
+            className="text-5xl md:text-7xl leading-[1.03] text-ink mb-6"
+          />
         </motion.div>
 
         <motion.p
           variants={item}
-          className="mt-10 font-inter text-[11px] uppercase tracking-[0.18em] text-ink-dark-muted"
+          className="font-inter text-lg text-ink/65 max-w-md mb-9 leading-relaxed"
         >
-          Generative AI · LLM Agents · Voice AI · FastAPI Microservices · Multi-tenant SaaS
+          An AI-first product engineering company for businesses that want more than software.
         </motion.p>
+
+        <motion.div
+          variants={item}
+          className="flex flex-col sm:flex-row gap-4 items-start sm:items-center"
+        >
+          <Link
+            href="/contact"
+            className="bg-coral text-ink px-8 py-4 rounded-[2px] font-semibold hover:opacity-90 transition-all"
+          >
+            Start a project
+          </Link>
+          <Link
+            href="/products"
+            className="text-ink font-semibold border-b-2 border-blue pb-0.5 hover:border-coral transition-colors"
+          >
+            Explore products
+          </Link>
+        </motion.div>
       </motion.div>
     </section>
   );

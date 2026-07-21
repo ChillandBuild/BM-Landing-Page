@@ -17,7 +17,11 @@ export default function ServicesPage() {
     <main>
       <PageHero
         eyebrow="Services"
-        title="Six disciplines, one integrated engineering practice."
+        titleSegments={[
+          { text: "Six disciplines, " },
+          { text: "one integrated engineering practice", emphasis: true },
+          { text: "." },
+        ]}
         description="Bloom Matrix combines AI, product engineering, SaaS architecture, automation, and data intelligence into a single long-term partnership — not a patchwork of vendors."
       />
 

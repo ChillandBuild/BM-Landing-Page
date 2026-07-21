@@ -16,7 +16,11 @@ export const metadata: Metadata = {
 export default function AiraPage() {
   return (
     <main>
-      <PageHero eyebrow="Flagship Product" title={AIRA.name} description={AIRA.tagline} />
+      <PageHero
+        eyebrow="Flagship Product"
+        titleSegments={[{ text: AIRA.name }]}
+        description={AIRA.tagline}
+      />
 
       <section className="bg-paper py-24">
         <div className="max-w-5xl mx-auto px-container-margin grid lg:grid-cols-2 gap-12 items-start">
@@ -55,11 +59,11 @@ export default function AiraPage() {
       </section>
 
       <CTABand
-        title={
-          <>
-            See <span className="text-gradient-indigo">AIRA</span> in action.
-          </>
-        }
+        titleSegments={[
+          { text: "See " },
+          { text: "AIRA", emphasis: true },
+          { text: " in action." },
+        ]}
         description="Book a strategy call and we'll walk through how AIRA fits into your existing lead and revenue workflows."
       />
     </main>

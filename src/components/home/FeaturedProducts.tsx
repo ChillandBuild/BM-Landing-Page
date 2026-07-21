@@ -1,34 +1,37 @@
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import AiraLiveSimulation from "@/components/AiraLiveSimulation";
+import BrandHeadline from "@/components/brand/BrandHeadline";
 import { AIRA, ASTROTAMIL } from "@/lib/content/products";
 
 export default function FeaturedProducts() {
   return (
-    <section className="bg-paper py-24 border-t border-border-light">
+    <section className="bg-cream py-24 border-t border-ink/10">
       <div className="max-w-7xl mx-auto px-container-margin">
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           <Reveal>
-            <p className="font-inter text-xs uppercase tracking-[0.2em] text-accent mb-3">
+            <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">
               Flagship Product
             </p>
-            <h2 className="font-display text-4xl md:text-5xl text-ink-dark mb-4">{AIRA.name}</h2>
-            <p className="font-inter text-lg text-ink-dark-muted mb-2">{AIRA.tagline}</p>
-            <p className="font-inter text-ink-dark-muted leading-relaxed mb-8">
-              {AIRA.description}
-            </p>
+            <BrandHeadline
+              as="h2"
+              segments={[{ text: AIRA.name }]}
+              className="text-4xl md:text-5xl text-ink mb-4"
+            />
+            <p className="font-inter text-lg text-ink/65 mb-2">{AIRA.tagline}</p>
+            <p className="font-inter text-ink/65 leading-relaxed mb-8">{AIRA.description}</p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href={AIRA.href}
-                className="bg-gradient-indigo text-white px-6 py-3 rounded-xl font-bold text-center hover:opacity-90 transition-all"
+                className="bg-coral text-ink px-6 py-3 rounded-[2px] font-semibold text-center hover:opacity-90 transition-all"
               >
                 Explore AIRA
               </Link>
               <Link
                 href="/contact"
-                className="border border-ink-dark/15 text-ink-dark px-6 py-3 rounded-xl font-bold text-center hover:bg-navy/[0.04] transition-all"
+                className="border border-ink/15 text-ink px-6 py-3 rounded-[2px] font-semibold text-center hover:bg-ink/[0.04] transition-all"
               >
-                Book a Strategy Call
+                Start a project
               </Link>
             </div>
           </Reveal>
@@ -38,19 +41,21 @@ export default function FeaturedProducts() {
         </div>
 
         <Reveal>
-          <div className="bg-white border border-border-light rounded-2xl p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="border border-ink/10 p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <p className="font-inter text-xs uppercase tracking-[0.2em] text-accent mb-2">
+              <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-2">
                 Also Building
               </p>
-              <h3 className="font-display text-2xl text-ink-dark mb-1">{ASTROTAMIL.name}</h3>
-              <p className="font-inter text-sm text-ink-dark-muted max-w-xl">
-                {ASTROTAMIL.description}
-              </p>
+              <BrandHeadline
+                as="h3"
+                segments={[{ text: ASTROTAMIL.name }]}
+                className="text-2xl text-ink mb-1"
+              />
+              <p className="font-inter text-sm text-ink/65 max-w-xl">{ASTROTAMIL.description}</p>
             </div>
             <Link
               href="/products"
-              className="font-inter font-semibold text-accent hover:underline whitespace-nowrap"
+              className="font-inter font-semibold text-ink border-b-2 border-blue pb-0.5 hover:border-coral transition-colors whitespace-nowrap"
             >
               View all products →
             </Link>

@@ -40,7 +40,11 @@ export default function AboutPage() {
     <main>
       <PageHero
         eyebrow="About Bloom Matrix"
-        title="Technology should create new possibilities, not just digitize old ones."
+        titleSegments={[
+          { text: "Technology should create " },
+          { text: "new possibilities", emphasis: true },
+          { text: ", not just digitize old ones." },
+        ]}
         description="Bloom Matrix is an AI-first product engineering and technology company — designing, engineering, deploying, and continuously evolving software that creates long-term business value."
       />
 

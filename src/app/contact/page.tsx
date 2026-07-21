@@ -14,7 +14,11 @@ export default function ContactPage() {
     <main>
       <PageHero
         eyebrow="Contact"
-        title="Let's talk about what you're building."
+        titleSegments={[
+          { text: "Let's talk about " },
+          { text: "what you're building", emphasis: true },
+          { text: "." },
+        ]}
         description="Tell us about your project and one of our engineering leads will follow up within 24 hours."
       />
 
