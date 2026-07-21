@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
+import { Lora, Inter } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { organizationSchema, SITE_URL } from "@/lib/schema";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const lora = Lora({
+  variable: "--font-lora",
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
+  display: "swap",
 });
 
 const inter = Inter({
-  variable: "--font-inter",
+  variable: "--font-inter-family",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -26,9 +28,6 @@ export const metadata: Metadata = {
   },
   description:
     "Bloom Matrix designs, engineers, and continuously evolves intelligent digital products, enterprise software, and AI-powered platforms — including AIRA, our AI revenue acceleration platform. A single long-term technology partner, not another vendor.",
-  icons: {
-    icon: "/favicon.ico",
-  },
   openGraph: {
     title: "Bloom Matrix | AI-First Product Engineering Company",
     description:
@@ -54,20 +53,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${instrumentSerif.variable} ${inter.variable} h-full antialiased`}
+      className={`${lora.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
         />
       </head>
-      <body suppressHydrationWarning className="min-h-full flex flex-col bg-paper text-ink-dark font-inter">
+      <body suppressHydrationWarning className="min-h-full flex flex-col bg-cream text-ink font-inter">
         <SiteHeader />
         {children}
         <SiteFooter />
