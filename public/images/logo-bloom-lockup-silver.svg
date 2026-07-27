@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 160" width="660" height="160" role="img" aria-label="Bloom Matrix — intelligence, automation, growth">
+  <!-- BRUSHED SILVER VARIANT — large dark surfaces only.
+       Do NOT use below 40px: the gradient bands average to mid-grey, which has
+       LESS contrast on Ink than cream does. Use logo-bloom-mark-cream.svg there.
+       Do NOT use on the cream site background: silver collapses to grey mush.
+       Do NOT use for print without a foil or spot-metallic pass; the one-colour
+       print asset is logo-bloom-mark-ink.svg. -->
+  <rect width="660" height="160" fill="#141414"/>
+  <g transform="translate(4 20)">
+    <defs>
+      <linearGradient id="dg" gradientUnits="userSpaceOnUse" x1="8" y1="4" x2="112" y2="116">
+        <stop offset="0%" stop-color="#F4F6F7"/>
+        <stop offset="16%" stop-color="#B4BBC1"/>
+        <stop offset="31%" stop-color="#EFF1F3"/>
+        <stop offset="49%" stop-color="#959CA3"/>
+        <stop offset="66%" stop-color="#E6E9EC"/>
+        <stop offset="84%" stop-color="#A7AEB5"/>
+        <stop offset="100%" stop-color="#DCE0E4"/>
+      </linearGradient>
+      <mask id="dm">
+        <rect width="120" height="120" fill="#fff"/>
+        <circle cx="60" cy="60" r="14" fill="#000"/>
+      </mask>
+    </defs>
+    <g mask="url(#dm)" fill="none" stroke="url(#dg)" stroke-width="8" stroke-linejoin="round">
+      <path d="M23 6L35 6L52 23L52 52L23 52L6 35L6 23Z"/>
+      <path d="M97 6L85 6L68 23L68 52L97 52L114 35L114 23Z"/>
+      <path d="M23 114L35 114L52 97L52 68L23 68L6 85L6 97Z"/>
+      <path d="M97 114L85 114L68 97L68 68L97 68L114 85L114 97Z"/>
+    </g>
+  </g>
+  <linearGradient id="dgt" gradientUnits="userSpaceOnUse" x1="158" y1="56" x2="600" y2="104">
+    <stop offset="0%" stop-color="#F4F6F7"/>
+    <stop offset="28%" stop-color="#B4BBC1"/>
+    <stop offset="46%" stop-color="#EFF1F3"/>
+    <stop offset="68%" stop-color="#9AA1A8"/>
+    <stop offset="100%" stop-color="#E4E7EA"/>
+  </linearGradient>
+  <text x="158" y="94" font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" font-size="46"
+        letter-spacing="7.5" fill="url(#dgt)">BLOOM MATRIX</text>
+  <text x="160" y="128" font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="500" font-size="14.5"
+        letter-spacing="4.4" fill="rgba(242,239,233,0.55)">INTELLIGENCE <tspan fill="#FF6B4A">&#8226;</tspan> AUTOMATION <tspan fill="#FF6B4A">&#8226;</tspan> GROWTH</text>
+</svg>

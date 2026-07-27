@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import BrandFlower from "@/components/brand/BrandFlower";
+import LogoMark from "@/components/brand/LogoMark";
 import BrandHeadline, { type HeadlineSegment } from "@/components/brand/BrandHeadline";
 import { useSpinningFlower } from "@/hooks/useSpinningFlower";
 import { useCoarsePointer } from "@/hooks/useCoarsePointer";
@@ -31,12 +31,26 @@ const SCROLL_SPIN_RATE = 0.08;
 
 /**
  * The matrix half of the name, finally made visible: a fine cream dot grid
- * across the blue. It sits under every other layer in the block.
+ * across the block. It sits under every other layer in the block.
  */
 const DOT_MATRIX = {
   backgroundImage: "radial-gradient(circle, rgba(242,239,233,0.16) 1.2px, transparent 1.2px)",
   backgroundSize: "22px 22px",
 } as const;
+
+/**
+ * Sizes for the spinning logo. All three marks are untiled — the block behind
+ * them is Ink, which already gives silver the dark ground it needs.
+ *
+ * These are visual sizes, not raw numbers. The old organic flower drew across
+ * 92 of its 120-unit box; these petals draw across 108, so an untiled mark
+ * needs 0.852x the old number to look the same size. The ghost is matched
+ * exactly; the two foreground marks are then taken down a further ~10%.
+ * Old values were 820 (ghost), 420 (main), 160 (mobile).
+ */
+const GHOST_SIZE = 699; // 820 * 0.852 — matches the old ghost
+const MAIN_SIZE = 322; // 420 * 0.852, less ~10%
+const MOBILE_SIZE = 123; // 160 * 0.852, less ~10%
 
 /** Capability keywords, drawn from the documented technology expertise. */
 const CAPABILITIES = "Generative AI · LLM Agents · Voice AI · Multi-tenant SaaS";
@@ -66,25 +80,30 @@ export default function Hero() {
       {/* Desktop: a full-height block on the right with the flower straddling
           its edge — half on blue, half on paper — and the headline over it. */}
       <div
-        className="absolute right-0 top-0 bottom-0 w-[42%] bg-blue hidden md:block"
+        className="absolute right-0 top-0 bottom-0 w-[42%] bg-ink hidden md:block"
         style={DOT_MATRIX}
         aria-hidden
       />
 
-      {/* A far larger ghost of the same flower bleeds off the right edge and
+      {/* A far larger ghost of the same mark bleeds off the right edge and
           turns at a third of the speed, so the block reads as depth rather
-          than a flat void. Drawn first so the solid flower stays in front. */}
-      <BrandFlower
-        size={820}
+          than a flat void. Untiled — it lives entirely on the Ink block, which
+          already supplies the dark ground silver needs. */}
+      <LogoMark
+        size={GHOST_SIZE}
+        tone="silver"
         rotation={(isCoarsePointer ? scrollAngle : angle) * 0.35}
         className="absolute right-[-18%] top-1/2 -translate-y-1/2 hidden md:block pointer-events-none opacity-[0.09] z-0"
       />
 
-      <BrandFlower
-        size={420}
+      {/* Untiled and centred on the cream/Ink seam, so only the half over the
+          block carries full contrast — the half over paper reads as a ghost of
+          itself. The drop shadow is what keeps that half from vanishing. */}
+      <LogoMark
+        size={MAIN_SIZE}
+        tone="silver"
         rotation={isCoarsePointer ? scrollAngle : angle}
-        shadow
-        className="absolute left-[58%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block pointer-events-none z-0"
+        className="absolute left-[58%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block pointer-events-none z-0 drop-shadow-[0_8px_28px_rgba(20,20,20,0.16)]"
       />
 
       {/* Editorial meta plate: the wordmark set vertically up the right edge
@@ -107,11 +126,11 @@ export default function Hero() {
       {/* Mobile: the same two elements restated as a band beneath the copy, so
           the block never covers the headline on a narrow screen. */}
       <div
-        className="absolute inset-x-0 bottom-0 h-[38vh] bg-blue flex items-center justify-center md:hidden"
+        className="absolute inset-x-0 bottom-0 h-[38vh] bg-ink flex items-center justify-center md:hidden"
         style={DOT_MATRIX}
         aria-hidden
       >
-        <BrandFlower size={160} rotation={scrollAngle} />
+        <LogoMark size={MOBILE_SIZE} tone="silver" rotation={scrollAngle} />
       </div>
 
       <motion.div

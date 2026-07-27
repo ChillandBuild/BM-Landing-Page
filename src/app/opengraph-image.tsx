@@ -7,15 +7,20 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 /**
- * Unrotated petals. The 45deg (x) orientation is applied with a CSS transform
- * on the wrapper rather than an SVG group transform, which the OG renderer
- * (Satori) does not apply — it silently dropped half the flower.
+ * The bloom mark. No rotation is needed, unlike the old Cutout — the OG
+ * renderer (Satori) does not apply SVG group transforms, so everything stays in
+ * plain untransformed coordinates.
+ *
+ * The seed's clear ring is an opaque Matrix Blue disc rather than a mask:
+ * Satori has no mask support, and the flower sits on a solid blue block here,
+ * so painting the ring in the ground colour is indistinguishable from a
+ * knockout. The masked (genuinely transparent) version is the SVG asset.
  */
 const PETALS = [
-  "M60 14 C74 38 74 54 60 60 C46 54 46 38 60 14 Z",
-  "M106 60 C82 74 66 74 60 60 C66 46 82 46 106 60 Z",
-  "M60 106 C46 82 46 66 60 60 C74 66 74 82 60 106 Z",
-  "M14 60 C38 46 54 46 60 60 C54 74 38 74 14 60 Z",
+  "M23 6L35 6L52 23L52 52L23 52L6 35L6 23Z",
+  "M97 6L85 6L68 23L68 52L97 52L114 35L114 23Z",
+  "M23 114L35 114L52 97L52 68L23 68L6 85L6 97Z",
+  "M97 114L85 114L68 97L68 68L97 68L114 85L114 97Z",
 ];
 
 export default async function Image() {
@@ -55,26 +60,38 @@ export default async function Image() {
             left: 840,
             top: 175,
             display: "flex",
-            transform: "rotate(45deg)",
           }}
         >
           <svg width="280" height="280" viewBox="0 0 120 120">
-            <g fill="#F2EFE9">
+            <g fill="none" stroke="#F2EFE9" strokeWidth="8" strokeLinejoin="round">
               {PETALS.map((d) => (
                 <path key={d} d={d} />
               ))}
             </g>
           </svg>
         </div>
-        {/* Core drawn separately so the wrapper rotation cannot offset it. */}
+        {/* Mark centre lands at (980, 315): left 840 + 60 * (280/120). The blue
+            disc opens the clear ring, then the coral core sits inside it. */}
         <div
           style={{
             position: "absolute",
-            left: 959,
-            top: 294,
-            width: 42,
-            height: 42,
-            borderRadius: 21,
+            left: 947,
+            top: 282,
+            width: 66,
+            height: 66,
+            borderRadius: 33,
+            background: "#1747E0",
+            display: "flex",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            left: 954,
+            top: 289,
+            width: 52,
+            height: 52,
+            borderRadius: 26,
             background: "#FF6B4A",
             display: "flex",
           }}

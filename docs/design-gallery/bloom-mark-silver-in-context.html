@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bloom Matrix — black + silver in context</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 46px 34px 96px; background: #FAFAF8; color: #141414;
+    font: 400 14px/1.55 Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  h1 { font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+       margin: 0 0 4px; color: #1747E0; }
+  .sub { margin: 0 0 40px; font-size: 13px; color: rgba(20,20,20,.55); }
+  h2 { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+       color: rgba(20,20,20,.42); margin: 0 0 6px; padding-bottom: 7px;
+       border-bottom: 1px solid rgba(20,20,20,.12); }
+  .h2note { font-size: 12px; color: rgba(20,20,20,.5); margin: 0 0 16px; max-width: 78ch; }
+  section { margin-bottom: 54px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .lbl { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+         color: rgba(20,20,20,.45); margin-top: 8px; }
+
+  /* --- mock chrome --- */
+  .nav { background: #141414; padding: 20px 26px; display: flex; align-items: center;
+         justify-content: space-between; border-radius: 4px; }
+  .nav .links { display: flex; gap: 22px; font-size: 12.5px; color: rgba(242,239,233,.72); }
+  .nav .cta { background: #F2EFE9; color: #141414; font-size: 12px; font-weight: 600;
+              padding: 8px 15px; border-radius: 2px; }
+  .lock { display: flex; align-items: center; gap: 12px; }
+  .wm { font-weight: 700; font-size: 17px; letter-spacing: .16em; color: #F2EFE9; }
+  .wm.silver { background: linear-gradient(135deg,#F4F6F7,#B4BBC1 30%,#EFF1F3 48%,#959CA3 66%,#E6E9EC);
+               -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  .card { background: #141414; border-radius: 4px; aspect-ratio: 1200/630;
+          display: flex; flex-direction: column; justify-content: center; padding: 0 44px;
+          position: relative; overflow: hidden; }
+  .card .kicker { font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+                  color: #FF6B4A; margin-bottom: 14px; }
+  .card .head { font-size: 30px; line-height: 1.12; color: #F2EFE9; max-width: 62%;
+                font-family: Georgia, serif; }
+  .card .mk { position: absolute; right: 44px; top: 50%; transform: translateY(-50%); }
+
+  .splash { background: #141414; border-radius: 22px; aspect-ratio: 9/16;
+            display: flex; align-items: center; justify-content: center; max-width: 190px; }
+
+  .deck { background: #141414; border-radius: 4px; aspect-ratio: 16/9; padding: 30px;
+          display: flex; flex-direction: column; justify-content: space-between; }
+  .deck .t { font-family: Georgia, serif; font-size: 25px; color: #F2EFE9; line-height: 1.2; }
+  .deck .m { font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+             color: rgba(242,239,233,.45); }
+
+  .bcard { background: #141414; border-radius: 3px; aspect-ratio: 85/55; padding: 20px;
+           display: flex; flex-direction: column; justify-content: space-between; }
+  .bcard .n { font-size: 12px; color: #F2EFE9; font-weight: 600; letter-spacing: .04em; }
+  .bcard .r { font-size: 9.5px; color: rgba(242,239,233,.5); letter-spacing: .1em;
+              text-transform: uppercase; margin-top: 3px; }
+
+  .strip { display: flex; align-items: flex-end; gap: 20px; background: #141414;
+           padding: 22px 26px; border-radius: 4px; }
+  .strip figure { margin: 0; text-align: center; }
+  .strip figcaption { margin-top: 8px; font-size: 9.5px; color: rgba(242,239,233,.45);
+                      letter-spacing: .08em; }
+
+  .need { counter-reset: n; list-style: none; padding: 0; margin: 0; max-width: 84ch; }
+  .need li { counter-increment: n; position: relative; padding: 0 0 0 42px; margin-bottom: 18px; }
+  .need li::before {
+    content: counter(n); position: absolute; left: 0; top: -1px;
+    width: 26px; height: 26px; border-radius: 50%; background: #141414; color: #F2EFE9;
+    font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .need strong { display: block; margin-bottom: 2px; font-size: 13.5px; }
+  .need span { font-size: 12.5px; color: rgba(20,20,20,.62); }
+  .tag { display: inline-block; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+         padding: 2px 7px; border-radius: 2px; margin-left: 7px; vertical-align: 1px;
+         background: rgba(23,71,224,.1); color: #1747E0; }
+  .tag.no { background: rgba(255,107,74,.14); color: #C13F20; }
+</style>
+</head>
+<body>
+
+<h1>Black + silver — in context</h1>
+<p class="sub">Approved geometry. Silver on the left of each pair, in-palette cream on the right —
+so you can judge whether the gradient earns its cost at that size.</p>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <mask id="seedHole">
+      <rect width="120" height="120" fill="#fff"/>
+      <circle cx="60" cy="60" r="14" fill="#000"/>
+    </mask>
+    <linearGradient id="silver" gradientUnits="userSpaceOnUse" x1="8" y1="4" x2="112" y2="116">
+      <stop offset="0%"   stop-color="#F4F6F7"/>
+      <stop offset="16%"  stop-color="#B4BBC1"/>
+      <stop offset="31%"  stop-color="#EFF1F3"/>
+      <stop offset="49%"  stop-color="#959CA3"/>
+      <stop offset="66%"  stop-color="#E6E9EC"/>
+      <stop offset="84%"  stop-color="#A7AEB5"/>
+      <stop offset="100%" stop-color="#DCE0E4"/>
+    </linearGradient>
+    <g id="bloom">
+      <g mask="url(#seedHole)" fill="none" stroke-width="8" stroke-linejoin="round">
+        <path d="M23 6L35 6L52 23L52 52L23 52L6 35L6 23Z"/>
+        <path d="M97 6L85 6L68 23L68 52L97 52L114 35L114 23Z"/>
+        <path d="M23 114L35 114L52 97L52 68L23 68L6 85L6 97Z"/>
+        <path d="M97 114L85 114L68 97L68 68L97 68L114 85L114 97Z"/>
+      </g>
+    </g>
+  </defs>
+</svg>
+
+<script>
+  // Seed is the ground colour: it reads as a hole punched through the metal,
+  // which is what the reference does.
+  const mk = (size, silver, seed = '#141414') =>
+    `<svg viewBox="0 0 120 120" width="${size}" height="${size}" role="img" aria-label="Bloom Matrix">
+       <use href="#bloom" stroke="${silver ? 'url(#silver)' : '#F2EFE9'}"/>
+       <circle cx="60" cy="60" r="11" fill="${seed}"/></svg>`;
+
+  const nav = (s) => `<div class="nav"><span class="lock">${mk(30, s)}
+      <span class="wm ${s ? 'silver' : ''}">BLOOM MATRIX</span></span>
+      <span class="links"><span>Products</span><span>Services</span><span>About</span></span>
+      <span class="cta">Contact</span></div>`;
+
+  const card = (s) => `<div class="card"><div class="kicker">AI-first product engineering</div>
+      <div class="head">We build products that think.</div>
+      <span class="mk">${mk(150, s)}</span></div>`;
+
+  const splash = (s) => `<div class="splash">${mk(84, s)}</div>`;
+
+  const deck = (s) => `<div class="deck"><div class="t">Intelligence.<br>Automation.<br>Growth.</div>
+      <span class="lock">${mk(34, s)}<span class="wm ${s ? 'silver' : ''}"
+      style="font-size:13px">BLOOM MATRIX</span></span></div>`;
+
+  const bcard = (s) => `<div class="bcard">${mk(30, s)}
+      <div><div class="n">K Prem</div><div class="r">Founder</div></div></div>`;
+
+  const strip = (s) => `<div class="strip">
+      ${[64, 40, 32, 24, 16].map(n => `<figure>${mk(n, s)}<figcaption>${n}px</figcaption></figure>`).join('')}
+      </div>`;
+
+  const SECTIONS = [
+    ['Site header — if the site went dark', 'Silver in the wordmark needs background-clip on text, which is a live gradient on type. At 30px the mark’s bands are already averaging out.', nav],
+    ['Social / OG card', 'This is where silver is at its strongest: large, dark, screen-only. The gradient is fully visible at 150px.', card],
+    ['App splash', 'Large and dark again — silver reads properly here.', splash],
+    ['Deck cover', 'Silver holds on the large mark; the small lockup mark is already flattening.', deck],
+    ['Business card', 'Print. Silver here is a foil or spot-metallic pass, not CMYK — a real cost per card. Cream is one ink.', bcard],
+    ['Small-size reality check', 'The honest test. Below roughly 40px the gradient stops being metal and becomes flat grey — and grey has less contrast on ink than cream does.', strip],
+  ];
+
+  document.body.insertAdjacentHTML('beforeend', SECTIONS.map(([t, note, fn]) => `
+    <section><h2>${t}</h2><p class="h2note">${note}</p>
+      <div class="pair">
+        <div><div>${fn(true)}</div><div class="lbl">Silver (gradient)</div></div>
+        <div><div>${fn(false)}</div><div class="lbl">Cream (in palette, flat)</div></div>
+      </div></section>`).join(''));
+</script>
+
+<section>
+  <h2>Structuring the need — what actually has to be decided</h2>
+  <p class="h2note">Colour is the last of these, not the first. Each slot has hard
+  constraints; silver only satisfies some of them.</p>
+  <ol class="need">
+    <li><strong>Primary mark — the one used 90% of the time</strong>
+      <span>Lives on the cream site background. Must be flat, must hold at 24px in the header,
+      must print in one colour. <span class="tag no">silver cannot do this</span></span></li>
+    <li><strong>Reversed mark — for dark grounds</strong>
+      <span>Footer, dark sections, social cards. Needs contrast against Ink at any size.
+      Cream and silver both qualify; cream also survives shrinking.
+      <span class="tag">silver is a candidate</span></span></li>
+    <li><strong>Small / system mark — favicon, avatar, app icon</strong>
+      <span>16–32px. No gradient survives here, so a flat cut is mandatory regardless of
+      what you choose above. <span class="tag no">silver cannot do this</span></span></li>
+    <li><strong>Print mark — one-colour and spot</strong>
+      <span>Stationery, stamps, invoices. Needs a single-ink version. Silver means foil or
+      spot metallic, quoted per pass. <span class="tag no">silver costs money here</span></span></li>
+    <li><strong>Expressive mark — large, dark, screen-only</strong>
+      <span>Deck covers, OG cards, splash, merch, hero moments. No size or ink constraint,
+      so the gradient can actually be seen. <span class="tag">silver belongs here</span></span></li>
+  </ol>
+  <p class="h2note" style="margin-top:22px">
+  So the question is not "silver or blue" — it is <em>whether slot 5 is worth having</em>.
+  Slots 1, 3 and 4 have to be flat no matter what you pick.</p>
+</section>
+
+</body>
+</html>

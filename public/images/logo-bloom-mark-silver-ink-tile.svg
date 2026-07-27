@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Bloom Matrix">
-  <!-- Organization schema logo (src/lib/schema.ts). Silver mark on an Ink tile:
-       the tile carries its own dark ground so the metal reads wherever Google,
-       LinkedIn or a rich-result card places it. -->
+  <!-- BRUSHED SILVER VARIANT — large dark surfaces only.
+       Do NOT use below 40px: the gradient bands average to mid-grey, which has
+       LESS contrast on Ink than cream does. Use logo-bloom-mark-cream.svg there.
+       Do NOT use on the cream site background: silver collapses to grey mush.
+       Do NOT use for print without a foil or spot-metallic pass; the one-colour
+       print asset is logo-bloom-mark-ink.svg. -->
   <rect width="120" height="120" rx="26" fill="#141414"/>
   <g transform="translate(60 60) scale(0.74) translate(-60 -60)">
     <defs>

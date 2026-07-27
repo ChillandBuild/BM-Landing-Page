@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import LogoLockup from "@/components/brand/LogoLockup";
 
 const NAV_LINKS = [
   { label: "Products", href: "/products" },
@@ -27,9 +26,19 @@ export default function SiteHeader() {
         isScrolled ? "bg-cream/95 backdrop-blur-md border-b border-ink/10" : "bg-transparent"
       }`}
     >
-      <nav className="flex justify-between items-center px-container-margin py-4 w-full max-w-7xl mx-auto">
-        <Link href="/" aria-label="Bloom Matrix home">
-          <LogoLockup tone="ink" markSize={30} />
+      {/*
+        Padding matches the hero's content column (ml-[8%] + container-margin)
+        rather than centring inside max-w-7xl, so the wordmark's left edge lines
+        up with the headline below it. A fixed nudge cannot do this: the two
+        bases diverge as the window resizes and cross over around 1920px.
+      */}
+      <nav className="flex justify-between items-center py-4 w-full px-container-margin md:px-[calc(8%+1.5rem)]">
+        <Link
+          href="/"
+          aria-label="Bloom Matrix home"
+          className="font-inter font-bold text-ink text-[15px] sm:text-[17px] uppercase tracking-[0.16em] whitespace-nowrap hover:opacity-70 transition-opacity"
+        >
+          Bloom Matrix
         </Link>
 
         <div className="hidden md:flex gap-8 items-center">
@@ -37,14 +46,24 @@ export default function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-ink/70 font-inter font-medium hover:text-ink transition-colors"
+              /* The desktop nav always sits over the hero's dark block — Ink on
+                 home, Matrix Blue elsewhere — so it needs light text while the
+                 header is transparent. Once scrolling swaps in the cream bar it
+                 has to flip back to Ink, or it disappears into it. */
+              className={`font-inter font-medium transition-colors ${
+                isScrolled ? "text-ink/70 hover:text-ink" : "text-cream/80 hover:text-cream"
+              }`}
             >
               {link.label}
             </Link>
           ))}
           <Link
             href="/contact"
-            className="bg-ink text-cream font-inter font-semibold px-5 py-2.5 rounded-[2px] hover:opacity-90 active:scale-95 transition-all"
+            /* The button carries its own ground, so it only needs a border once
+               it is Ink-on-Ink against the block. */
+            className={`bg-ink text-cream font-inter font-semibold px-5 py-2.5 rounded-[2px] hover:opacity-90 active:scale-95 transition-all ${
+              isScrolled ? "" : "ring-1 ring-cream/25"
+            }`}
           >
             Contact
           </Link>

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { ALL_PETALS, CORAL, CREAM, SEED_RADIUS } from "./flowerGeometry";
 
 interface BrandFlowerProps {
   size?: number;
@@ -10,8 +11,13 @@ interface BrandFlowerProps {
 
 /**
  * The single source of the Bloom Matrix flower — the "one-flower rule".
- * Petal geometry, the base 45deg (x) orientation, cream fill and coral core are
- * fixed; only size, extra rotation and the drop shadow vary between usages.
+ *
+ * Geometry, cream fill and coral seed come from `flowerGeometry` and are shared
+ * with `LogoMark` and `FlowerMotifs`, so the logo and the page blooms are one
+ * shape. Only size, extra rotation and the drop shadow vary between usages.
+ *
+ * The petals are already diagonal — unlike the old organic flower there is no
+ * 45deg correction group here. Adding one would tilt it off the logo.
  */
 export default function BrandFlower({
   size = 120,
@@ -33,15 +39,14 @@ export default function BrandFlower({
       aria-hidden
     >
       <g data-flower-spin transform={`rotate(${rotation} 60 60)`}>
-        <g transform="rotate(45 60 60)">
-          <g fill="#F2EFE9">
-            <path d="M60 14 C74 38 74 54 60 60 C46 54 46 38 60 14 Z" />
-            <path d="M106 60 C82 74 66 74 60 60 C66 46 82 46 106 60 Z" />
-            <path d="M60 106 C46 82 46 66 60 60 C74 66 74 82 60 106 Z" />
-            <path d="M14 60 C38 46 54 46 60 60 C54 74 38 74 14 60 Z" />
-          </g>
+        <g fill={CREAM}>
+          {ALL_PETALS.map((d) => (
+            <path key={d} d={d} />
+          ))}
         </g>
-        <circle cx="60" cy="60" r="9" fill="#FF6B4A" />
+        {/* Drawn last and wide enough to cover the petals' inner corners, so the
+            seed sits on the flower rather than in the gap behind it. */}
+        <circle cx="60" cy="60" r={SEED_RADIUS} fill={CORAL} />
       </g>
     </svg>
   );

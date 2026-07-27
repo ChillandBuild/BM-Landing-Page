@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bloom Matrix — mark colourways</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 48px 36px 90px; background: #FAFAF8; color: #141414;
+    font: 400 14px/1.55 Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  h1 { font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+       margin: 0 0 4px; color: #1747E0; }
+  .sub { margin: 0 0 44px; font-size: 13px; color: rgba(20,20,20,.55); }
+  h2 { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+       color: rgba(20,20,20,.42); margin: 0 0 14px; padding-bottom: 7px;
+       border-bottom: 1px solid rgba(20,20,20,.12); }
+  section { margin-bottom: 52px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  figure { margin: 0; }
+  .plate { display: flex; align-items: center; justify-content: center; gap: 18px;
+           padding: 26px 18px; border-radius: 3px; }
+  .cap { margin-top: 9px; font-size: 10px; letter-spacing: .09em; text-transform: uppercase;
+         color: rgba(20,20,20,.5); }
+  .note { margin-top: 13px; font-size: 12px; color: rgba(20,20,20,.5); max-width: 74ch; }
+  .verdict { border-left: 2px solid #1747E0; padding: 2px 0 2px 14px; margin-top: 14px;
+             font-size: 12.5px; color: rgba(20,20,20,.72); max-width: 74ch; }
+  .warn { border-left-color: #FF6B4A; }
+</style>
+</head>
+<body>
+
+<h1>Bloom Matrix — mark colourways</h1>
+<p class="sub">Approved geometry, unchanged. Only colour varies.</p>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <mask id="seedHole">
+      <rect width="120" height="120" fill="#fff"/>
+      <circle cx="60" cy="60" r="14" fill="#000"/>
+    </mask>
+
+    <!-- Brushed silver: banded stops read as milled metal. userSpaceOnUse so the
+         sweep crosses the whole mark rather than restarting on each petal. -->
+    <linearGradient id="silver" gradientUnits="userSpaceOnUse" x1="8" y1="4" x2="112" y2="116">
+      <stop offset="0%"   stop-color="#F4F6F7"/>
+      <stop offset="16%"  stop-color="#B4BBC1"/>
+      <stop offset="31%"  stop-color="#EFF1F3"/>
+      <stop offset="49%"  stop-color="#959CA3"/>
+      <stop offset="66%"  stop-color="#E6E9EC"/>
+      <stop offset="84%"  stop-color="#A7AEB5"/>
+      <stop offset="100%" stop-color="#DCE0E4"/>
+    </linearGradient>
+
+    <!-- Polished chrome: fewer, softer bands, vertical. -->
+    <linearGradient id="chrome" gradientUnits="userSpaceOnUse" x1="60" y1="4" x2="60" y2="116">
+      <stop offset="0%"   stop-color="#FBFCFC"/>
+      <stop offset="40%"  stop-color="#AEB5BB"/>
+      <stop offset="52%"  stop-color="#8B9299"/>
+      <stop offset="63%"  stop-color="#D9DDE1"/>
+      <stop offset="100%" stop-color="#F2F4F5"/>
+    </linearGradient>
+
+    <!-- Champagne: the warm-metal alternative. -->
+    <linearGradient id="champagne" gradientUnits="userSpaceOnUse" x1="8" y1="4" x2="112" y2="116">
+      <stop offset="0%"   stop-color="#F7EEDC"/>
+      <stop offset="20%"  stop-color="#C8A97A"/>
+      <stop offset="40%"  stop-color="#F1E3C8"/>
+      <stop offset="60%"  stop-color="#B4945F"/>
+      <stop offset="80%"  stop-color="#EADCBE"/>
+      <stop offset="100%" stop-color="#CFB489"/>
+    </linearGradient>
+
+    <g id="bloom">
+      <g mask="url(#seedHole)" fill="none" stroke-width="8" stroke-linejoin="round">
+        <path d="M23 6L35 6L52 23L52 52L23 52L6 35L6 23Z"/>
+        <path d="M97 6L85 6L68 23L68 52L97 52L114 35L114 23Z"/>
+        <path d="M23 114L35 114L52 97L52 68L23 68L6 85L6 97Z"/>
+        <path d="M97 114L85 114L68 97L68 68L97 68L114 85L114 97Z"/>
+      </g>
+    </g>
+  </defs>
+</svg>
+
+<script>
+  // One template, driven by data — keeps every swatch on identical geometry.
+  const WAYS = [
+    { g: 'Black + silver', bg:'#141414', petal:'url(#silver)',  seed:'#141414', cap:'ink + brushed silver' },
+    { g: 'Black + silver', bg:'#141414', petal:'url(#silver)',  seed:'#FF6B4A', cap:'ink + silver + coral seed' },
+    { g: 'Black + silver', bg:'#141414', petal:'url(#chrome)',  seed:'#141414', cap:'ink + polished chrome' },
+    { g: 'Black + silver', bg:'#0B0B0C', petal:'url(#silver)',  seed:'#0B0B0C', cap:'true black + silver' },
+
+    { g: 'Flat greys (no gradient)', bg:'#141414', petal:'#C9CFD4', seed:'#141414', cap:'ink + flat steel' },
+    { g: 'Flat greys (no gradient)', bg:'#141414', petal:'#F2EFE9', seed:'#141414', cap:'ink + cream (in palette)' },
+    { g: 'Flat greys (no gradient)', bg:'#141414', petal:'#F2EFE9', seed:'#FF6B4A', cap:'ink + cream + coral' },
+    { g: 'Flat greys (no gradient)', bg:'#1E2024', petal:'#DDE2E6', seed:'#1E2024', cap:'graphite + light steel' },
+
+    { g: 'In-palette (current system)', bg:'#F2EFE9', petal:'#1747E0', seed:'#FF6B4A', cap:'CURRENT — cream + blue + coral' },
+    { g: 'In-palette (current system)', bg:'#1747E0', petal:'#F2EFE9', seed:'#FF6B4A', cap:'blue + cream + coral' },
+    { g: 'In-palette (current system)', bg:'#F2EFE9', petal:'#141414', seed:'#FF6B4A', cap:'cream + ink + coral' },
+    { g: 'In-palette (current system)', bg:'#141414', petal:'#1747E0', seed:'#F2EFE9', cap:'ink + blue + cream' },
+
+    { g: 'Other metals & darks', bg:'#141414', petal:'url(#champagne)', seed:'#141414', cap:'ink + champagne' },
+    { g: 'Other metals & darks', bg:'#0A1633', petal:'url(#silver)', seed:'#0A1633', cap:'deep navy + silver' },
+    { g: 'Other metals & darks', bg:'#F2EFE9', petal:'url(#silver)', seed:'#141414', cap:'cream + silver (FAILS)' },
+    { g: 'Other metals & darks', bg:'#141414', petal:'#1747E0', seed:'url(#silver)', cap:'ink + blue + silver seed' },
+  ];
+
+  const groups = [...new Set(WAYS.map(w => w.g))];
+  const mark = (w, size) => `<svg viewBox="0 0 120 120" width="${size}" height="${size}"
+      role="img" aria-label="Bloom Matrix"><use href="#bloom" stroke="${w.petal}"/>
+      <circle cx="60" cy="60" r="11" fill="${w.seed}"/></svg>`;
+
+  document.body.insertAdjacentHTML('beforeend', groups.map(g => `
+    <section>
+      <h2>${g}</h2>
+      <div class="grid">
+        ${WAYS.filter(w => w.g === g).map(w => `
+          <figure>
+            <div class="plate" style="background:${w.bg}">
+              ${mark(w, 116)}${mark(w, 40)}${mark(w, 24)}
+            </div>
+            <div class="cap">${w.cap}</div>
+          </figure>`).join('')}
+      </div>
+    </section>`).join(''));
+</script>
+
+<section>
+  <h2>What the silver costs</h2>
+  <div class="verdict">
+    <strong>It only works on dark.</strong> Silver is mid-grey once you remove the
+    illusion of reflection. On the cream body background it collapses to grey mush —
+    see the failing swatch above. The site is a cream-ground site, so a silver mark
+    cannot be the primary; it can only be the dark-ground variant.
+  </div>
+  <div class="verdict warn">
+    <strong>It is the system's first gradient.</strong> Every other element in
+    Editorial Bloom is flat. One gradient in the logo and nowhere else reads as an
+    inconsistency rather than a feature, unless dark surfaces become a deliberate
+    second register (deck covers, merch, app splash).
+  </div>
+  <div class="verdict warn">
+    <strong>It does not survive small sizes or flat print.</strong> At 24px the
+    bands average out to flat grey — compare the third mark in each swatch. Real
+    metal in print means a spot metallic ink or foil, priced per pass, and a flat
+    fallback is required for the favicon regardless.
+  </div>
+  <div class="verdict">
+    <strong>Cream on ink gets you 90% of it for free.</strong> The
+    <em>ink + cream</em> swatch is already in the palette, needs no gradient, holds
+    at 24px, and prints in one colour. On a dark ground cream reads as bright metal
+    to most eyes.
+  </div>
+</section>
+
+</body>
+</html>

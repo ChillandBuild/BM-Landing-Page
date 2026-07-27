@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bloom Matrix — vectorised mark, v2</title>
+<style>
+  :root {
+    --blue: #1747E0;
+    --cream: #F2EFE9;
+    --coral: #FF6B4A;
+    --ink: #141414;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 56px 40px 80px;
+    background: var(--cream);
+    color: var(--ink);
+    font: 400 15px/1.55 Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  h1 {
+    font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    margin: 0 0 4px; color: var(--blue);
+  }
+  .sub { margin: 0 0 48px; font-size: 13px; color: rgba(20,20,20,.55); letter-spacing: .02em; }
+  h2 {
+    font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+    color: rgba(20,20,20,.45); margin: 0 0 16px;
+    padding-bottom: 8px; border-bottom: 1px solid rgba(20,20,20,.12);
+  }
+  section { margin-bottom: 56px; }
+  .row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+  .plate {
+    display: flex; align-items: center; justify-content: center;
+    padding: 28px; background: var(--cream); border: 1px solid rgba(20,20,20,.12);
+  }
+  .plate.ink { background: var(--ink); border-color: transparent; }
+  .plate.blue { background: var(--blue); border-color: transparent; }
+  .ladder { display: flex; gap: 26px; align-items: flex-end; }
+  .ladder figure { margin: 0; text-align: center; }
+  .ladder figcaption {
+    margin-top: 10px; font-size: 10px; letter-spacing: .1em;
+    color: rgba(20,20,20,.45); font-variant-numeric: tabular-nums;
+  }
+  .lockup { display: flex; align-items: center; gap: 22px; }
+  .wordmark {
+    font-weight: 700; font-size: 40px; letter-spacing: .17em; line-height: 1;
+  }
+  .tagline {
+    margin-top: 9px; font-weight: 500; font-size: 11px; letter-spacing: .3em;
+    color: rgba(20,20,20,.55);
+  }
+  .plate.ink .wordmark { color: var(--cream); }
+  .plate.ink .tagline { color: rgba(242,239,233,.6); }
+  .dot { color: var(--coral); }
+  .note {
+    margin-top: 14px; font-size: 12px; color: rgba(20,20,20,.5); max-width: 62ch;
+  }
+</style>
+</head>
+<body>
+
+<h1>Bloom Matrix — vectorised mark</h1>
+<p class="sub">v5 · square block at centre, seed masked on top · APPROVED · Editorial Bloom palette</p>
+
+<!--
+  Approved mark. Four CLOSED heptagon petals whose square inner corners meet as
+  a 16x16 block at the centre. A circular mask (r=14) is knocked out of them and
+  the seed (r=11) sits on top, so the clear ring is a real hole and the stroke
+  ends are cut by the seed's arc rather than by drawn facets.
+-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <mask id="seedHole">
+      <rect width="120" height="120" fill="#fff"/>
+      <circle cx="60" cy="60" r="14" fill="#000"/>
+    </mask>
+    <g id="bloom">
+      <g mask="url(#seedHole)" fill="none" stroke-width="8" stroke-linejoin="round">
+        <path d="M23 6L35 6L52 23L52 52L23 52L6 35L6 23Z"/>
+        <path d="M97 6L85 6L68 23L68 52L97 52L114 35L114 23Z"/>
+        <path d="M23 114L35 114L52 97L52 68L23 68L6 85L6 97Z"/>
+        <path d="M97 114L85 114L68 97L68 68L97 68L114 85L114 97Z"/>
+      </g>
+    </g>
+  </defs>
+</svg>
+
+<section>
+  <h2>Primary</h2>
+  <div class="row">
+    <div class="plate">
+      <svg viewBox="0 0 120 120" width="240" height="240" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#1747E0"/>
+        <circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+    </div>
+    <div class="plate">
+      <svg viewBox="0 0 120 120" width="240" height="240" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#1747E0"/>
+        <circle cx="60" cy="60" r="11" fill="#1747E0"/>
+      </svg>
+    </div>
+  </div>
+  <p class="note">Left: Matrix Blue petals with the Seed Coral core. Right: single-colour blue —
+  the seed reads as a solid junction rather than an accent.</p>
+</section>
+
+<section>
+  <h2>Grounds</h2>
+  <div class="row">
+    <div class="plate ink">
+      <svg viewBox="0 0 120 120" width="150" height="150" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#F2EFE9"/>
+        <circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+    </div>
+    <div class="plate blue">
+      <svg viewBox="0 0 120 120" width="150" height="150" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#F2EFE9"/>
+        <circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+    </div>
+    <div class="plate">
+      <svg viewBox="0 0 120 120" width="150" height="150" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#141414"/>
+        <circle cx="60" cy="60" r="11" fill="#141414"/>
+      </svg>
+    </div>
+  </div>
+  <p class="note">Reversed on Ink and on Matrix Blue, plus the single-colour Ink cut for print and stamps.</p>
+</section>
+
+<section>
+  <h2>Size ladder</h2>
+  <div class="ladder">
+    <figure>
+      <svg viewBox="0 0 120 120" width="64" height="64" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#1747E0"/><circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+      <figcaption>64</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 120 120" width="40" height="40" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#1747E0"/><circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+      <figcaption>40</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 120 120" width="28" height="28" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#1747E0"/><circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+      <figcaption>28</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 120 120" width="20" height="20" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#1747E0"/><circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+      <figcaption>20</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 120 120" width="16" height="16" role="img" aria-label="Bloom Matrix">
+        <use href="#bloom" stroke="#1747E0"/><circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+      <figcaption>16</figcaption>
+    </figure>
+  </div>
+  <p class="note">The seed's clear ring closes up below roughly 24px. Below that use the
+  single-colour cut — that is what the favicon does.</p>
+</section>
+
+<section>
+  <h2>Lockup</h2>
+  <div class="row">
+    <div class="plate lockup">
+      <svg viewBox="0 0 120 120" width="76" height="76" role="img" aria-label="">
+        <use href="#bloom" stroke="#1747E0"/><circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+      <div>
+        <div class="wordmark">BLOOM MATRIX</div>
+        <div class="tagline">INTELLIGENCE <span class="dot">&bull;</span> AUTOMATION <span class="dot">&bull;</span> GROWTH</div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-top:20px">
+    <div class="plate ink lockup">
+      <svg viewBox="0 0 120 120" width="76" height="76" role="img" aria-label="">
+        <use href="#bloom" stroke="#F2EFE9"/><circle cx="60" cy="60" r="11" fill="#FF6B4A"/>
+      </svg>
+      <div>
+        <div class="wordmark">BLOOM MATRIX</div>
+        <div class="tagline">INTELLIGENCE <span class="dot">&bull;</span> AUTOMATION <span class="dot">&bull;</span> GROWTH</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

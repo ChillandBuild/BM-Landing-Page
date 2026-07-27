@@ -1,16 +1,13 @@
-/**
- * A documented exception to the one-flower rule.
- *
- * The mark itself never varies — nav, favicon, OG and the hero all use
- * `BrandFlower`. These are decorative *motifs* for the value-props panel only,
- * where the flower progressively dissolves into the matrix as you scroll:
- * solid → hybrid → halftone → dissolve. Do not use them as a logo anywhere.
- */
+import { CORAL, CREAM, FLOWER_PETALS, SEED_RADIUS } from "./flowerGeometry";
 
-const PETAL_TOP = "M60 14 C74 38 74 54 60 60 C46 54 46 38 60 14 Z";
-const PETAL_RIGHT = "M106 60 C82 74 66 74 60 60 C66 46 82 46 106 60 Z";
-const PETAL_BOTTOM = "M60 106 C46 82 46 66 60 60 C74 66 74 82 60 106 Z";
-const PETAL_LEFT = "M14 60 C38 46 54 46 60 60 C54 74 38 74 14 60 Z";
+/**
+ * A documented exception to the one-flower rule — in treatment only.
+ *
+ * The geometry never varies: these use the same petals as `BrandFlower` and
+ * `LogoMark`, from `flowerGeometry`. What varies is the *fill*, for the
+ * value-props panel where the flower progressively dissolves into the matrix as
+ * you scroll: solid → hybrid → halftone → dissolve. Do not use them as a logo.
+ */
 
 export const MOTIF_KEYS = ["solid", "hybrid", "halftone", "dissolve"] as const;
 export type MotifKey = (typeof MOTIF_KEYS)[number];
@@ -22,14 +19,21 @@ interface FlowerMotifProps {
   className?: string;
 }
 
-/** Dot trails standing in for the two dissolving petals. */
+/** The pair that stays solid, and the pair that dissolves — top then bottom. */
+const HELD = [FLOWER_PETALS.topLeft, FLOWER_PETALS.topRight];
+const DISSOLVING = [FLOWER_PETALS.bottomLeft, FLOWER_PETALS.bottomRight];
+
+/**
+ * Dot trails standing in for the two dissolving petals. Positions run down the
+ * SW and SE diagonals, matching where those petals sit.
+ */
 const DISSOLVE_DOTS = [
-  { cx: 78, cy: 55, r: 7 },
-  { cx: 93, cy: 58, r: 5 },
-  { cx: 106, cy: 61, r: 3.2 },
-  { cx: 55, cy: 78, r: 7 },
-  { cx: 58, cy: 93, r: 5 },
-  { cx: 61, cy: 106, r: 3.2 },
+  { cx: 43.7, cy: 69.2, r: 7 },
+  { cx: 35.3, cy: 81.9, r: 5 },
+  { cx: 28.2, cy: 93.2, r: 3.2 },
+  { cx: 76.3, cy: 69.2, r: 7 },
+  { cx: 84.7, cy: 81.9, r: 5 },
+  { cx: 91.8, cy: 93.2, r: 3.2 },
 ];
 
 export default function FlowerMotif({
@@ -45,58 +49,59 @@ export default function FlowerMotif({
     <svg width={size} height={size} viewBox="0 0 120 120" className={className} aria-hidden>
       <defs>
         <pattern id={patternId} width="8.5" height="8.5" patternUnits="userSpaceOnUse">
-          <circle cx="4.25" cy="4.25" r="2.5" fill="#F2EFE9" />
+          <circle cx="4.25" cy="4.25" r="2.5" fill={CREAM} />
         </pattern>
       </defs>
 
       <g transform={`rotate(${rotation} 60 60)`}>
-        <g transform="rotate(45 60 60)">
-          {motif === "solid" && (
-            <g fill="#F2EFE9">
-              <path d={PETAL_TOP} />
-              <path d={PETAL_RIGHT} />
-              <path d={PETAL_BOTTOM} />
-              <path d={PETAL_LEFT} />
+        {motif === "solid" && (
+          <g fill={CREAM}>
+            {[...HELD, ...DISSOLVING].map((d) => (
+              <path key={d} d={d} />
+            ))}
+          </g>
+        )}
+
+        {motif === "hybrid" && (
+          <>
+            <g fill={CREAM}>
+              {HELD.map((d) => (
+                <path key={d} d={d} />
+              ))}
             </g>
-          )}
-
-          {motif === "hybrid" && (
-            <>
-              <g fill="#F2EFE9">
-                <path d={PETAL_TOP} />
-                <path d={PETAL_LEFT} />
-              </g>
-              <g fill={halftoneFill}>
-                <path d={PETAL_RIGHT} />
-                <path d={PETAL_BOTTOM} />
-              </g>
-            </>
-          )}
-
-          {motif === "halftone" && (
             <g fill={halftoneFill}>
-              <path d={PETAL_TOP} />
-              <path d={PETAL_RIGHT} />
-              <path d={PETAL_BOTTOM} />
-              <path d={PETAL_LEFT} />
+              {DISSOLVING.map((d) => (
+                <path key={d} d={d} />
+              ))}
             </g>
-          )}
+          </>
+        )}
 
-          {motif === "dissolve" && (
-            <>
-              <g fill="#F2EFE9">
-                <path d={PETAL_TOP} />
-                <path d={PETAL_LEFT} />
-              </g>
-              <g fill="#F2EFE9">
-                {DISSOLVE_DOTS.map((dot) => (
-                  <circle key={`${dot.cx}-${dot.cy}`} cx={dot.cx} cy={dot.cy} r={dot.r} />
-                ))}
-              </g>
-            </>
-          )}
-        </g>
-        <circle cx="60" cy="60" r="10" fill="#FF6B4A" />
+        {motif === "halftone" && (
+          <g fill={halftoneFill}>
+            {[...HELD, ...DISSOLVING].map((d) => (
+              <path key={d} d={d} />
+            ))}
+          </g>
+        )}
+
+        {motif === "dissolve" && (
+          <>
+            <g fill={CREAM}>
+              {HELD.map((d) => (
+                <path key={d} d={d} />
+              ))}
+            </g>
+            <g fill={CREAM}>
+              {DISSOLVE_DOTS.map((dot) => (
+                <circle key={`${dot.cx}-${dot.cy}`} cx={dot.cx} cy={dot.cy} r={dot.r} />
+              ))}
+            </g>
+          </>
+        )}
+
+        {/* Drawn last so it covers the petals' inner corners and reads anchored. */}
+        <circle cx="60" cy="60" r={SEED_RADIUS} fill={CORAL} />
       </g>
     </svg>
   );
