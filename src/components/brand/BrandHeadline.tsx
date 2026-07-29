@@ -61,7 +61,7 @@ function Glyph({
       <span className="relative inline-block" style={{ lineHeight: 1 }}>
         o
         <span
-          className="absolute rounded-full bg-coral"
+          className="absolute rounded-full bg-oxblood"
           style={{
             width: SEED_SIZE,
             height: SEED_SIZE,
@@ -78,7 +78,7 @@ function Glyph({
     <span className="relative inline-block" style={{ lineHeight: 1 }}>
       {token.ch}
       <span
-        className="absolute rounded-full bg-coral"
+        className="absolute rounded-full bg-oxblood"
         style={{
           width: TITTLE_SIZE,
           height: TITTLE_SIZE,
@@ -116,7 +116,7 @@ export default function BrandHeadline({
         );
 
         return seg.emphasis ? (
-          <em key={si} className="text-blue" aria-hidden>
+          <em key={si} className="text-emphasis" aria-hidden>
             {inner}
           </em>
         ) : (

@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { ALL_PETALS, CORAL, CREAM, SEED_RADIUS } from "./flowerGeometry";
+import { ACCENT_OXBLOOD, ALL_PETALS, CREAM, SEED_RADIUS } from "./flowerGeometry";
 
 interface BrandFlowerProps {
   size?: number;
@@ -46,7 +46,7 @@ export default function BrandFlower({
         </g>
         {/* Drawn last and wide enough to cover the petals' inner corners, so the
             seed sits on the flower rather than in the gap behind it. */}
-        <circle cx="60" cy="60" r={SEED_RADIUS} fill={CORAL} />
+        <circle cx="60" cy="60" r={SEED_RADIUS} fill={ACCENT_OXBLOOD} />
       </g>
     </svg>
   );

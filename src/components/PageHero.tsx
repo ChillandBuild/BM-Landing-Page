@@ -27,7 +27,7 @@ export default function PageHero({ eyebrow, titleSegments, description }: PageHe
     <section className="relative bg-cream pt-40 pb-20 overflow-hidden">
       {/* Block and flower are desktop-only: at narrow widths they would cover
           the headline rather than sit beside it. */}
-      <div className="absolute right-0 top-0 bottom-0 w-[38%] bg-blue hidden md:block" aria-hidden />
+      <div className="absolute right-0 top-0 bottom-0 w-[38%] bg-ink hidden md:block" aria-hidden />
       <BrandFlower
         size={260}
         className="absolute right-[9%] top-28 hidden md:block pointer-events-none"
@@ -41,7 +41,7 @@ export default function PageHero({ eyebrow, titleSegments, description }: PageHe
       >
         <motion.p
           variants={item}
-          className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-4"
+          className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-4"
         >
           {eyebrow}
         </motion.p>

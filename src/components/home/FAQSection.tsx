@@ -8,7 +8,7 @@ export default function FAQSection() {
     <section className="bg-cream py-24 border-t border-ink/10">
       <div className="max-w-3xl mx-auto px-container-margin">
         <Reveal className="mb-12 text-center">
-          <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">
+          <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">
             FAQ
           </p>
           <BrandHeadline

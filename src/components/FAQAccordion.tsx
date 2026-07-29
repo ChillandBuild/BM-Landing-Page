@@ -22,7 +22,7 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
             >
-              <span className="font-inter font-semibold text-ink group-hover:text-blue transition-colors">
+              <span className="font-inter font-semibold text-ink group-hover:text-oxblood transition-colors">
                 {item.question}
               </span>
               <svg
@@ -34,7 +34,7 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
                 strokeWidth="2"
                 strokeLinecap="round"
                 aria-hidden
-                className="shrink-0 text-blue transition-transform duration-300"
+                className="shrink-0 text-oxblood transition-transform duration-300"
                 style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
               >
                 <path d="M9 3 V15 M3 9 H15" />

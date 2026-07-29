@@ -11,8 +11,8 @@ export const contentType = "image/png";
  * renderer (Satori) does not apply SVG group transforms, so everything stays in
  * plain untransformed coordinates.
  *
- * The seed's clear ring is an opaque Matrix Blue disc rather than a mask:
- * Satori has no mask support, and the flower sits on a solid blue block here,
+ * The seed's clear ring is an opaque Ink disc rather than a mask:
+ * Satori has no mask support, and the flower sits on a solid Ink block here,
  * so painting the ring in the ground colour is indistinguishable from a
  * knockout. The masked (genuinely transparent) version is the SVG asset.
  */
@@ -48,7 +48,7 @@ export default async function Image() {
             top: 0,
             bottom: 0,
             width: "38%",
-            background: "#1747E0",
+            background: "#141414",
           }}
         />
 
@@ -70,8 +70,8 @@ export default async function Image() {
             </g>
           </svg>
         </div>
-        {/* Mark centre lands at (980, 315): left 840 + 60 * (280/120). The blue
-            disc opens the clear ring, then the coral core sits inside it. */}
+        {/* Mark centre lands at (980, 315): left 840 + 60 * (280/120). The Ink
+            disc opens the clear ring, then the oxblood core sits inside it. */}
         <div
           style={{
             position: "absolute",
@@ -80,7 +80,7 @@ export default async function Image() {
             width: 66,
             height: 66,
             borderRadius: 33,
-            background: "#1747E0",
+            background: "#141414",
             display: "flex",
           }}
         />
@@ -92,7 +92,7 @@ export default async function Image() {
             width: 52,
             height: 52,
             borderRadius: 26,
-            background: "#FF6B4A",
+            background: "#7A2331",
             display: "flex",
           }}
         />
@@ -110,7 +110,7 @@ export default async function Image() {
             style={{
               fontSize: 21,
               letterSpacing: 4,
-              color: "#1747E0",
+              color: "#7A2331",
               textTransform: "uppercase",
               fontWeight: 700,
               marginBottom: 26,

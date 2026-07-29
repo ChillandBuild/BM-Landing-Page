@@ -6,10 +6,10 @@ import { ALL_PETALS, SEED_RADIUS } from "./flowerGeometry";
 const pathsOf = (container: HTMLElement) =>
   Array.from(container.querySelectorAll("path")).map((p) => p.getAttribute("d"));
 
-test("renders four cream petals and a coral core", () => {
+test("renders four cream petals and an oxblood core", () => {
   const { container } = render(<BrandFlower size={120} />);
   expect(container.querySelectorAll('g[fill="#F2EFE9"] path')).toHaveLength(4);
-  expect(container.querySelector('circle[fill="#FF6B4A"]')).not.toBeNull();
+  expect(container.querySelector('circle[fill="#7A2331"]')).not.toBeNull();
 });
 
 test("applies rotation via transform on the wrapper group", () => {

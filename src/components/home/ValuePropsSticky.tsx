@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import FlowerMotif, { MOTIF_KEYS } from "@/components/brand/FlowerMotifs";
+import LogoMark from "@/components/brand/LogoMark";
 import BrandHeadline from "@/components/brand/BrandHeadline";
 
 const VALUE_PROPS = [
@@ -62,9 +62,9 @@ export default function ValuePropsSticky() {
             ))}
           </div>
 
-          {/* Pinned visual: a different motif per prop — the bloom progressively
-              dissolving into the matrix as you scroll. */}
-          <div className="relative h-[360px] bg-blue overflow-hidden flex items-center justify-center">
+          {/* Pinned visual: the brand mark itself, silver on Ink, turning a
+              notch further per prop. */}
+          <div className="relative h-[360px] bg-ink overflow-hidden flex items-center justify-center">
             <span className="absolute top-6 left-7 font-inter text-xs font-bold tracking-[0.14em] text-cream/60">
               {`0${activeIndex + 1} / 0${VALUE_PROPS.length}`}
             </span>
@@ -77,11 +77,7 @@ export default function ValuePropsSticky() {
                 transition={{ duration: 0.5 }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <FlowerMotif
-                  motif={MOTIF_KEYS[activeIndex] ?? "solid"}
-                  size={200}
-                  rotation={activeIndex * 22}
-                />
+                <LogoMark size={200} tone="silver" rotation={activeIndex * 22} />
               </motion.div>
             </AnimatePresence>
           </div>

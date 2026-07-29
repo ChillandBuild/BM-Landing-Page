@@ -141,7 +141,7 @@ export default function Hero() {
       >
         <motion.span
           variants={item}
-          className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-5"
+          className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-5"
         >
           AI-first product engineering
         </motion.span>
@@ -167,13 +167,13 @@ export default function Hero() {
         >
           <Link
             href="/contact"
-            className="bg-coral text-ink px-8 py-4 rounded-[2px] font-semibold hover:opacity-90 transition-all"
+            className="bg-oxblood text-cream px-8 py-4 rounded-[2px] font-semibold hover:opacity-90 transition-all"
           >
             Start a project
           </Link>
           <Link
             href="/products"
-            className="text-ink font-semibold border-b-2 border-blue pb-0.5 hover:border-coral transition-colors"
+            className="text-ink font-semibold border-b-2 border-platinum pb-0.5 hover:border-oxblood transition-colors"
           >
             Explore products
           </Link>

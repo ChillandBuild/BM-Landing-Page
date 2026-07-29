@@ -8,7 +8,7 @@ export default function ServiceAreasGrid() {
     <section className="bg-cream py-24">
       <div className="max-w-7xl mx-auto px-container-margin">
         <Reveal className="max-w-2xl mb-14">
-          <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">
+          <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">
             What We Build
           </p>
           <BrandHeadline
@@ -31,8 +31,8 @@ export default function ServiceAreasGrid() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10">
           {SERVICES.map((service, index) => (
             <Reveal key={service.slug} delay={Math.min(index * 0.08, 0.32)} className="h-full">
-              <div className="bg-cream p-8 hover:bg-blue transition-colors duration-300 h-full group">
-                <span className="font-inter text-xs font-bold tracking-[0.14em] text-coral mb-5 block">
+              <div className="bg-cream p-8 hover:bg-ink transition-colors duration-300 h-full group">
+                <span className="font-inter text-xs font-bold tracking-[0.14em] text-oxblood mb-5 block">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <BrandHeadline
@@ -51,7 +51,7 @@ export default function ServiceAreasGrid() {
         <Reveal className="mt-10">
           <Link
             href="/services"
-            className="font-inter font-semibold text-ink border-b-2 border-blue pb-0.5 hover:border-coral transition-colors"
+            className="font-inter font-semibold text-ink border-b-2 border-platinum pb-0.5 hover:border-oxblood transition-colors"
           >
             See the full services breakdown →
           </Link>

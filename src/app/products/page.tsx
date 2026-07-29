@@ -33,7 +33,7 @@ export default function ProductsPage() {
             {PRODUCTS.map((product, index) => (
               <Reveal key={product.slug} delay={index * 0.1} className="h-full">
                 <div className="bg-cream p-8 flex flex-col h-full">
-                  <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">
+                  <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">
                     {product.tagline}
                   </p>
                   <BrandHeadline
@@ -56,7 +56,7 @@ export default function ProductsPage() {
                   </ul>
                   <Link
                     href={product.href}
-                    className="font-inter font-semibold text-ink border-b-2 border-blue pb-0.5 hover:border-coral transition-colors self-start"
+                    className="font-inter font-semibold text-ink border-b-2 border-platinum pb-0.5 hover:border-oxblood transition-colors self-start"
                   >
                     {product.slug === "aira" ? "Explore AIRA →" : "Learn more →"}
                   </Link>

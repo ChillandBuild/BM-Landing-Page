@@ -57,10 +57,10 @@ export default function AiraLiveSimulation() {
   }, [tick, reducedMotion]);
 
   return (
-    <div className="bg-blue p-6 md:p-7 min-h-[380px] flex flex-col">
+    <div className="bg-ink p-6 md:p-7 min-h-[380px] flex flex-col">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-coral animate-pulse" aria-hidden />
+          <span className="w-1.5 h-1.5 rounded-full bg-oxblood animate-pulse" aria-hidden />
           <span className="font-inter text-[11px] uppercase tracking-[0.16em] text-cream font-bold">
             AIRA
           </span>
@@ -100,7 +100,7 @@ export default function AiraLiveSimulation() {
               {[0, 1, 2].map((dot) => (
                 <motion.span
                   key={dot}
-                  className="w-1.5 h-1.5 rounded-full bg-coral"
+                  className="w-1.5 h-1.5 rounded-full bg-oxblood"
                   animate={{ opacity: [0.25, 1, 0.25] }}
                   transition={{ duration: 1, repeat: Infinity, delay: dot * 0.18 }}
                 />
@@ -118,7 +118,7 @@ export default function AiraLiveSimulation() {
             transition={{ duration: 0.4 }}
             className="font-inter text-[11px] text-cream/85 flex items-center gap-2"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-coral shrink-0" aria-hidden />
+            <span className="w-1.5 h-1.5 rounded-full bg-oxblood shrink-0" aria-hidden />
             Lead qualified — routed to a telecaller and logged to CRM.
           </motion.p>
         )}

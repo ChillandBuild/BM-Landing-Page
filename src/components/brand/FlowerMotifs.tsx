@@ -1,4 +1,4 @@
-import { CORAL, CREAM, FLOWER_PETALS, SEED_RADIUS } from "./flowerGeometry";
+import { ACCENT_OXBLOOD, CREAM, FLOWER_PETALS, SEED_RADIUS } from "./flowerGeometry";
 
 /**
  * A documented exception to the one-flower rule — in treatment only.
@@ -101,7 +101,7 @@ export default function FlowerMotif({
         )}
 
         {/* Drawn last so it covers the petals' inner corners and reads anchored. */}
-        <circle cx="60" cy="60" r={SEED_RADIUS} fill={CORAL} />
+        <circle cx="60" cy="60" r={SEED_RADIUS} fill={ACCENT_OXBLOOD} />
       </g>
     </svg>
   );

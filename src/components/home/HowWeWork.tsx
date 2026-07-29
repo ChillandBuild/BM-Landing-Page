@@ -54,7 +54,7 @@ export default function HowWeWork() {
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="max-w-7xl mx-auto px-container-margin w-full grid md:grid-cols-[0.8fr_1.2fr] gap-16 items-center">
           <div className="relative">
-            <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-4">
+            <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-4">
               How We Work
             </p>
             <BrandHeadline
@@ -71,7 +71,7 @@ export default function HowWeWork() {
               evolution — a single team accountable end to end, from idea to every release after.
             </p>
 
-            <div className="relative w-40 h-40 bg-blue flex items-center justify-center mb-8">
+            <div className="relative w-40 h-40 bg-oxblood flex items-center justify-center mb-8">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={activeIndex}
@@ -79,7 +79,7 @@ export default function HowWeWork() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.4 }}
-                  className="font-bm-serif text-cream text-6xl"
+                  className="font-bm-serif text-ink text-6xl"
                 >
                   {STEPS[activeIndex].step}
                 </motion.span>
@@ -90,7 +90,7 @@ export default function HowWeWork() {
               {STEPS.map((s, i) => (
                 <div key={s.step} className="h-1 flex-1 bg-ink/10 overflow-hidden">
                   <motion.div
-                    className="h-full bg-coral"
+                    className="h-full bg-oxblood"
                     initial={false}
                     animate={{ width: i <= activeIndex ? "100%" : "0%" }}
                     transition={{ duration: 0.4 }}
@@ -101,10 +101,10 @@ export default function HowWeWork() {
           </div>
 
           <div className="relative">
-            {/* Connecting timeline: static track + coral fill up to the active node */}
+            {/* Connecting timeline: static track + oxblood fill up to the active node */}
             <div className="absolute left-[17px] top-4 bottom-4 w-px bg-ink/10" aria-hidden />
             <motion.div
-              className="absolute left-[17px] top-4 w-px bg-coral"
+              className="absolute left-[17px] top-4 w-px bg-oxblood"
               aria-hidden
               initial={false}
               animate={{ height: `${(activeIndex / (STEPS.length - 1)) * 100}%` }}
@@ -120,7 +120,7 @@ export default function HowWeWork() {
                     <div
                       className={`relative z-10 shrink-0 w-9 h-9 rounded-full border flex items-center justify-center font-inter text-[11px] font-bold transition-colors duration-300 ${
                         isReached
-                          ? "bg-blue border-transparent text-cream"
+                          ? "bg-oxblood border-transparent text-ink"
                           : "bg-cream border-ink/15 text-ink/50"
                       }`}
                     >

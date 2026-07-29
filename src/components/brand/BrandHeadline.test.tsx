@@ -13,16 +13,16 @@ test("exposes the plain text to assistive tech via aria-label", () => {
   );
 });
 
-test("renders emphasis segments in blue", () => {
+test("renders emphasis segments with the legible steel-grey", () => {
   const { container } = render(
     <BrandHeadline segments={[{ text: "that " }, { text: "think", emphasis: true }]} />
   );
-  expect(container.querySelector("em")?.className).toContain("text-blue");
+  expect(container.querySelector("em")?.className).toContain("text-emphasis");
 });
 
-test("seeded=false renders no coral marks", () => {
+test("seeded=false renders no oxblood marks", () => {
   const { container } = render(<BrandHeadline segments={[{ text: "bloom" }]} seeded={false} />);
-  expect(container.querySelectorAll(".bg-coral").length).toBe(0);
+  expect(container.querySelectorAll(".bg-oxblood").length).toBe(0);
 });
 
 test("keeps each word unbreakable so marked glyphs cannot split it", () => {
@@ -43,5 +43,5 @@ test("preserves the exact text so search, find-in-page and copy still work", () 
 
 test("seeded headlines mark every lowercase o", () => {
   const { container } = render(<BrandHeadline segments={[{ text: "bloom" }]} />);
-  expect(container.querySelectorAll(".bg-coral").length).toBe(2);
+  expect(container.querySelectorAll(".bg-oxblood").length).toBe(2);
 });

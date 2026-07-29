@@ -52,7 +52,7 @@ export default function AboutPage() {
       <section className="bg-cream py-24">
         <div className="max-w-4xl mx-auto px-container-margin space-y-16">
           <Reveal>
-            <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">
+            <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">
               Founding Philosophy
             </p>
             <BrandHeadline
@@ -73,7 +73,7 @@ export default function AboutPage() {
 
           <div className="grid md:grid-cols-2 gap-10">
             <Reveal>
-              <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">Vision</p>
+              <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">Vision</p>
               <p className="font-inter text-ink/65 leading-relaxed">
                 To become a globally recognized technology company building intelligent products
                 and digital ecosystems that redefine how businesses and communities interact with
@@ -81,7 +81,7 @@ export default function AboutPage() {
               </p>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">Mission</p>
+              <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">Mission</p>
               <p className="font-inter text-ink/65 leading-relaxed">
                 To combine artificial intelligence, engineering excellence, and product innovation
                 to create scalable digital ecosystems that deliver meaningful business impact.
@@ -91,7 +91,7 @@ export default function AboutPage() {
 
           <div>
             <Reveal>
-              <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-6">
+              <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-6">
                 Core Values
               </p>
             </Reveal>
@@ -114,7 +114,7 @@ export default function AboutPage() {
           </div>
 
           <Reveal>
-            <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-6">
+            <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-6">
               Every Solution Should Be
             </p>
             <div className="flex flex-wrap gap-3">
@@ -134,7 +134,7 @@ export default function AboutPage() {
       <section className="bg-cream py-24 border-t border-ink/10">
         <div className="max-w-3xl mx-auto px-container-margin">
           <Reveal className="mb-12 text-center">
-            <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">FAQ</p>
+            <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">FAQ</p>
             <BrandHeadline
               as="h2"
               segments={[{ text: "Questions about " }, { text: "who we are", emphasis: true }, { text: "." }]}

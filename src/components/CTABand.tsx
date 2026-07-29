@@ -30,13 +30,13 @@ export default function CTABand({
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/contact"
-              className="bg-coral text-ink px-8 py-4 rounded-[2px] font-semibold text-center hover:opacity-90 transition-all"
+              className="bg-oxblood text-cream px-8 py-4 rounded-[2px] font-semibold text-center hover:opacity-90 transition-all"
             >
               Start a project
             </Link>
             <Link
               href="/products/aira"
-              className="border border-cream/25 text-cream px-8 py-4 rounded-[2px] font-semibold text-center hover:bg-cream/5 transition-all"
+              className="bg-oxblood text-cream px-8 py-4 rounded-[2px] font-semibold text-center hover:opacity-90 transition-all"
             >
               Explore AIRA
             </Link>

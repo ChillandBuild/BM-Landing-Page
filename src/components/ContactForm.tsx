@@ -57,14 +57,14 @@ export default function ContactForm() {
   if (isSubmitted) {
     return (
       <div className="border border-ink/10 p-8 flex flex-col items-center justify-center text-center min-h-[400px] gap-6">
-        <div className="w-16 h-16 rounded-full bg-blue/10 border border-blue/30 flex items-center justify-center">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1747E0" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <div className="w-16 h-16 rounded-full bg-oxblood/10 border border-oxblood/30 flex items-center justify-center">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#7A2331" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <path d="M4 12.5l5.5 5.5L20 7" />
           </svg>
         </div>
         <BrandHeadline as="h2" segments={[{ text: "Inquiry Received" }]} className="text-2xl text-ink" />
         <p className="font-inter text-ink/65 max-w-sm">
-          Thank you, <span className="text-blue font-semibold">{formData.fullName}</span>. One
+          Thank you, <span className="text-oxblood font-semibold">{formData.fullName}</span>. One
           of our engineering leads will reach out to you within the next 24 hours.
         </p>
         <button
@@ -73,7 +73,7 @@ export default function ContactForm() {
             setFormData(initialFormData);
             setBudget("");
           }}
-          className="text-blue font-semibold hover:underline mt-4 cursor-pointer"
+          className="text-oxblood font-semibold hover:underline mt-4 cursor-pointer"
         >
           Submit another request
         </button>
@@ -179,8 +179,8 @@ export default function ContactForm() {
                 onClick={() => setBudget(range)}
                 className={`py-2 rounded-[2px] text-xs border transition-all cursor-pointer ${
                   budget === range
-                    ? "border-blue bg-blue/10 text-blue font-bold"
-                    : "border-ink/15 text-ink/65 hover:border-blue/50"
+                    ? "border-oxblood bg-oxblood/10 text-oxblood font-bold"
+                    : "border-ink/15 text-ink/65 hover:border-oxblood/50"
                 }`}
               >
                 {range}
@@ -206,12 +206,12 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-coral text-ink py-4 rounded-[2px] font-semibold hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
+          className="w-full bg-oxblood text-cream py-4 rounded-[2px] font-semibold hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
         >
           {isSubmitting ? (
             <>
               Sending…
-              <div className="w-5 h-5 border-2 border-ink border-t-transparent rounded-full animate-spin" />
+              <div className="w-5 h-5 border-2 border-cream border-t-transparent rounded-full animate-spin" />
             </>
           ) : (
             <>

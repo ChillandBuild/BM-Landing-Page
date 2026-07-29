@@ -4,7 +4,7 @@ export type HeadlineToken = { ch: string; kind: HeadlineTokenKind };
 
 /**
  * Splits headline text into glyph tokens for BM Serif's brand modifications.
- * Only lowercase o/i/j carry marks — the seeded counter and the coral tittle
+ * Only lowercase o/i/j carry marks — the seeded counter and the oxblood tittle
  * are drawn for lowercase forms only.
  */
 /**

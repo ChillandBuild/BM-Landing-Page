@@ -26,12 +26,12 @@ export default function ContactPage() {
         <div className="max-w-5xl mx-auto px-container-margin grid lg:grid-cols-[1fr_1.4fr] gap-12">
           <Reveal className="space-y-8">
             <div>
-              <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">
+              <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">
                 Direct Contact
               </p>
               <div className="space-y-3 font-inter text-ink">
                 <div className="flex items-center gap-3">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B4A" strokeWidth="2" aria-hidden>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A2331" strokeWidth="2" aria-hidden>
                     <rect x="3" y="5" width="18" height="14" rx="2" />
                     <path d="M3 7l9 6 9-6" />
                   </svg>
@@ -40,7 +40,7 @@ export default function ContactPage() {
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B4A" strokeWidth="2" aria-hidden>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A2331" strokeWidth="2" aria-hidden>
                     <path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" />
                     <circle cx="12" cy="9" r="2.5" />
                   </svg>

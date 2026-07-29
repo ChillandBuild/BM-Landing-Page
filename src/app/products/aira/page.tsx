@@ -39,7 +39,7 @@ export default function AiraPage() {
             <ul className="space-y-3">
               {AIRA.features.map((feature) => (
                 <li key={feature} className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-coral shrink-0" aria-hidden />
+                  <span className="w-1.5 h-1.5 rounded-full bg-oxblood shrink-0" aria-hidden />
                   <span className="font-inter text-ink">{feature}</span>
                 </li>
               ))}
@@ -54,7 +54,7 @@ export default function AiraPage() {
       <section className="bg-cream py-24 border-t border-ink/10">
         <div className="max-w-3xl mx-auto px-container-margin">
           <Reveal className="mb-12 text-center">
-            <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">
+            <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">
               FAQ
             </p>
             <BrandHeadline

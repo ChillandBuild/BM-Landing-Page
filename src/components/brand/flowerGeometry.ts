@@ -34,4 +34,4 @@ export const SEED_RADIUS = 13;
 export const FLOWER_CENTRE = 60;
 
 export const CREAM = "#F2EFE9";
-export const CORAL = "#FF6B4A";
+export const ACCENT_OXBLOOD = "#7A2331";

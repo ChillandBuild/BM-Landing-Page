@@ -2,10 +2,10 @@
 
 @theme {
   /* Editorial Bloom palette — the only colors in the system */
-  --color-blue: #1747E0;
   --color-cream: #F2EFE9;
-  --color-coral: #FF6B4A;
   --color-ink: #141414;
+  --color-oxblood: #7A2331;
+  --color-platinum: #C0C7D0;
 
   /* Fonts */
   --font-bm-serif: var(--font-lora);
@@ -26,8 +26,16 @@
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--color-blue) !important;
-  box-shadow: 0 0 0 3px rgba(23, 71, 224, 0.15);
+  border-color: var(--color-oxblood) !important;
+  box-shadow: 0 0 0 3px rgba(122, 35, 49, 0.15);
+}
+
+/* Emphasis word treatment for BrandHeadline — one solid steel-grey, no
+   dark/light/dark gradient band. The old chrome-to-platinum gradient's
+   lightest stop measured ~1:1 contrast against cream (invisible); this flat
+   #5A6472 measures ~5.2:1, comfortably above WCAG AA even at body-text size. */
+.text-emphasis {
+  color: #5A6472;
 }
 
 .scrollbar-hide::-webkit-scrollbar { display: none; }

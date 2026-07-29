@@ -10,7 +10,7 @@ export default function FeaturedProducts() {
       <div className="max-w-7xl mx-auto px-container-margin">
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           <Reveal>
-            <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-3">
+            <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-3">
               Flagship Product
             </p>
             <BrandHeadline
@@ -23,7 +23,7 @@ export default function FeaturedProducts() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href={AIRA.href}
-                className="bg-coral text-ink px-6 py-3 rounded-[2px] font-semibold text-center hover:opacity-90 transition-all"
+                className="bg-oxblood text-cream px-6 py-3 rounded-[2px] font-semibold text-center hover:opacity-90 transition-all"
               >
                 Explore AIRA
               </Link>
@@ -43,7 +43,7 @@ export default function FeaturedProducts() {
         <Reveal>
           <div className="border border-ink/10 p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <p className="font-inter text-xs uppercase tracking-[0.14em] text-blue font-bold mb-2">
+              <p className="font-inter text-xs uppercase tracking-[0.14em] text-oxblood font-bold mb-2">
                 Also Building
               </p>
               <BrandHeadline
@@ -55,7 +55,7 @@ export default function FeaturedProducts() {
             </div>
             <Link
               href="/products"
-              className="font-inter font-semibold text-ink border-b-2 border-blue pb-0.5 hover:border-coral transition-colors whitespace-nowrap"
+              className="font-inter font-semibold text-ink border-b-2 border-platinum pb-0.5 hover:border-oxblood transition-colors whitespace-nowrap"
             >
               View all products →
             </Link>
