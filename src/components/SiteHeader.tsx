@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import BrandWordmarkText from "@/components/brand/BrandWordmarkText";
 
 const NAV_LINKS = [
   { label: "Products", href: "/products" },
@@ -38,7 +39,7 @@ export default function SiteHeader() {
           aria-label="Bloom Matrix home"
           className="font-inter font-bold text-ink text-[15px] sm:text-[17px] uppercase tracking-[0.16em] whitespace-nowrap hover:opacity-70 transition-opacity"
         >
-          Bloom Matrix
+          <BrandWordmarkText text="Bloom Matrix" />
         </Link>
 
         <div className="hidden md:flex gap-8 items-center">

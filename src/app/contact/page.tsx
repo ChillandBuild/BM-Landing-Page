@@ -20,6 +20,7 @@ export default function ContactPage() {
           { text: "." },
         ]}
         description="Tell us about your project and one of our engineering leads will follow up within 24 hours."
+        flowerRotation={40}
       />
 
       <section className="bg-cream py-24">

@@ -24,6 +24,7 @@ export default function ServicesPage() {
           { text: "." },
         ]}
         description="Bloom Matrix combines AI, product engineering, SaaS architecture, automation, and data intelligence into a single long-term partnership — not a patchwork of vendors."
+        flowerRotation={22}
       />
 
       <section className="bg-cream py-24">

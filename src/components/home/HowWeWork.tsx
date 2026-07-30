@@ -79,7 +79,7 @@ export default function HowWeWork() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.4 }}
-                  className="font-bm-serif text-ink text-6xl"
+                  className="font-bm-serif text-cream text-6xl"
                 >
                   {STEPS[activeIndex].step}
                 </motion.span>
@@ -120,7 +120,7 @@ export default function HowWeWork() {
                     <div
                       className={`relative z-10 shrink-0 w-9 h-9 rounded-full border flex items-center justify-center font-inter text-[11px] font-bold transition-colors duration-300 ${
                         isReached
-                          ? "bg-oxblood border-transparent text-ink"
+                          ? "bg-oxblood border-transparent text-cream"
                           : "bg-cream border-ink/15 text-ink/50"
                       }`}
                     >

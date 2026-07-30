@@ -2,6 +2,42 @@
 
 import { useState, type CSSProperties } from "react";
 import BrandFlower from "@/components/brand/BrandFlower";
+import LogoMark from "@/components/brand/LogoMark";
+import FlowerMotif from "@/components/brand/FlowerMotifs";
+
+/** Same dot-matrix texture Hero.tsx paints under its Ink block — reused as-is
+ *  so the corner box reads as the same surface as the homepage hero. */
+const DOT_MATRIX = {
+  backgroundImage: "radial-gradient(circle, rgba(242,239,233,0.16) 1.2px, transparent 1.2px)",
+  backgroundSize: "22px 22px",
+} as const;
+
+const CORNER_PAGES = [
+  { label: "Products", rotation: 0, motif: "solid" as const },
+  { label: "Services", rotation: 22, motif: "hybrid" as const },
+  { label: "About", rotation: -18, motif: "dissolve" as const },
+  { label: "Contact", rotation: 40, motif: "halftone" as const },
+];
+
+function CornerBase({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="relative w-full h-36 overflow-hidden bg-[#141414] flex items-center justify-center"
+      style={DOT_MATRIX}
+    >
+      {/* Same oversized silver ghost Hero bleeds off its block edge with —
+          kept constant across every option below; only the foreground mark
+          in front of it changes. */}
+      <LogoMark
+        size={230}
+        tone="silver"
+        rotation={-15}
+        className="absolute right-[-22%] top-1/2 -translate-y-1/2 opacity-[0.11] pointer-events-none"
+      />
+      {children}
+    </div>
+  );
+}
 
 /**
  * INTERNAL REVIEW PAGE — not linked from nav, not for production.
@@ -325,10 +361,10 @@ export default function DesignReviewClient() {
                 Recommended
               </div>
               <p className="font-inter text-xs font-bold text-[#141414]/50 uppercase tracking-wide mb-4 mt-2">
-                Option A — All Accent
+                Option A — All Accent (live)
               </p>
               <div className="w-20 h-20 flex items-center justify-center mb-4" style={{ backgroundColor: "var(--accent)" }}>
-                <span style={{ fontFamily: "Georgia, serif" }} className="text-[#141414] text-3xl">
+                <span style={{ fontFamily: "Georgia, serif" }} className="text-white text-3xl">
                   03
                 </span>
               </div>
@@ -339,7 +375,7 @@ export default function DesignReviewClient() {
                     className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold font-inter"
                     style={
                       n <= 2
-                        ? { backgroundColor: "var(--accent)", color: "#141414" }
+                        ? { backgroundColor: "var(--accent)", color: "#FFFFFF" }
                         : { border: "1px solid rgba(20,20,20,0.15)", color: "rgba(20,20,20,0.5)" }
                     }
                   >
@@ -349,8 +385,9 @@ export default function DesignReviewClient() {
               </div>
               <div className="w-32 h-px mb-4" style={{ backgroundColor: "var(--accent)" }} />
               <p className="font-inter text-xs text-[#141414]/65 leading-relaxed">
-                One accent color across square, reached circles and the connecting line — simplest
-                rule to keep consistent.
+                One accent color across square, reached circles and the connecting line; numerals
+                are white/cream instead of ink for contrast against the dark accent — this is what&apos;s
+                live now.
               </p>
             </div>
 
@@ -429,108 +466,97 @@ export default function DesignReviewClient() {
             title="Top-right corner block — Products, Services, About, Contact"
             id="herocorner"
           />
-          <p className="font-inter text-sm text-[#141414]/65 mb-8 max-w-2xl leading-relaxed">
-            Same four concepts as before, motifs now rendered in the picked accent color instead of
-            gold.
+          <p className="font-inter text-sm text-[#141414]/65 mb-4 max-w-2xl leading-relaxed">
+            The grid/dial/horizon/node concepts from before were four unrelated icon languages
+            bolted onto the same block — that&apos;s the &quot;too distinct&quot; problem. These three
+            options instead reuse only what&apos;s already on the site: the same{" "}
+            <code className="bg-[#141414]/10 px-1 rounded">LogoMark</code> silver flower and dot-matrix
+            texture Hero already paints under its Ink block, and (where noted) the same{" "}
+            <code className="bg-[#141414]/10 px-1 rounded">FlowerMotif</code> solid/hybrid/halftone/dissolve
+            states already built for the homepage value props. Nothing new is invented — pages differ
+            only by how much an existing brand variable (rotation, or dissolve state) shifts.
           </p>
 
           <p className="font-inter text-xs font-bold text-[#141414]/50 uppercase tracking-wide mb-3">
-            Current (all four pages, identical — flower now renders the real Oxblood)
+            Previous (flat Ink + one static flower, no texture, identical on all four)
           </p>
-          <div className="max-w-md mb-10">
-            <HeroMock label="Current" desc="Flat Ink block, one centred flower. Same on every page.">
+          <div className="max-w-sm mb-10">
+            <HeroMock label="Previous" desc="No dot-matrix texture, no ghost flower — read flatter than the homepage hero it was supposed to match.">
               <div className="absolute right-0 top-0 bottom-0 w-[55%] bg-[#141414]" />
               <BrandFlower size={90} className="absolute right-[16%] top-1/2 -translate-y-1/2" />
             </HeroMock>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Products */}
-            <HeroMock
-              label="Products — Blueprint Grid"
-              desc="A fine hairline grid over Ink in the picked accent, with two outlined tiles (AIRA / AstroTamil) floating on it."
-            >
-              <div className="absolute right-0 top-0 bottom-0 w-[55%] bg-[#141414] overflow-hidden">
-                <div
-                  className="absolute inset-0 opacity-[0.35]"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px)",
-                    backgroundSize: "18px 18px",
-                  }}
-                />
-                <div className="absolute left-[20%] top-[28%] w-14 h-10" style={{ border: "1px solid color-mix(in srgb, var(--accent) 70%, transparent)" }} />
-                <div className="absolute left-[38%] top-[52%] w-10 h-14" style={{ border: "1px solid color-mix(in srgb, var(--accent) 70%, transparent)" }} />
-                <BrandFlower size={56} className="absolute right-[12%] bottom-[12%] opacity-70" />
+          {/* Option 1 — chosen, now live */}
+          <div className="mb-3 flex items-center gap-3">
+            <span className="bg-[#7A2331] text-white text-[11px] font-bold uppercase tracking-wide px-2.5 py-1">
+              Live — implemented in PageHero.tsx
+            </span>
+            <p className="font-inter text-sm font-bold text-[#141414]">
+              Option 1 — Hero Echo, rotation-varied
+            </p>
+          </div>
+          <p className="font-inter text-xs text-[#141414]/65 mb-4 max-w-2xl leading-relaxed">
+            Identical composition on every page — dot-matrix texture, oversized ghost flower bleeding
+            off the edge, one foreground silver <code className="bg-[#141414]/10 px-1 rounded">LogoMark</code>{" "}
+            — exactly matching the homepage Hero. The only per-page change is the foreground flower&apos;s
+            rotation angle, since rotation is already a meaningful brand variable (the Hero&apos;s
+            pointer-driven spin), not a new idea.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+            {CORNER_PAGES.map((page) => (
+              <div key={page.label} className="border border-[#141414]/10 bg-white">
+                <CornerBase>
+                  <LogoMark size={72} tone="silver" rotation={page.rotation} />
+                </CornerBase>
+                <p className="font-inter text-xs font-bold text-[#141414] p-2">{page.label}</p>
               </div>
-            </HeroMock>
+            ))}
+          </div>
 
-            {/* Services */}
-            <HeroMock
-              label="Services — Radial Dial"
-              desc="Six thin spokes radiating from a centre point, one per service discipline, in the picked accent."
-            >
-              <div className="absolute right-0 top-0 bottom-0 w-[55%] bg-[#141414] flex items-center justify-center overflow-hidden">
-                <svg width="140" height="140" viewBox="0 0 140 140">
-                  {Array.from({ length: 6 }).map((_, i) => {
-                    const angle = (i * 60 * Math.PI) / 180;
-                    const x2 = 70 + 60 * Math.cos(angle);
-                    const y2 = 70 + 60 * Math.sin(angle);
-                    return (
-                      <line
-                        key={i}
-                        x1="70"
-                        y1="70"
-                        x2={x2}
-                        y2={y2}
-                        style={{ stroke: "var(--accent)" }}
-                        strokeWidth="1"
-                        opacity="0.6"
-                      />
-                    );
-                  })}
-                  <circle cx="70" cy="70" r="42" fill="none" style={{ stroke: "var(--accent)" }} strokeWidth="0.75" opacity="0.35" />
-                  <circle cx="70" cy="70" r="6" style={{ fill: "var(--accent)" }} />
-                </svg>
+          {/* Option 2 */}
+          <p className="font-inter text-sm font-bold text-[#141414] mb-2">
+            Option 2 — Hero Echo, fully uniform
+          </p>
+          <p className="font-inter text-xs text-[#141414]/65 mb-4 max-w-2xl leading-relaxed">
+            The same composition with zero per-page variation at all — the safest, most consistent
+            read if even a rotation difference feels like too much. All four pages become
+            pixel-identical to each other and to the Hero&apos;s block.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+            {CORNER_PAGES.map((page) => (
+              <div key={page.label} className="border border-[#141414]/10 bg-white">
+                <CornerBase>
+                  <LogoMark size={72} tone="silver" rotation={0} />
+                </CornerBase>
+                <p className="font-inter text-xs font-bold text-[#141414] p-2">{page.label}</p>
               </div>
-            </HeroMock>
+            ))}
+          </div>
 
-            {/* About */}
-            <HeroMock
-              label="About — Layered Horizon"
-              desc="Soft horizontal bands in the picked accent suggest depth/history; the flower stays a low-opacity watermark."
-            >
-              <div className="absolute right-0 top-0 bottom-0 w-[55%] bg-[#141414] overflow-hidden">
-                {[0, 1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="absolute left-0 right-0"
-                    style={{
-                      top: `${20 + i * 18}%`,
-                      height: "2px",
-                      backgroundColor: "var(--accent)",
-                      opacity: 0.14 + i * 0.05,
-                    }}
-                  />
-                ))}
-                <BrandFlower size={70} className="absolute right-[14%] bottom-[10%] opacity-25" />
+          {/* Option 3 */}
+          <p className="font-inter text-sm font-bold text-[#141414] mb-2">
+            Option 3 — Hero Echo, motif-state-varied
+          </p>
+          <p className="font-inter text-xs text-[#141414]/65 mb-4 max-w-2xl leading-relaxed">
+            Same texture and ghost flower again, but the foreground mark swaps to{" "}
+            <code className="bg-[#141414]/10 px-1 rounded">FlowerMotif</code> in a different
+            already-approved state per page: solid for Products (fully formed/shipped), hybrid for
+            Services (practice in motion), dissolve for About (evolving philosophy), halftone for
+            Contact (still forming — reach out and shape it). More differentiated than Option 1, but
+            every state already exists in the codebase for the value-props section.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {CORNER_PAGES.map((page) => (
+              <div key={page.label} className="border border-[#141414]/10 bg-white">
+                <CornerBase>
+                  <FlowerMotif motif={page.motif} size={72} />
+                </CornerBase>
+                <p className="font-inter text-xs font-bold text-[#141414] p-2">
+                  {page.label} <span className="font-normal text-[#141414]/50">— {page.motif}</span>
+                </p>
               </div>
-            </HeroMock>
-
-            {/* Contact */}
-            <HeroMock
-              label="Contact — Signal Node"
-              desc="A single node with concentric rings pulsing outward, in the picked accent — 'reach out / get a response.'"
-            >
-              <div className="absolute right-0 top-0 bottom-0 w-[55%] bg-[#141414] flex items-center justify-center overflow-hidden">
-                <svg width="140" height="140" viewBox="0 0 140 140">
-                  <circle cx="70" cy="70" r="10" style={{ fill: "var(--accent)" }} />
-                  <circle cx="70" cy="70" r="26" fill="none" style={{ stroke: "var(--accent)" }} strokeWidth="1" opacity="0.5" />
-                  <circle cx="70" cy="70" r="42" fill="none" style={{ stroke: "var(--accent)" }} strokeWidth="1" opacity="0.3" />
-                  <circle cx="70" cy="70" r="58" fill="none" style={{ stroke: "var(--accent)" }} strokeWidth="1" opacity="0.15" />
-                </svg>
-              </div>
-            </HeroMock>
+            ))}
           </div>
         </section>
       </div>

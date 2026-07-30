@@ -47,6 +47,7 @@ export default function AboutPage() {
           { text: ", not just digitize old ones." },
         ]}
         description="Bloom Matrix is an AI-first product engineering and technology company — designing, engineering, deploying, and continuously evolving software that creates long-term business value."
+        flowerRotation={-18}
       />
 
       <section className="bg-cream py-24">

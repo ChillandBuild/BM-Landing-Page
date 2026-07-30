@@ -30,7 +30,7 @@ export default function LogoLockup({
         tile={!onDarkGround}
         className="w-6 h-6 sm:w-auto sm:h-auto"
       />
-      <LogoWordmark tone={tone} className="h-[20px] sm:h-[26px] w-auto" />
+      <LogoWordmark tone={tone} className="text-[13px] sm:text-[16px]" />
     </span>
   );
 }
