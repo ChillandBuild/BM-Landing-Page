@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import BrandWordmarkText from "@/components/brand/BrandWordmarkText";
+import LogoLockup from "@/components/brand/LogoLockup";
 
 const NAV_LINKS = [
   { label: "Products", href: "/products" },
@@ -37,9 +37,12 @@ export default function SiteHeader() {
         <Link
           href="/"
           aria-label="Bloom Matrix home"
-          className="font-inter font-bold text-ink text-[15px] sm:text-[17px] uppercase tracking-[0.16em] whitespace-nowrap hover:opacity-70 transition-opacity"
+          className="hover:opacity-70 transition-opacity"
         >
-          <BrandWordmarkText text="Bloom Matrix" />
+          {/* Left flag of the hero's cream column, so it always sits on the
+              light ground — same ink-tiled silver mark as the footer lockup,
+              just on Ink instead of Ink-on-Ink. */}
+          <LogoLockup tone="ink" markSize={26} />
         </Link>
 
         <div className="hidden md:flex gap-8 items-center">
