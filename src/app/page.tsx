@@ -4,6 +4,7 @@ import PositioningStrip from "@/components/home/PositioningStrip";
 import ValuePropsSticky from "@/components/home/ValuePropsSticky";
 import ServiceAreasGrid from "@/components/home/ServiceAreasGrid";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
+import GlobalDelivery from "@/components/home/GlobalDelivery";
 import HowWeWork from "@/components/home/HowWeWork";
 import FAQSection from "@/components/home/FAQSection";
 import CTABand from "@/components/CTABand";
@@ -22,6 +23,7 @@ export default function Home() {
       <ValuePropsSticky />
       <ServiceAreasGrid />
       <FeaturedProducts />
+      <GlobalDelivery />
       <HowWeWork />
       <FAQSection />
       <CTABand />
