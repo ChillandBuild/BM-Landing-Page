@@ -37,9 +37,9 @@ function delayFor(revealed: number): number {
 }
 
 type AiraLiveSimulationProps = {
-  /** Fires once per loop, the instant the conversation reaches its hold
-   *  state — right before it would restart. Optional; standalone usage
-   *  (no prop passed) behaves exactly as before. */
+  /** Fires once per loop, after the conversation has held on its final
+   *  state for the usual pause — right before it would restart. Optional;
+   *  standalone usage (no prop passed) behaves exactly as before. */
   onCycleComplete?: () => void;
 };
 
@@ -60,8 +60,12 @@ export default function AiraLiveSimulation({ onCycleComplete }: AiraLiveSimulati
   useEffect(() => {
     if (reducedMotion) return;
     const stepInCycle = tick % TOTAL_STEPS;
-    if (stepInCycle === CONVERSATION.length) onCycleComplete?.();
-    const timer = setTimeout(() => setTick((current) => current + 1), delayFor(stepInCycle));
+    const timer = setTimeout(() => {
+      // Fire after the hold has actually played, not the instant it starts,
+      // so the "Lead qualified" message stays on screen for its full delay.
+      if (stepInCycle === CONVERSATION.length) onCycleComplete?.();
+      setTick((current) => current + 1);
+    }, delayFor(stepInCycle));
     return () => clearTimeout(timer);
   }, [tick, reducedMotion, onCycleComplete]);
 

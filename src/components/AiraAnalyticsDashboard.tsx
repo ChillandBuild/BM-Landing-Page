@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import CountUp from "@/components/CountUp";
 
 type LeadCategory = "hot" | "warm" | "cold";
 
@@ -54,31 +55,27 @@ type AiraAnalyticsDashboardProps = {
   onFinished?: () => void;
 };
 
-function CountUp({ target, delay }: { target: number; delay: number }) {
-  const value = useMotionValue(0);
-  const display = useTransform(value, (latest) => Math.round(latest).toLocaleString());
-
-  useEffect(() => {
-    const controls = animate(value, target, { duration: 1.1, delay, ease: "easeOut" });
-    return controls.stop;
-  }, [value, target, delay]);
-
-  return <motion.span>{display}</motion.span>;
-}
-
 const DONUT_RADIUS = 50;
-const DONUT_CIRCUMFERENCE = 2 * Math.PI * DONUT_RADIUS;
+
+const DONUT_SEGMENTS = CATEGORY_ORDER.reduce<{ category: LeadCategory; fraction: number; offset: number }[]>(
+  (segments, category) => {
+    const fraction = LEADS[category] / TOTAL;
+    const offset = segments.length > 0 ? segments[segments.length - 1].offset + segments[segments.length - 1].fraction : 0;
+    return [...segments, { category, fraction, offset }];
+  },
+  [],
+);
 
 function DonutChart() {
-  let cumulative = 0;
-
   return (
     <svg viewBox="0 0 120 120" className="w-[120px] h-[120px] shrink-0" role="img" aria-hidden>
       <circle cx="60" cy="60" r={DONUT_RADIUS} fill="none" stroke="#F2EFE9" strokeOpacity={0.08} strokeWidth={14} />
-      {CATEGORY_ORDER.map((category, index) => {
-        const fraction = LEADS[category] / TOTAL;
-        const offset = cumulative;
-        cumulative += fraction;
+      {DONUT_SEGMENTS.map(({ category, fraction, offset }, index) => {
+        // Each segment is rotated to its own start point around the ring
+        // rather than using strokeDashoffset — Framer's pathLength animation
+        // manages stroke-dasharray/dashoffset itself, so a manually-set
+        // dashoffset gets silently overridden every frame. Rotation is a
+        // separate transform, so it composes cleanly with pathLength.
         return (
           <motion.circle
             key={category}
@@ -89,9 +86,7 @@ function DonutChart() {
             stroke={CATEGORY_META[category].color}
             strokeWidth={14}
             strokeLinecap="butt"
-            strokeDasharray={DONUT_CIRCUMFERENCE}
-            strokeDashoffset={-offset * DONUT_CIRCUMFERENCE}
-            transform="rotate(-90 60 60)"
+            transform={`rotate(${offset * 360 - 90} 60 60)`}
             initial={{ pathLength: 0 }}
             animate={{ pathLength: fraction }}
             transition={{
