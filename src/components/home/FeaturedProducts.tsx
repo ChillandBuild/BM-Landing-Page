@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import AiraLiveSimulation from "@/components/AiraLiveSimulation";
+import AiraProductDemo from "@/components/AiraProductDemo";
 import BrandHeadline from "@/components/brand/BrandHeadline";
 import { AIRA, ASTROTAMIL } from "@/lib/content/products";
 
@@ -36,7 +36,7 @@ export default function FeaturedProducts() {
             </div>
           </Reveal>
           <Reveal delay={0.15}>
-            <AiraLiveSimulation />
+            <AiraProductDemo />
           </Reveal>
         </div>
 

@@ -36,7 +36,14 @@ function delayFor(revealed: number): number {
   return CONVERSATION[revealed].from === "aira" ? TYPING_DELAY : LEAD_DELAY;
 }
 
-export default function AiraLiveSimulation() {
+type AiraLiveSimulationProps = {
+  /** Fires once per loop, the instant the conversation reaches its hold
+   *  state — right before it would restart. Optional; standalone usage
+   *  (no prop passed) behaves exactly as before. */
+  onCycleComplete?: () => void;
+};
+
+export default function AiraLiveSimulation({ onCycleComplete }: AiraLiveSimulationProps = {}) {
   const reducedMotion = usePrefersReducedMotion();
 
   // A single monotonic counter drives everything: which turns are visible and
@@ -52,12 +59,14 @@ export default function AiraLiveSimulation() {
 
   useEffect(() => {
     if (reducedMotion) return;
-    const timer = setTimeout(() => setTick((current) => current + 1), delayFor(tick % TOTAL_STEPS));
+    const stepInCycle = tick % TOTAL_STEPS;
+    if (stepInCycle === CONVERSATION.length) onCycleComplete?.();
+    const timer = setTimeout(() => setTick((current) => current + 1), delayFor(stepInCycle));
     return () => clearTimeout(timer);
-  }, [tick, reducedMotion]);
+  }, [tick, reducedMotion, onCycleComplete]);
 
   return (
-    <div className="bg-ink p-6 md:p-7 min-h-[380px] flex flex-col">
+    <div className="bg-ink p-6 md:p-7 h-full min-h-[380px] flex flex-col">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-oxblood animate-pulse" aria-hidden />
