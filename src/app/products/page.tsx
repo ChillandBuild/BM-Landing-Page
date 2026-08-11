@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import AiraProductDemo from "@/components/AiraProductDemo";
 import CTABand from "@/components/CTABand";
 import BrandHeadline from "@/components/brand/BrandHeadline";
 import { PRODUCTS } from "@/lib/content/products";
@@ -60,6 +61,11 @@ export default function ProductsPage() {
                   >
                     {product.slug === "aira" ? "Explore AIRA →" : "Learn more →"}
                   </Link>
+                  {product.slug === "aira" && (
+                    <div className="mt-8">
+                      <AiraProductDemo />
+                    </div>
+                  )}
                 </div>
               </Reveal>
             ))}
