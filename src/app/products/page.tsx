@@ -42,7 +42,11 @@ export default function ProductsPage() {
                     segments={[{ text: product.name }]}
                     className="text-3xl text-ink mb-4"
                   />
-                  <p className="font-inter text-ink/65 leading-relaxed mb-6 flex-1">
+                  <p
+                    className={`font-inter text-ink/65 leading-relaxed mb-6 ${
+                      product.slug === "aira" ? "flex-1" : ""
+                    }`}
+                  >
                     {product.description}
                   </p>
                   <ul className="flex flex-wrap gap-2 mb-6">
